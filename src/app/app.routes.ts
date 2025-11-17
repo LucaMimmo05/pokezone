@@ -3,7 +3,7 @@ import { PokemonDetails } from './pokemon-details/pokemon-details';
 
 export const routes: Routes = [
     {
-        path: 'pokemon/:id',
+        path: 'pokemon',
         component: PokemonDetails,
         title: 'Dettagli Pokémon'
     }
