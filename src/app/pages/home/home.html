@@ -29,13 +29,17 @@
                     <app-star-svg [size]="28" class="hero-star-small"></app-star-svg>
                 </div>
                 <div class="hero-img">
-                    <app-pokeball-shadow [size]="512"></app-pokeball-shadow>
-
                     <img class="pokeball-red" src="pokeball-red.png" alt="Pokeball">
+                    <div class="hero-shadows">
+                        <app-pokeball-shadow class="hero-pokeball-shadow"></app-pokeball-shadow>
+                        <app-pokeball-shadow class="hero-pokeball-shadow large"></app-pokeball-shadow>
+                        <app-pokeball-shadow class="hero-pokeball-shadow small"></app-pokeball-shadow>
+                    </div>
                 </div>
 
             </div>
         </div>
+        
     </div>
 
     <div class="search-bar">
