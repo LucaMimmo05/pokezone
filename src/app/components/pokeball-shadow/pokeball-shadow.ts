@@ -8,4 +8,8 @@ import { Component, input } from '@angular/core';
 })
 export class PokeballShadow {
   size = input<number>(512);
+  top = input<string>('0');
+  left = input<string>('0');
+  right = input<string>('0');
+  bottom = input<string>('0');
 }
