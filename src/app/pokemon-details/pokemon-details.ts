@@ -14,12 +14,20 @@ export class PokemonDetails {
     private readonly pokezoneService = inject(PokezoneService);
     pokemon: Pokemon | null = null;
     id: number = 4;
+    category: any = null;
 
     async ngOnInit() {
       this.loadPokemonDetails();
+      this.loadPokemonCategory();
     }
 
     async loadPokemonDetails() {
       this.pokemon = await this.pokezoneService.getPokemonDetails(this.id);
+    }
+
+    async loadPokemonCategory() {
+      this.category = await this.pokezoneService.getPokemonCategory(this.id);
+      const englishName = this.category.genera.find((g: any) => g.language.name === 'en');
+      this.category = englishName ? englishName.genus : 'Unknown';
     }
 }
