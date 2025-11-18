@@ -17,6 +17,14 @@ export class PokezoneService {
 
   async getPokemonCategory(id: number): Promise <any> {
     const response = this.http.get<any>(`${this.baseUrl}/pokemon-species/${id}`);
-    return firstValueFrom(response);
+    const data = await firstValueFrom(response);
+    const englishName = data.genera.find((g: any) => g.language.name === 'en');
+    return englishName ? englishName.genus : 'Unknown';
+  }
+
+  async getPokemonWeaknessesByType(type: String): Promise<string[]> {
+    const response = this.http.get<any>(`${this.baseUrl}/type/${type}`);
+    const data = await firstValueFrom(response);
+    return data.damage_relations.double_damage_from.map((t: any) => t.name);
   }
 }
