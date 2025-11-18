@@ -1,0 +1,205 @@
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 50px;
+}
+
+.pokeball-spinner {
+  width: 45px;
+  height: 45px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error {
+  text-align: center;
+  padding: 20px;
+  color: #e74c3c;
+}
+
+.error button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.error button:hover {
+  background-color: #2980b9;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.pie-charts-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.chart-section {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-section.full-width {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.chart-section h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+/* ApexCharts styling */
+.apexcharts-canvas {
+  margin: 0 auto;
+}
+
+/* Colori per le slice dei tipi Pokemon */
+.type-slice[data-type="fire"] { fill: #f08030; }
+.type-slice[data-type="water"] { fill: #6890f0; }
+.type-slice[data-type="grass"] { fill: #78c850; }
+.type-slice[data-type="electric"] { fill: #f8d030; }
+.type-slice[data-type="psychic"] { fill: #f85888; }
+.type-slice[data-type="ice"] { fill: #98d8d8; }
+.type-slice[data-type="dragon"] { fill: #7038f8; }
+.type-slice[data-type="dark"] { fill: #705848; }
+.type-slice[data-type="fairy"] { fill: #ee99ac; }
+.type-slice[data-type="normal"] { fill: #a8a878; }
+.type-slice[data-type="fighting"] { fill: #c03028; }
+.type-slice[data-type="flying"] { fill: #a890f0; }
+.type-slice[data-type="poison"] { fill: #a040a0; }
+.type-slice[data-type="ground"] { fill: #e0c068; }
+.type-slice[data-type="rock"] { fill: #b8a038; }
+.type-slice[data-type="bug"] { fill: #a8b820; }
+.type-slice[data-type="ghost"] { fill: #705898; }
+.type-slice[data-type="steel"] { fill: #b8b8d0; }
+
+/* Colori per le slice dei colori Pokemon */
+.color-slice[data-color="red"] { fill: #ff4444; }
+.color-slice[data-color="blue"] { fill: #4169e1; }
+.color-slice[data-color="yellow"] { fill: #ffd700; }
+.color-slice[data-color="green"] { fill: #32cd32; }
+.color-slice[data-color="black"] { fill: #333333; }
+.color-slice[data-color="brown"] { fill: #8b4513; }
+.color-slice[data-color="purple"] { fill: #9370db; }
+.color-slice[data-color="gray"] { fill: #808080; }
+.color-slice[data-color="white"] { fill: #f5f5f5; }
+.color-slice[data-color="pink"] { fill: #ffb6c1; }
+
+/* Colori per le slice delle forme - gradient arcobaleno */
+.shape-slice:nth-child(1) { fill: #e74c3c; }
+.shape-slice:nth-child(2) { fill: #e67e22; }
+.shape-slice:nth-child(3) { fill: #f39c12; }
+.shape-slice:nth-child(4) { fill: #f1c40f; }
+.shape-slice:nth-child(5) { fill: #2ecc71; }
+.shape-slice:nth-child(6) { fill: #1abc9c; }
+.shape-slice:nth-child(7) { fill: #3498db; }
+.shape-slice:nth-child(8) { fill: #9b59b6; }
+.shape-slice:nth-child(9) { fill: #e91e63; }
+.shape-slice:nth-child(10) { fill: #95a5a6; }
+
+/* Colori per la legenda tipi */
+.legend-color[data-type="fire"] { background: #f08030; }
+.legend-color[data-type="water"] { background: #6890f0; }
+.legend-color[data-type="grass"] { background: #78c850; }
+.legend-color[data-type="electric"] { background: #f8d030; }
+.legend-color[data-type="psychic"] { background: #f85888; }
+.legend-color[data-type="ice"] { background: #98d8d8; }
+.legend-color[data-type="dragon"] { background: #7038f8; }
+.legend-color[data-type="dark"] { background: #705848; }
+.legend-color[data-type="fairy"] { background: #ee99ac; }
+.legend-color[data-type="normal"] { background: #a8a878; }
+.legend-color[data-type="fighting"] { background: #c03028; }
+.legend-color[data-type="flying"] { background: #a890f0; }
+.legend-color[data-type="poison"] { background: #a040a0; }
+.legend-color[data-type="ground"] { background: #e0c068; }
+.legend-color[data-type="rock"] { background: #b8a038; }
+.legend-color[data-type="bug"] { background: #a8b820; }
+.legend-color[data-type="ghost"] { background: #705898; }
+.legend-color[data-type="steel"] { background: #b8b8d0; }
+
+/* Colori per la legenda colori */
+.color-indicator[data-color="red"] { background: #ff4444; }
+.color-indicator[data-color="blue"] { background: #4169e1; }
+.color-indicator[data-color="yellow"] { background: #ffd700; }
+.color-indicator[data-color="green"] { background: #32cd32; }
+.color-indicator[data-color="black"] { background: #333333; }
+.color-indicator[data-color="brown"] { background: #8b4513; }
+.color-indicator[data-color="purple"] { background: #9370db; }
+.color-indicator[data-color="gray"] { background: #808080; }
+.color-indicator[data-color="white"] { background: #f5f5f5; border: 1px solid #ccc; }
+.color-indicator[data-color="pink"] { background: #ffb6c1; }
+
+/* Colori per la legenda forme */
+.shape-indicator:nth-child(1) { background: #e74c3c; }
+.shape-indicator:nth-child(2) { background: #e67e22; }
+.shape-indicator:nth-child(3) { background: #f39c12; }
+.shape-indicator:nth-child(4) { background: #f1c40f; }
+.shape-indicator:nth-child(5) { background: #2ecc71; }
+.shape-indicator:nth-child(6) { background: #1abc9c; }
+.shape-indicator:nth-child(7) { background: #3498db; }
+.shape-indicator:nth-child(8) { background: #9b59b6; }
+.shape-indicator:nth-child(9) { background: #e91e63; }
+.shape-indicator:nth-child(10) { background: #95a5a6; }

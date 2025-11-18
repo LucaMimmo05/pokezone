@@ -1,1 +1,76 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <h1>Pokemon Dashboard</h1>
+
+  @if (loading) {
+    <div class="loading">
+      <img src="/Pokeball.png" alt="Loading..." class="pokeball-spinner" />
+      <p>Caricamento dati Pokemon...</p>
+    </div>
+  }
+
+  @if (error) {
+    <div class="error">
+      <p>{{ error }}</p>
+      <button (click)="loadStats()">Riprova</button>
+    </div>
+  }
+
+  @if (stats && !loading) {
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Totale Pokemon</h3>
+        <p class="stat-number">{{ stats.totalPokemon }}</p>
+      </div>
+      
+      <div class="stat-card">
+        <h3>Totale Tipi</h3>
+        <p class="stat-number">{{ stats.totalTypes }}</p>
+      </div>
+    </div>
+
+    <div class="charts-container">
+      <!-- Grafici a Torta - Sopra in 2 colonne -->
+      <div class="pie-charts-row">
+        <!-- Grafico a Torta per Colore -->
+        <div class="chart-section">
+          <h2>Pokemon per Colore</h2>
+          <apx-chart
+            [series]="colorChartOptions.series!"
+            [chart]="colorChartOptions.chart!"
+            [labels]="colorChartOptions.labels!"
+            [colors]="colorChartOptions.colors!"
+            [legend]="colorChartOptions.legend!"
+            [responsive]="colorChartOptions.responsive!"
+          ></apx-chart>
+        </div>
+
+        <!-- Grafico a Donut per Forma -->
+        <div class="chart-section">
+          <h2>Pokemon per Forma</h2>
+          <apx-chart
+            [series]="shapeChartOptions.series!"
+            [chart]="shapeChartOptions.chart!"
+            [labels]="shapeChartOptions.labels!"
+            [colors]="shapeChartOptions.colors!"
+            [legend]="shapeChartOptions.legend!"
+            [responsive]="shapeChartOptions.responsive!"
+          ></apx-chart>
+        </div>
+      </div>
+
+      <!-- Grafico a Barre per Tipo - Sotto full width -->
+      <div class="chart-section full-width">
+        <h2>Pokemon per Tipo</h2>
+        <apx-chart
+          [series]="typeChartOptions.series!"
+          [chart]="typeChartOptions.chart!"
+          [plotOptions]="typeChartOptions.plotOptions!"
+          [colors]="typeChartOptions.colors!"
+          [dataLabels]="typeChartOptions.dataLabels!"
+          [xaxis]="typeChartOptions.xaxis!"
+          [legend]="typeChartOptions.legend!"
+        ></apx-chart>
+      </div>
+    </div>
+  }
+</div>
