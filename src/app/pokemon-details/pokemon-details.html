@@ -16,19 +16,19 @@
 <h2> Category: {{ category }}</h2>
 <br><br>
 
-
-<h2> Abilità del pokemon:</h2>
-
+<h2> Abilitys:</h2>
 @for (abilities of pokemon?.abilities; track $index) {
     <h3> Ability: {{ abilities?.ability?.name}}</h3>
 }
 <br><br>
 
-<h2> Debolezze: arrivanod a qua Usare /api/v2/type/id or name/ e incrociare debolezze</h2>
+<h2> Weaknesses: </h2>
+@for (weakness of weaknesses; track $index) {
+    <h3> Weakness: {{ weakness }}</h3>
+}
 <br><br>
 
-<h2> Statistiche del pokemon:</h2>
-
+<h2> Stats:</h2>
 @for (stats of pokemon?.stats; track $index) {
     <h3> Stat name: {{ stats?.stat?.name }}</h3>
     <h3> Base stat: {{ stats?.base_stat }}</h3>

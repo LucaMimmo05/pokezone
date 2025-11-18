@@ -15,10 +15,12 @@ export class PokemonDetails {
     pokemon: Pokemon | null = null;
     id: number = 4;
     category: any = null;
+    weaknesses: string[] = [];
 
     async ngOnInit() {
-      this.loadPokemonDetails();
-      this.loadPokemonCategory();
+      await this.loadPokemonDetails();
+      await this.loadPokemonCategory();
+      await this.loadPokemonWeaknesses();
     }
 
     async loadPokemonDetails() {
@@ -27,7 +29,9 @@ export class PokemonDetails {
 
     async loadPokemonCategory() {
       this.category = await this.pokezoneService.getPokemonCategory(this.id);
-      const englishName = this.category.genera.find((g: any) => g.language.name === 'en');
-      this.category = englishName ? englishName.genus : 'Unknown';
+    }
+
+    async loadPokemonWeaknesses() {
+      this.weaknesses = await this.pokezoneService.getPokemonWeaknessesByType(this.pokemon?.types[0].type.name || '');
     }
 }
