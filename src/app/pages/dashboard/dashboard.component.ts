@@ -1,17 +1,18 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { PokemonService, DashboardStats } from '../services/pokemon.service';
+import { PokemonService, DashboardStats } from '../../services/pokemon.service';
 import {
   ApexChart,
   ApexNonAxisChartSeries,
   ApexResponsive,
   ApexXAxis,
+  ApexYAxis,
   ApexDataLabels,
   ApexPlotOptions,
-  ApexLegend
+  ApexLegend,
+  ApexGrid
 } from 'ng-apexcharts';
-
 export type ChartOptions = {
   series: ApexNonAxisChartSeries | any[];
   chart: ApexChart;
@@ -22,11 +23,21 @@ export type ChartOptions = {
   dataLabels?: ApexDataLabels;
   plotOptions?: ApexPlotOptions;
   xaxis?: ApexXAxis;
+  yaxis?: ApexYAxis;
+  grid?: ApexGrid;
 };
+
+import { DropSVG } from '../../svg/drop-svg/drop-svg';
+import { LightningSVG } from '../../svg/lightning-svg/lightning-svg';
+import { MessageSVG } from '../../svg/message-svg/message-svg';
+import { FireSVG } from '../../svg/fire-svg/fire-svg';
+import { SnowSVG } from '../../svg/snow-svg/snow-svg';
+import { LeafSVG } from '../../svg/leaf-svg/leaf-svg';
+import { SparkSVG } from '../../svg/spark-svg/spark-svg';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, NgApexchartsModule],
+  imports: [CommonModule, NgApexchartsModule, DropSVG, LightningSVG, MessageSVG, FireSVG, SnowSVG, LeafSVG, SparkSVG],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -36,6 +47,8 @@ export class DashboardComponent implements OnInit {
   stats: DashboardStats | null = null;
   loading = true;
   error = '';
+  apiFailed = false;
+  placeholderMode = false;
 
   typeEntries: { name: string; count: number }[] = [];
   colorEntries: { name: string; count: number }[] = [];
@@ -106,11 +119,36 @@ export class DashboardComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.error = 'Errore nel caricamento dei dati';
-        this.loading = false;
         console.error(err);
+        this.error = 'Dati non disponibili (fallback)';
+        this.apiFailed = true;
+        this.placeholderMode = true;
+        // Crea una struttura placeholder dei dati per poter disegnare i grafici comunque
+        const placeholderTypes = Object.keys(this.typeColors);
+        const placeholderColors = Object.keys(this.colorColors);
+        const placeholderShapes = ['ball', 'squiggle', 'fish', 'arms', 'blob', 'upright', 'wings', 'tentacles', 'heads', 'humanoid'];
+        this.typeEntries = placeholderTypes.map(name => ({ name, count: 0 }));
+        this.colorEntries = placeholderColors.map(name => ({ name, count: 0 }));
+        this.shapeEntries = placeholderShapes.map(name => ({ name, count: 0 }));
+        this.stats = {
+          totalPokemon: 0,
+          totalTypes: placeholderTypes.length,
+          pokemonByType: {},
+          pokemonByColor: {},
+          pokemonByShape: {}
+        };
+        this.initChartsPlaceholder();
+        this.loading = false;
       }
     });
+  }
+
+  getBarWidth(count: number): number {
+    if (!this.typeEntries.length) return 0;
+    const maxCount = Math.max(...this.typeEntries.map(e => e.count));
+    // Scala da 20% (minimo) a 100% (massimo) per rendere le barre più visibili
+    const percentage = (count / maxCount) * 100;
+    return Math.max(20, percentage);
   }
 
   initCharts(): void {
@@ -164,7 +202,7 @@ export class DashboardComponent implements OnInit {
       }]
     };
 
-    // Grafico Tipo (Barre orizzontali)
+    // Grafico Tipo (Barre orizzontali con icone)
     this.typeChartOptions = {
       series: [{
         name: 'Pokemon',
@@ -172,25 +210,93 @@ export class DashboardComponent implements OnInit {
       }],
       chart: {
         type: 'bar',
-        height: 600
+        height: 600,
+        toolbar: {
+          show: false
+        }
       },
       plotOptions: {
         bar: {
           horizontal: true,
           distributed: true,
-          barHeight: '70%'
+          barHeight: '65%',
+          dataLabels: {
+            position: 'top'
+          }
         }
       },
       colors: this.typeEntries.map(e => this.typeColors[e.name] || '#95a5a6'),
       dataLabels: {
-        enabled: true
+        enabled: true,
+        offsetX: 30,
+        style: {
+          fontSize: '12px',
+          fontWeight: 600
+        }
       },
       xaxis: {
-        categories: this.typeEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1))
+        categories: this.typeEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
+        labels: {
+          style: {
+            fontSize: '13px',
+            fontWeight: 500
+          }
+        }
+      },
+      yaxis: {
+        labels: {
+          style: {
+            fontSize: '13px'
+          }
+        }
       },
       legend: {
         show: false
+      },
+      grid: {
+        xaxis: {
+          lines: {
+            show: true
+          }
+        }
       }
+    };
+  }
+
+  // Versione placeholder dei grafici (serie vuote, testo noData)
+  initChartsPlaceholder(): void {
+    this.colorChartOptions = {
+      series: [],
+      labels: this.colorEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
+      colors: this.colorEntries.map(e => this.colorColors[e.name] || '#95a5a6'),
+      legend: { position: 'bottom' },
+      responsive: [{ breakpoint: 480, options: { chart: { height: 300 }, legend: { position: 'bottom' } } }],
+      chart: { type: 'pie', height: 380, animations: { enabled: false } },
+      // @ts-ignore
+      noData: { text: 'Dati non disponibili', align: 'center' }
+    };
+
+    this.shapeChartOptions = {
+      series: [],
+      chart: { type: 'donut', height: 380, animations: { enabled: false } },
+      labels: this.shapeEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
+      colors: this.shapeColors,
+      legend: { position: 'bottom' },
+      responsive: [{ breakpoint: 480, options: { chart: { height: 300 }, legend: { position: 'bottom' } } }],
+      // @ts-ignore
+      noData: { text: 'Dati non disponibili', align: 'center' }
+    };
+
+    this.typeChartOptions = {
+      series: [{ name: 'Pokemon', data: [] }],
+      chart: { type: 'bar', height: 600, animations: { enabled: false }, toolbar: { show: false } },
+      plotOptions: { bar: { horizontal: true, distributed: true, barHeight: '65%' } },
+      colors: this.typeEntries.map(e => this.typeColors[e.name] || '#95a5a6'),
+      dataLabels: { enabled: false },
+      xaxis: { categories: this.typeEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)) },
+      legend: { show: false },
+      // @ts-ignore
+      noData: { text: 'Dati non disponibili', align: 'center' }
     };
   }
 }
