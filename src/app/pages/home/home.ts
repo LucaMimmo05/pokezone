@@ -9,10 +9,11 @@ import { LeafSVG } from "../../svg/leaf-svg/leaf-svg";
 import { SparkSVG } from "../../svg/spark-svg/spark-svg";
 import { StarSVG } from "../../svg/star-svg/star-svg";
 import { PokeballShadow } from "../../components/pokeball-shadow/pokeball-shadow";
+import { Menu } from "../../components/menu/menu";
 
 @Component({
   selector: 'app-home',
-  imports: [Logo, DropSVG, LightningSVG, MessageSVG, FireSVG, SnowSVG, LeafSVG, SparkSVG, StarSVG, PokeballShadow],
+  imports: [Logo, DropSVG, LightningSVG, MessageSVG, FireSVG, SnowSVG, LeafSVG, SparkSVG, StarSVG, PokeballShadow, Menu],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

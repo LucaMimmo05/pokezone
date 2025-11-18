@@ -164,3 +164,13 @@
 .hero-img {
     position: relative;
 }
+
+
+
+
+
+.search-bar {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}

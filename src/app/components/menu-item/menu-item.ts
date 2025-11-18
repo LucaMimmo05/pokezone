@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-menu-item',
@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './menu-item.css',
 })
 export class MenuItem {
-
+  label = input<string>();
+  icon = input<any>();
+  route = input<string>();
 }
