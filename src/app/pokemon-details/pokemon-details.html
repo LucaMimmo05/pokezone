@@ -2,3 +2,34 @@
 <h2> Nome del pokemon: {{ pokemon?.name }}</h2>
 <h2> Altezza del pokemon: {{ pokemon?.height}}</h2>
 <h2> Peso del pokemon: {{ pokemon?.weight}}</h2>
+<br>
+<br>
+
+<h2> Abilità del pokemon:</h2>
+
+@for (abilities of pokemon?.abilities; track $index) {
+    <h3> Abilità: {{ abilities?.ability?.name}}</h3>
+    <h3> Url: {{ abilities?.ability?.url}}</h3>
+}
+
+<br>
+<br>
+
+<h2> Tipi del pokemon:</h2>
+
+@for (types of pokemon?.types; track $index) {
+    <h3> Abilità: {{ types?.type?.name}}</h3>
+    <h3> Url: {{ types?.type?.url}}</h3>
+}
+
+<br>
+<br>
+
+<h2> Statistiche del pokemon:</h2>
+
+@for (stats of pokemon?.stats; track $index) {
+    <h3> Base stat: {{ stats?.base_stat}}</h3>
+    <h3> Effort: {{ stats?.effort}}</h3>
+    <h3> Stat name: {{ stats?.stat?.name}}</h3>
+    <h3> Stat url: {{ stats?.stat?.url}}</h3>
+}
