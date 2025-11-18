@@ -1,8 +1,0 @@
-.pokeball-shadow {
-  border-radius: 50%;
-  border: 24px solid #e81414;
-  opacity: 0.3;
-  overflow: hidden;
-  position: absolute;
-  z-index: 1;
-}
