@@ -14,4 +14,9 @@ export class PokezoneService {
     const response = this.http.get<Pokemon>(`${this.baseUrl}/pokemon/${id}`);
     return firstValueFrom(response);
   }
+
+  async getPokemonCategory(id: number): Promise <any> {
+    const response = this.http.get<any>(`${this.baseUrl}/pokemon-species/${id}`);
+    return firstValueFrom(response);
+  }
 }
