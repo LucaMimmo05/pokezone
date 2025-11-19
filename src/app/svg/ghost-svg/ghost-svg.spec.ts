@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Item2 } from './item2';
+import { GhostSvg } from './ghost-svg';
 
-describe('Item2', () => {
-  let component: Item2;
-  let fixture: ComponentFixture<Item2>;
+describe('GhostSvg', () => {
+  let component: GhostSvg;
+  let fixture: ComponentFixture<GhostSvg>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Item2]
+      imports: [GhostSvg]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Item2);
+    fixture = TestBed.createComponent(GhostSvg);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
