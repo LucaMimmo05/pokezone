@@ -5,7 +5,7 @@ import { PokemonDetails } from './pokemon-details/pokemon-details';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'home', component: Home },
+  { path: '', component: Home },
   {
         path: 'pokemon',
         component: PokemonDetails,
