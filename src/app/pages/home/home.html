@@ -60,11 +60,21 @@
                 </button>
             </div>
         </div>
+
     </div>
 
     <div class="sec3">
         <div class="sec3-content">
+            <div class="sec3-top">
+                <app-small-pokeball-svg class="small-pokeball"></app-small-pokeball-svg>
+                <h3>150 Pokemons</h3>
+            </div>
+            @if (!isMobile) {
             <app-menu></app-menu>
+            }
+            @else {
+            <app-mobile-filter></app-mobile-filter>
+            }
             <div class="sec3-right">
 
             </div>

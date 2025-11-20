@@ -10,6 +10,8 @@ import { SparkSVG } from '../../svg/spark-svg/spark-svg';
 import { StarSVG } from '../../svg/star-svg/star-svg';
 import { CarouselDot } from '../../components/carousel-dot/carousel-dot';
 import { Menu } from "../../components/menu/menu";
+import { SmallPokeballSvg } from "../../svg/small-pokeball-svg/small-pokeball-svg";
+import { MobileFilter } from "../../components/mobile-filter/mobile-filter";
 
 @Component({
   selector: 'app-home',
@@ -23,8 +25,11 @@ import { Menu } from "../../components/menu/menu";
     LeafSVG,
     SparkSVG,
     StarSVG,
-    CarouselDot, 
-    Menu],
+    CarouselDot,
+    Menu,
+    SmallPokeballSvg,
+    MobileFilter
+],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
