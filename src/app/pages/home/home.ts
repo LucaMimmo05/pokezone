@@ -23,8 +23,8 @@ import { Menu } from "../../components/menu/menu";
     LeafSVG,
     SparkSVG,
     StarSVG,
-    CarouselDot,
-  , Menu],
+    CarouselDot, 
+    Menu],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
