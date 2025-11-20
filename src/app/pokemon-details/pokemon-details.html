@@ -22,6 +22,39 @@
           {{ pokemon?.types?.[0]?.type?.name }}
         </span>
       </div>
+      <div class="infoSection">
+        <div class="physicalInfoBox">
+          <div class="box">
+            <span class="infoLabel">Weight:</span>
+            <span class="infoValue">{{ ((pokemon?.weight ?? 0) / 10).toFixed(1) }}kg</span>
+          </div>
+          <div class="box">
+            <span class="infoLabel">Height:</span>
+            <span class="infoValue">{{ ((pokemon?.height ?? 0) / 10).toFixed(1) }}m</span>
+          </div>
+        </div>
+        <div class="box">
+          <span class="infoLabel">Category:</span>
+          <span class="infoValue">{{ category }}</span>
+        </div>
+        <div class="box">
+          <span class="infoLabel">Abilities:</span>
+          <div class="abilitiesList">
+            @for (abilities of pokemon?.abilities; track $index) {
+              <span class="infoValue">{{ abilities?.ability?.name }}@if (!$last) {, }</span>
+            }
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+      </div>
     </div>
 
 
@@ -29,7 +62,21 @@
 
 
 
- <h2> Pokemon name: {{ pokemon?.name }}</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2> Pokemon name: {{ pokemon?.name }}</h2>
 <h2> Pokemon number: {{ pokemon?.id }}</h2>
 <br><br>
 
