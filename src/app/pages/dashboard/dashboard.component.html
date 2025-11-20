@@ -1,0 +1,113 @@
+<section class="dashboard">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-items">
+        <app-drop-svg class="hero-drop-svg"></app-drop-svg>
+        <app-lightning-svg class="hero-lightning-svg"></app-lightning-svg>
+        <app-message-svg class="hero-message-svg"></app-message-svg>
+      </div>
+      <div class="hero-tag">
+        <div class="bag">📊</div>
+        <span class="bag-text">dashboard</span>
+      </div>
+      <div class="hero-title">
+        <h1>Dashboard Pokémon</h1>
+        <p>Statistiche complete e distribuzione dei Pokémon nel mondo</p>
+      </div>
+      <div class="hero-items">
+        <app-fire-svg class="hero-fire-svg"></app-fire-svg>
+        <app-snow-svg class="hero-snow-svg"></app-snow-svg>
+        <app-leaf-svg class="hero-leaf-svg"></app-leaf-svg>
+        <app-spark-svg class="hero-spark-svg"></app-spark-svg>
+      </div>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="loading">
+      <img src="/Pokeball.png" alt="Loading..." class="pokeball-spinner" />
+      <p>Caricamento dati Pokemon...</p>
+    </div>
+  }
+
+  @if (error) {
+    <div class="error">
+      <p>{{ error }}</p>
+      <button class="btn btn-primary" (click)="loadStats()">Riprova</button>
+    </div>
+  }
+
+  @if (!loading) {
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Totale Pokemon</h3>
+        <p class="stat-number">{{ stats?.totalPokemon || 0 }}</p>
+      </div>
+      
+      <div class="stat-card">
+        <h3>Totale Tipi</h3>
+        <p class="stat-number">{{ stats?.totalTypes || typeEntries.length }}</p>
+      </div>
+    </div>
+
+    @if (apiFailed) {
+      <div class="placeholder-banner">Dati temporaneamente non disponibili</div>
+    }
+
+    <div class="charts-container">
+      <!-- Grafici a Torta - Sopra in 2 colonne -->
+      <div class="pie-charts-row">
+        <!-- Grafico a Torta per Colore -->
+        <div class="chart-section">
+          <h2>Pokemon per Colore</h2>
+          <apx-chart
+            [series]="colorChartOptions.series!"
+            [chart]="colorChartOptions.chart!"
+            [labels]="colorChartOptions.labels!"
+            [colors]="colorChartOptions.colors!"
+            [legend]="colorChartOptions.legend!"
+            [responsive]="colorChartOptions.responsive!"
+          ></apx-chart>
+        </div>
+
+        <!-- Grafico a Donut per Forma -->
+        <div class="chart-section">
+          <h2>Pokemon per Forma</h2>
+          <apx-chart
+            [series]="shapeChartOptions.series!"
+            [chart]="shapeChartOptions.chart!"
+            [labels]="shapeChartOptions.labels!"
+            [colors]="shapeChartOptions.colors!"
+            [legend]="shapeChartOptions.legend!"
+            [responsive]="shapeChartOptions.responsive!"
+          ></apx-chart>
+        </div>
+      </div>
+
+      <!-- Grafico Pokemon per Tipo con icone -->
+      <div class="chart-section full-width">
+        <h2>Pokemon per Tipo</h2>
+        <div class="type-bars">
+          @for (type of typeEntries; track type.name) {
+            <div class="type-bar-item">
+              <div class="type-label">
+                <img [src]="'/' + type.name.charAt(0).toUpperCase() + type.name.slice(1) + '.png'" 
+                     [alt]="type.name" 
+                     class="type-icon" />
+                <span>{{ type.name.charAt(0).toUpperCase() + type.name.slice(1) }}</span>
+              </div>
+              <div class="type-bar-container">
+                <div class="type-bar" 
+                     [style.width.%]="getBarWidth(type.count)"
+                     [style.background-color]="typeColors[type.name]"
+                     [style.animation-delay.ms]="$index * 50">
+                  <span class="type-count">{{ apiFailed ? '—' : type.count }}</span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</section>
