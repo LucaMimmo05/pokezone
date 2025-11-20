@@ -120,7 +120,7 @@ export class DashboardComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
-        this.error = 'Dati non disponibili (fallback)';
+        this.error = 'Dati non disponibili. Riprova più tardi.';
         this.apiFailed = true;
         this.placeholderMode = true;
         // Crea una struttura placeholder dei dati per poter disegnare i grafici comunque
