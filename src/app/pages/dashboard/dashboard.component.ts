@@ -157,24 +157,89 @@ export class DashboardComponent implements OnInit {
       series: this.colorEntries.map(e => e.count),
       chart: {
         type: 'pie',
-        height: 380
+        height: 380,
+        width: '100%'
       },
       labels: this.colorEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
       colors: this.colorEntries.map(e => this.colorColors[e.name] || '#95a5a6'),
       legend: {
-        position: 'bottom'
+        position: 'bottom',
+        horizontalAlign: 'center'
       },
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            height: 300
-          },
-          legend: {
-            position: 'bottom'
+      responsive: [
+        {
+          breakpoint: 1024,
+          options: {
+            chart: {
+              height: 350,
+              width: 350
+            },
+            legend: {
+              position: 'bottom',
+              fontSize: '13px',
+              horizontalAlign: 'center',
+              itemMargin: {
+                horizontal: 10,
+                vertical: 5
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 820,
+          options: {
+            chart: {
+              height: 320,
+              width: 320
+            },
+            legend: {
+              position: 'bottom',
+              fontSize: '12px',
+              horizontalAlign: 'center',
+              itemMargin: {
+                horizontal: 8,
+                vertical: 4
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 600,
+          options: {
+            chart: {
+              height: 280,
+              width: 280
+            },
+            legend: {
+              position: 'bottom',
+              fontSize: '11px',
+              horizontalAlign: 'center',
+              itemMargin: {
+                horizontal: 6,
+                vertical: 3
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 400,
+          options: {
+            chart: {
+              height: 250,
+              width: 250
+            },
+            legend: {
+              position: 'bottom',
+              fontSize: '10px',
+              horizontalAlign: 'center',
+              itemMargin: {
+                horizontal: 5,
+                vertical: 2
+              }
+            }
           }
         }
-      }]
+      ]
     };
 
     // Grafico Forma (Donut)
@@ -182,24 +247,89 @@ export class DashboardComponent implements OnInit {
       series: this.shapeEntries.map(e => e.count),
       chart: {
         type: 'donut',
-        height: 380
+        height: 380,
+        width: '100%'
       },
       labels: this.shapeEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
       colors: this.shapeColors,
       legend: {
-        position: 'bottom'
+        position: 'bottom',
+        horizontalAlign: 'center'
       },
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            height: 300
-          },
-          legend: {
-            position: 'bottom'
+      responsive: [
+        {
+          breakpoint: 1024,
+          options: {
+            chart: {
+              height: 350,
+              width: 350
+            },
+            legend: {
+              position: 'bottom',
+              fontSize: '13px',
+              horizontalAlign: 'center',
+              itemMargin: {
+                horizontal: 10,
+                vertical: 5
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 820,
+          options: {
+            chart: {
+              height: 320,
+              width: 320
+            },
+            legend: {
+              position: 'bottom',
+              fontSize: '12px',
+              horizontalAlign: 'center',
+              itemMargin: {
+                horizontal: 8,
+                vertical: 4
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 600,
+          options: {
+            chart: {
+              height: 280,
+              width: 280
+            },
+            legend: {
+              position: 'bottom',
+              fontSize: '11px',
+              horizontalAlign: 'center',
+              itemMargin: {
+                horizontal: 6,
+                vertical: 3
+              }
+            }
+          }
+        },
+        {
+          breakpoint: 400,
+          options: {
+            chart: {
+              height: 250,
+              width: 250
+            },
+            legend: {
+              position: 'bottom',
+              fontSize: '10px',
+              horizontalAlign: 'center',
+              itemMargin: {
+                horizontal: 5,
+                vertical: 2
+              }
+            }
           }
         }
-      }]
+      ]
     };
 
     // Grafico Tipo (Barre orizzontali con icone)
@@ -269,20 +399,30 @@ export class DashboardComponent implements OnInit {
       series: [],
       labels: this.colorEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
       colors: this.colorEntries.map(e => this.colorColors[e.name] || '#95a5a6'),
-      legend: { position: 'bottom' },
-      responsive: [{ breakpoint: 480, options: { chart: { height: 300 }, legend: { position: 'bottom' } } }],
-      chart: { type: 'pie', height: 380, animations: { enabled: false } },
+      legend: { position: 'bottom', horizontalAlign: 'center' },
+      responsive: [
+        { breakpoint: 1024, options: { chart: { height: 350, width: 350 }, legend: { position: 'bottom', fontSize: '13px', horizontalAlign: 'center', itemMargin: { horizontal: 10, vertical: 5 } } } },
+        { breakpoint: 820, options: { chart: { height: 320, width: 320 }, legend: { position: 'bottom', fontSize: '12px', horizontalAlign: 'center', itemMargin: { horizontal: 8, vertical: 4 } } } },
+        { breakpoint: 600, options: { chart: { height: 280, width: 280 }, legend: { position: 'bottom', fontSize: '11px', horizontalAlign: 'center', itemMargin: { horizontal: 6, vertical: 3 } } } },
+        { breakpoint: 400, options: { chart: { height: 250, width: 250 }, legend: { position: 'bottom', fontSize: '10px', horizontalAlign: 'center', itemMargin: { horizontal: 5, vertical: 2 } } } }
+      ],
+      chart: { type: 'pie', height: 380, width: '100%', animations: { enabled: false } },
       // @ts-ignore
       noData: { text: 'Dati non disponibili', align: 'center' }
     };
 
     this.shapeChartOptions = {
       series: [],
-      chart: { type: 'donut', height: 380, animations: { enabled: false } },
+      chart: { type: 'donut', height: 380, width: '100%', animations: { enabled: false } },
       labels: this.shapeEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
       colors: this.shapeColors,
-      legend: { position: 'bottom' },
-      responsive: [{ breakpoint: 480, options: { chart: { height: 300 }, legend: { position: 'bottom' } } }],
+      legend: { position: 'bottom', horizontalAlign: 'center' },
+      responsive: [
+        { breakpoint: 1024, options: { chart: { height: 350, width: 350 }, legend: { position: 'bottom', fontSize: '13px', horizontalAlign: 'center', itemMargin: { horizontal: 10, vertical: 5 } } } },
+        { breakpoint: 820, options: { chart: { height: 320, width: 320 }, legend: { position: 'bottom', fontSize: '12px', horizontalAlign: 'center', itemMargin: { horizontal: 8, vertical: 4 } } } },
+        { breakpoint: 600, options: { chart: { height: 280, width: 280 }, legend: { position: 'bottom', fontSize: '11px', horizontalAlign: 'center', itemMargin: { horizontal: 6, vertical: 3 } } } },
+        { breakpoint: 400, options: { chart: { height: 250, width: 250 }, legend: { position: 'bottom', fontSize: '10px', horizontalAlign: 'center', itemMargin: { horizontal: 5, vertical: 2 } } } }
+      ],
       // @ts-ignore
       noData: { text: 'Dati non disponibili', align: 'center' }
     };
