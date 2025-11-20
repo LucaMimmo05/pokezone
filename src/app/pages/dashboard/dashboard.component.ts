@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { PokemonService, DashboardStats } from '../../services/pokemon.service';
@@ -41,7 +41,7 @@ import { SparkSVG } from '../../svg/spark-svg/spark-svg';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   private pokemonService = inject(PokemonService);
   
   stats: DashboardStats | null = null;
@@ -49,6 +49,10 @@ export class DashboardComponent implements OnInit {
   error = '';
   apiFailed = false;
   placeholderMode = false;
+  
+  currentBgColor = '#c20001';
+  currentSvgColor = '#E87878';
+  private colorInterval: any;
 
   typeEntries: { name: string; count: number }[] = [];
   colorEntries: { name: string; count: number }[] = [];
@@ -96,6 +100,29 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.loadStats();
+    this.startColorAnimation();
+  }
+  
+  ngOnDestroy() {
+    if (this.colorInterval) {
+      clearInterval(this.colorInterval);
+    }
+  }
+  
+  private startColorAnimation() {
+    this.colorInterval = setInterval(() => {
+      this.onChangeBg();
+    }, 7000);
+  }
+  
+  private onChangeBg() {
+    if (this.currentBgColor === '#c20001') {
+      this.currentBgColor = '#3f67ba';
+      this.currentSvgColor = '#6F96E8';
+    } else {
+      this.currentBgColor = '#c20001';
+      this.currentSvgColor = '#E87878';
+    }
   }
 
   loadStats() {
@@ -120,7 +147,7 @@ export class DashboardComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
-        this.error = 'Dati non disponibili. Riprova più tardi.';
+        this.error = 'Data unavailable. Please try again later.';
         this.apiFailed = true;
         this.placeholderMode = true;
         // Crea una struttura placeholder dei dati per poter disegnare i grafici comunque

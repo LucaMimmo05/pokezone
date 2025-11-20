@@ -9,23 +9,10 @@
 .hero {
   padding-inline: 111px;
   padding-block: 80px;
-  background: #c20001;
   width: 100%;
   display: flex;
   justify-content: center;
-  animation: heroColorTransition 30s ease-in-out infinite;
-}
-
-@keyframes heroColorTransition {
-  0%, 40% {
-    background: #c20001;
-  }
-  50%, 90% {
-    background: #5876c4;
-  }
-  100% {
-    background: #c20001;
-  }
+  transition: background 0.5s ease;
 }
 
 .hero-content {
