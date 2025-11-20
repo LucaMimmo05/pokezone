@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-spark-svg',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './spark-svg.css',
 })
 export class SparkSVG {
-
+  color = input<string>('#E87878');
 }

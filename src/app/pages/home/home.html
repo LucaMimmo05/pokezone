@@ -1,11 +1,11 @@
 <section class="home">
-    <div class="hero">
+    <div class="hero" [style.background]="currentBgColor">
         <app-logo> </app-logo>
         <div class="hero-content">
             <div class="hero-items">
-                <app-drop-svg class="hero-drop-svg"></app-drop-svg>
-                <app-lightning-svg class="hero-lightning-svg"></app-lightning-svg>
-                <app-message-svg class="hero-message-svg"></app-message-svg>
+                <app-drop-svg class="hero-drop-svg" [color]="currentSvgColor"></app-drop-svg>
+                <app-lightning-svg class="hero-lightning-svg" [color]="currentSvgColor"></app-lightning-svg>
+                <app-message-svg class="hero-message-svg" [color]="currentSvgColor"></app-message-svg>
             </div>
             <div class="hero-tag">
                 <div class="bag">🎒</div>
@@ -16,10 +16,10 @@
                 <p>The perfect guide for those who want to catch Pokémon all over the world</p>
             </div>
             <div class="hero-items">
-                <app-fire-svg class="hero-fire-svg"></app-fire-svg>
-                <app-snow-svg class="hero-snow-svg"></app-snow-svg>
-                <app-leaf-svg class="hero-leaf-svg"></app-leaf-svg>
-                <app-spark-svg class="hero-spark-svg"></app-spark-svg>
+                <app-fire-svg class="hero-fire-svg" [color]="currentSvgColor"></app-fire-svg>
+                <app-snow-svg class="hero-snow-svg" [color]="currentSvgColor"></app-snow-svg>
+                <app-leaf-svg class="hero-leaf-svg" [color]="currentSvgColor"></app-leaf-svg>
+                <app-spark-svg class="hero-spark-svg" [color]="currentSvgColor"></app-spark-svg>
             </div>
             <div class="pokeball-img">
 
@@ -29,16 +29,45 @@
                     <app-star-svg [size]="28" class="hero-star-small"></app-star-svg>
                 </div>
                 <div class="hero-img">
-                    <img class="pokeball-red" src="pokeball-red.png" alt="Pokeball">
-                    <div class="hero-shadows">
-                        <app-pokeball-shadow class="hero-pokeball-shadow"></app-pokeball-shadow>
-                        <app-pokeball-shadow class="hero-pokeball-shadow large"></app-pokeball-shadow>
-                        <app-pokeball-shadow class="hero-pokeball-shadow small"></app-pokeball-shadow>
-                    </div>
+                    <img class="pokeball-red" [width]="370" [height]="370"
+                        [src]="isChangePokeball() ? 'pokeball-red.png' : 'pokeball-blue.png'" alt="Pokeball">
+                    <div class="pokeball-ground-shadow"></div>
                 </div>
 
             </div>
         </div>
-        
+        <div class="carousel-dots">
+            <app-carousel-dot [isActive]="handleActiveItem(0)"></app-carousel-dot>
+            <app-carousel-dot [isActive]="handleActiveItem(1)"></app-carousel-dot>
+        </div>
+
     </div>
+
+    <div class="sec2">
+        <div class="sec2-top">
+            <h1>Select your Pokémon!</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Search by name or code">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path
+                            d="M11.1931 2.72879C13.525 5.03385 13.525 8.7711 11.1931 11.0762C8.86132 13.3812 5.08069 13.3812 2.74887 11.0762C0.417045 8.7711 0.417045 5.03385 2.74887 2.72879C5.08069 0.423735 8.86132 0.423735 11.1931 2.72879"
+                            stroke="#3E75C3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M11.1499 11.1096L16.9999 16.9716" stroke="#3E75C3" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="sec3">
+        <div class="sec3-content">
+            <app-menu></app-menu>
+            <div class="sec3-right">
+
+            </div>
+        </div>
+    </div>
+
 </section>
