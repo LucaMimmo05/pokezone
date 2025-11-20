@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-lightning-svg',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './lightning-svg.css',
 })
 export class LightningSVG {
-
+  color = input<string>('#E87878');
 }

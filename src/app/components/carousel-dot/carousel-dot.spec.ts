@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PokeballShadow } from './pokeball-shadow';
+import { CarouselDot } from './carousel-dot';
 
-describe('PokeballShadow', () => {
-  let component: PokeballShadow;
-  let fixture: ComponentFixture<PokeballShadow>;
+describe('CarouselDot', () => {
+  let component: CarouselDot;
+  let fixture: ComponentFixture<CarouselDot>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PokeballShadow]
+      imports: [CarouselDot]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PokeballShadow);
+    fixture = TestBed.createComponent(CarouselDot);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
