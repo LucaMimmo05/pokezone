@@ -1,8 +1,19 @@
-<img
-    [src]=" pokemon?.sprites?.front_default"
-    [alt]=" pokemon?.name + ' image'"
-/>
-<br><br>
+<div class="pokemonDetailsContainer">
+    <div class="cardHeader">
+      <div class="headerBackgroundContainer">
+        <div class="headerBackground"
+            [style.--bg-image-url]="'url(/backgrounds/' + (pokemon?.types?.[0]?.type?.name || 'normal') + '.svg)'">
+        </div>
+      </div>
+      <div class="pokemonImage">
+          <img
+            [src]="pokemon?.sprites?.other?.['official-artwork']?.front_default || pokemon?.sprites?.front_default"
+            [alt]="pokemon?.name + ' image'"
+          />
+      </div>
+    </div>
+
+
 
 <h2> Pokemon name: {{ pokemon?.name }}</h2>
 <h2> Pokemon number: {{ pokemon?.id }}</h2>
@@ -41,3 +52,4 @@
     <h3> Effort: {{ stats?.effort }}</h3><br>   
 }
 <br><br>
+</div>
