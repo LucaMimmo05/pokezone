@@ -573,8 +573,22 @@
     gap: 35px;
   }
 
+  .pie-charts-row .chart-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
   .chart-section {
     padding: 30px;
+  }
+
+  .chart-section apx-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
 }
 
@@ -607,8 +621,17 @@
     margin: 0 60px 25px 60px;
   }
 
+  /* Grafici a torta in colonna da 912px */
   .pie-charts-row {
+    grid-template-columns: 1fr;
     gap: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chart-section h2 {
+    text-align: center;
   }
 }
 
@@ -670,35 +693,12 @@
     margin: 0 40px 22px 40px;
   }
 
-  /* Grafici a torta in colonna */
-  .pie-charts-row {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
   .chart-section {
     padding: 28px;
   }
 
-  .chart-section h2 {
-    text-align: center;
-  }
-
-  .pie-charts-row .chart-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  .chart-section apx-chart {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  .pie-charts-row {
+    gap: 28px;
   }
 
   .chart-section h2 {
