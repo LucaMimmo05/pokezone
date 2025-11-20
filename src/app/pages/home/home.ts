@@ -9,6 +9,7 @@ import { LeafSVG } from '../../svg/leaf-svg/leaf-svg';
 import { SparkSVG } from '../../svg/spark-svg/spark-svg';
 import { StarSVG } from '../../svg/star-svg/star-svg';
 import { CarouselDot } from '../../components/carousel-dot/carousel-dot';
+import { Menu } from "../../components/menu/menu";
 
 @Component({
   selector: 'app-home',
@@ -22,8 +23,8 @@ import { CarouselDot } from '../../components/carousel-dot/carousel-dot';
     LeafSVG,
     SparkSVG,
     StarSVG,
-    CarouselDot,
-  ],
+    CarouselDot, 
+    Menu],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

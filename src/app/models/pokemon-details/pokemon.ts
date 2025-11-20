@@ -1,9 +1,9 @@
 import { AbilityEntry } from "./ability-entry";
-import { GameIndex } from "./game-index";
 import { HeldItem } from "./held-item";
-import { MoveEntry } from "./move-entry";
 import { NamedAPIResource } from "./named-api-resource";
 import { PastType } from "./past-type";
+import { GameIndex } from "./game-index";
+import { MoveEntry } from "./move-entry";
 import { SpriteSet } from "./sprite-set";
 import { StatEntry } from "./stat-entry";
 import { TypeEntry } from "./type-entry";

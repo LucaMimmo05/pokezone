@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  height: auto;
   width: 100%;
+  background-color: #EFF3F6;
 }
 
 .hero {
@@ -236,4 +237,94 @@
   bottom: 0;
   padding-bottom: 60px;
   padding-right: 110px;
+}
+
+.sec2-top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.sec2 {
+  padding-block: 149px;
+  width: 100%;
+  padding-inline: 111px;
+  height: 309px;
+}
+
+.sec2-top h1 {
+  color: #2f3133;
+  font-family: Montserrat;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.32px;
+}
+
+.search-bar {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 56px;
+  width: auto;
+  gap: 10px;
+}
+
+.search-bar input {
+  width: 403px;
+  height: 56px;
+  border: none;
+  border-radius: 122px;
+  padding: 25px 17px;
+  font-size: 15px;
+  font-weight: 400;
+  font-family: Inter;
+  line-height: 150%;
+  outline: none;
+  transition: padding-left 0.3s ease;
+}
+
+.search-bar input:focus {
+  border: 1px solid #3f67ba;
+  padding-left: 53px;
+}
+
+.search-bar input:focus::placeholder {
+  color: transparent;
+}
+
+.search-bar input:focus + button {
+  right: auto;
+  left: 7px;
+}
+
+.search-bar button {
+  position: absolute;
+  right: 5px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(158, 185, 225, 0.1);
+  color: white;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 150%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sec3 {
+  background-color: white;
+  width: 100%;
+  height: auto;
+}
+
+.sec3-content {
+  padding-inline: 111px;
+  padding-block: 47px;
 }
