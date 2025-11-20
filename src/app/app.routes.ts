@@ -4,7 +4,6 @@ import { Home } from './pages/home/home';
 import { PokemonDetails } from './pokemon-details/pokemon-details';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'home', component: Home },
   {
