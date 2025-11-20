@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { PokezoneService } from '../services/pokezone-service';
 import { Pokemon } from '../models/pokemon-details/pokemon';
 
 @Component({
   selector: 'app-pokemon-details',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './pokemon-details.html',
   styleUrl: './pokemon-details.css'
 })

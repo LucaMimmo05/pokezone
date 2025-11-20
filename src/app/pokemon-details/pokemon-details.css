@@ -73,6 +73,20 @@
   top: 3px;
 }
 
+.typeSection {
+  text-align: center; 
+  margin-top: 2vh;
+}
+
+.pokemonType {
+  display: inline-block;
+  padding: 0.5rem 2.5rem;
+  border-radius: 4px;
+  font-size: 1.1em;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
 @media (min-width: 769px) {
   .cardHeader {
     height: 250px; 
