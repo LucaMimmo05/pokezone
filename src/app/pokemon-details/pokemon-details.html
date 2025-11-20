@@ -45,6 +45,20 @@
             }
           </div>
         </div>
+        <div class="weaknessesSection">
+          <span class="weaknessLabel">Weaknesses</span>
+          <div class="weaknessesList">
+            @for (weakness of weaknesses; track $index) {
+              <span class="pokemonType" [ngClass]="'type-' + weakness">
+                {{ weakness }}
+              </span>
+            }
+        </div>
+
+
+
+
+
 
 
 
@@ -56,9 +70,6 @@
 
       </div>
     </div>
-
-
-
 
 
 
