@@ -34,6 +34,8 @@
   align-items: center;
   justify-content: center;
   gap: 9px;
+  position: relative;
+  z-index: 2;
 }
 
 .bag {
@@ -61,6 +63,8 @@
   flex-direction: column;
   margin-top: 29px;
   gap: 8px;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-title h1 {
@@ -120,6 +124,7 @@
   bottom: 70%;
   transform: translate(50%);
   opacity: 0.7;
+  z-index: 1;
 }
 
 .hero-items:nth-child(4) {
@@ -236,4 +241,95 @@
   bottom: 0;
   padding-bottom: 60px;
   padding-right: 110px;
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding-inline: 20px;
+    height: 80vh;
+  }
+
+  .hero-title h1 {
+    font-size: 48px;
+    letter-spacing: -0.32px;
+  }
+
+  .hero-title p {
+    font-size: 18px;
+    padding-inline: 20px;
+  }
+
+  .carousel-dots {
+    display: none;
+  }
+
+  .pokeball-img {
+    bottom: -20px;
+  }
+
+  .pokeball-red {
+    width: 250px !important;
+    height: 250px !important;
+  }
+
+  .pokeball-ground-shadow {
+    width: 200px;
+    height: 30px;
+    bottom: -35px;
+  }
+
+  .hero-items {
+    display: block;
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  .hero-drop-svg {
+    left: 20px;
+    top: -50px;
+  }
+
+  .hero-lightning-svg {
+    left: auto;
+    right: 20px;
+    top: -30px;
+  }
+
+  .hero-message-svg {
+    left: 30px;
+    bottom: -100px;
+  }
+
+  .hero-fire-svg {
+    right: 40px;
+    top: -60px;
+  }
+
+  .hero-snow-svg {
+    right: 10px;
+    bottom: -40px;
+  }
+
+  .hero-leaf-svg {
+    left: -50px;
+    top: 80px;
+  }
+
+  .hero-spark-svg {
+    left: 10px;
+    bottom: -120px;
+  }
+
+  .hero-stars {
+    gap: 15px;
+  }
+
+  .carousel-dots {
+    padding-right: 20px;
+    padding-bottom: 40px;
+  }
+
+  .hero-img::after {
+    height: 50%;
+  }
 }

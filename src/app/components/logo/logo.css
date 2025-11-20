@@ -1,0 +1,7 @@
+@media (max-width: 480px) {
+  svg {
+    height: 45px;
+    width: auto;
+  }
+    
+}
