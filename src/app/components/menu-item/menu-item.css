@@ -1,4 +1,18 @@
 .menu-item {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    gap: 26px;
+}
+
+.menu-item span {
+    color: #ACB9C1;
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 150%;
+}
+
+.menu-item svg {
+    width: 24px;
+    height: 24px;
 }

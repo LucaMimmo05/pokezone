@@ -1,5 +1,5 @@
-<nav class="menu-container">
+<aside class="menu-container">
     @for (menuItem of items; track $index) {
     <app-menu-item [label]="menuItem.label" [icon]="menuItem.icon" [route]="menuItem.route"> </app-menu-item>
     }
-</nav>
+</aside>
