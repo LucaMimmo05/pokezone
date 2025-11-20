@@ -12,10 +12,24 @@
           />
       </div>
     </div>
+    <div class="cardContent">
+      <div class="titleSection">
+        <h2 class="pokemonName">{{ pokemon?.name }}</h2>
+        <h2 class="pokemonNumber">#{{ pokemon?.id }}</h2>
+      </div>
+      <div class="typeSection">
+        <span class="pokemonType">
+          {{ pokemon?.types?.[0]?.type?.name }}
+        </span>
+      </div>
+    </div>
 
 
 
-<h2> Pokemon name: {{ pokemon?.name }}</h2>
+
+
+
+ <h2> Pokemon name: {{ pokemon?.name }}</h2>
 <h2> Pokemon number: {{ pokemon?.id }}</h2>
 <br><br>
 
