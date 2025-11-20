@@ -3,10 +3,7 @@ import { HeldItem } from "./held-item";
 import { NamedAPIResource } from "./named-api-resource";
 import { PastType } from "./past-type";
 import { GameIndex } from "./game-index";
-import { HeldItem } from "./held-item";
 import { MoveEntry } from "./move-entry";
-import { NamedAPIResource } from "./named-api-resource";
-import { PastType } from "./past-type";
 import { SpriteSet } from "./sprite-set";
 import { StatEntry } from "./stat-entry";
 import { TypeEntry } from "./type-entry";
@@ -33,17 +30,6 @@ export interface Pokemon {
     legacy: string;
   };
 
-  forms: NamedAPIResource[];
-
-  types: TypeEntry[];
-
-  held_items: HeldItem[];
-
-  location_area_encounters: string;
-
-  species: NamedAPIResource;
-  
-  past_types: PastType[];
   game_indices: GameIndex[];
   
   held_items: HeldItem[];
