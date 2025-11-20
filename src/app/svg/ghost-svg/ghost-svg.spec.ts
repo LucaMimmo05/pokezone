@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PokeballShadow } from './pokeball-shadow';
+import { GhostSvg } from './ghost-svg';
 
-describe('PokeballShadow', () => {
-  let component: PokeballShadow;
-  let fixture: ComponentFixture<PokeballShadow>;
+describe('GhostSvg', () => {
+  let component: GhostSvg;
+  let fixture: ComponentFixture<GhostSvg>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PokeballShadow]
+      imports: [GhostSvg]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PokeballShadow);
+    fixture = TestBed.createComponent(GhostSvg);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
