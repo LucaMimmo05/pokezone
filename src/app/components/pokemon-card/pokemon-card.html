@@ -7,7 +7,11 @@
         <div class="pokemon-id">#{{ poke.id.toString().padStart(3, '0') }}</div>
         <div class="pokemon-bottom">
             <h3 class="pokemon-name">{{ capitalize(poke.name) }}</h3>
-            <div class="pokemon-type-icon" [class]="getTypeClass(poke.types[0])"></div>
+            <div class="pokemon-types">
+                @for (type of poke.types; track type) {
+                <div class="pokemon-type-icon" [class]="getTypeClass(type)"></div>
+                }
+            </div>
         </div>
     </div>
 </div>
