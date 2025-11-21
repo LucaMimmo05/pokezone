@@ -4,7 +4,7 @@
   align-items: center;
   height: auto;
   width: 100%;
-  background-color: #EFF3F6;
+  background-color: #eff3f6;
 }
 
 .hero {
@@ -35,6 +35,8 @@
   align-items: center;
   justify-content: center;
   gap: 9px;
+  position: relative;
+  z-index: 2;
 }
 
 .bag {
@@ -62,6 +64,8 @@
   flex-direction: column;
   margin-top: 29px;
   gap: 8px;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-title h1 {
@@ -121,6 +125,7 @@
   bottom: 70%;
   transform: translate(50%);
   opacity: 0.7;
+  z-index: 1;
 }
 
 .hero-items:nth-child(4) {
@@ -239,6 +244,14 @@
   padding-right: 110px;
 }
 
+.burger-menu-top {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
 .sec2-top {
   display: flex;
   justify-content: space-between;
@@ -327,4 +340,159 @@
 .sec3-content {
   padding-inline: 111px;
   padding-block: 47px;
+}
+@media (max-width: 480px) {
+  .burger-menu-top {
+    display: block;
+  }
+
+  .hero {
+    padding-inline: 22px;
+    height: 80vh;
+  }
+
+  .hero-title h1 {
+    color: #fff;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.48px;
+  }
+
+  .hero-title p {
+    color: #fff;
+    text-align: center;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  .hero-tag {
+    margin-block: 30px;
+  }
+
+  .carousel-dots {
+    display: none;
+  }
+
+  .pokeball-img {
+    bottom: -80px;
+  }
+
+  .pokeball-red {
+    width: 250px !important;
+    height: 250px !important;
+  }
+
+  .pokeball-ground-shadow {
+    width: 200px;
+    height: 30px;
+    bottom: -35px;
+  }
+
+  .hero-items {
+    display: block;
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  .hero-items:nth-child(2) {
+    left: 0;
+    right: auto;
+    transform: none;
+  }
+
+  .hero-items:nth-child(4) {
+    left: 0;
+    right: 0;
+    transform: none;
+  }
+
+  .hero-drop-svg,
+  .hero-lightning-svg,
+  .hero-message-svg,
+  .hero-spark-svg {
+    display: none;
+  }
+
+  .hero-fire-svg {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -80px;
+  }
+
+  .hero-snow-svg {
+    right: 0;
+    left: auto;
+    bottom: -100px;
+  }
+
+  .hero-leaf-svg {
+    left: 0;
+    right: auto;
+    top: 150px;
+  }
+
+  .hero-stars {
+    gap: 15px;
+  }
+
+  .sec2 {
+    padding-inline: 22px;
+    padding-top: 170px;
+    padding-bottom: 50px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 34px;
+  }
+
+  .sec2-top {
+    flex-direction: column;
+    gap: 54px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+  .sec2-top h1 {
+    font-size: 24px;
+    letter-spacing: unset;
+    white-space: nowrap;
+  }
+
+  .sec2-top input {
+    width: 100%;
+  }
+
+  .sec3-content {
+    padding-inline: 24px;
+  }
+
+  .sec3-top {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .sec3-top h3 {
+    font-size: 20px;
+    color: #4D5053;
+    font-family: Montserrat;
+    font-weight: 600;
+  }
+
+  .small-pokeball {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
 }

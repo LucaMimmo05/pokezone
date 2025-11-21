@@ -11,7 +11,7 @@ import {
   ApexDataLabels,
   ApexPlotOptions,
   ApexLegend,
-  ApexGrid
+  ApexGrid,
 } from 'ng-apexcharts';
 export type ChartOptions = {
   series: ApexNonAxisChartSeries | any[];
@@ -37,13 +37,23 @@ import { SparkSVG } from '../../svg/spark-svg/spark-svg';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, NgApexchartsModule, DropSVG, LightningSVG, MessageSVG, FireSVG, SnowSVG, LeafSVG, SparkSVG],
+  imports: [
+    CommonModule,
+    NgApexchartsModule,
+    DropSVG,
+    LightningSVG,
+    MessageSVG,
+    FireSVG,
+    SnowSVG,
+    LeafSVG,
+    SparkSVG,
+  ],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private pokemonService = inject(PokemonService);
-  
+
   stats: DashboardStats | null = null;
   loading = true;
   error = '';
@@ -63,40 +73,51 @@ export class DashboardComponent implements OnInit, OnDestroy {
   typeChartOptions!: Partial<ChartOptions>;
 
   typeColors: { [key: string]: string } = {
-    'fire': '#FF9C54',
-    'water': '#4D90D5',
-    'grass': '#62BB5B',
-    'electric': '#F3D23B',
-    'psychic': '#F97176',
-    'ice': '#74CEC0',
-    'dragon': '#0A6DC4',
-    'dark': '#5A5465',
-    'fairy': '#EC8FE6',
-    'normal': '#9099A1',
-    'fighting': '#CE4069',
-    'flying': '#8FA8DD',
-    'poison': '#AB6AC8',
-    'ground': '#D97746',
-    'rock': '#C7B78B',
-    'bug': '#90C12C',
-    'ghost': '#5269AC',
-    'steel': '#5A8EA1'
+    fire: '#FF9C54',
+    water: '#4D90D5',
+    grass: '#62BB5B',
+    electric: '#F3D23B',
+    psychic: '#F97176',
+    ice: '#74CEC0',
+    dragon: '#0A6DC4',
+    dark: '#5A5465',
+    fairy: '#EC8FE6',
+    normal: '#9099A1',
+    fighting: '#CE4069',
+    flying: '#8FA8DD',
+    poison: '#AB6AC8',
+    ground: '#D97746',
+    rock: '#C7B78B',
+    bug: '#90C12C',
+    ghost: '#5269AC',
+    steel: '#5A8EA1',
   };
 
   colorColors: { [key: string]: string } = {
-    'red': '#ff4444',
-    'blue': '#4169e1',
-    'yellow': '#ffd700',
-    'green': '#32cd32',
-    'black': '#333333',
-    'brown': '#8b4513',
-    'purple': '#9370db',
-    'gray': '#808080',
-    'white': '#f5f5f5',
-    'pink': '#ffb6c1'
+    red: '#ff4444',
+    blue: '#4169e1',
+    yellow: '#ffd700',
+    green: '#32cd32',
+    black: '#333333',
+    brown: '#8b4513',
+    purple: '#9370db',
+    gray: '#808080',
+    white: '#f5f5f5',
+    pink: '#ffb6c1',
   };
 
-  shapeColors: string[] = ['#e74c3c', '#e67e22', '#f39c12', '#f1c40f', '#2ecc71', '#1abc9c', '#3498db', '#9b59b6', '#e91e63', '#95a5a6'];
+  shapeColors: string[] = [
+    '#e74c3c',
+    '#e67e22',
+    '#f39c12',
+    '#f1c40f',
+    '#2ecc71',
+    '#1abc9c',
+    '#3498db',
+    '#9b59b6',
+    '#e91e63',
+    '#95a5a6',
+  ];
 
   ngOnInit() {
     this.loadStats();
@@ -125,7 +146,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadStats() {
+  async loadStats() {
     this.loading = true;
     this.pokemonService.getDashboardStats().subscribe({
       next: (data) => {
@@ -147,7 +168,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error(err);
-        this.error = 'Data unavailable. Please try again later.';
+        this.error = 'Dati non disponibili. Riprova più tardi.';
         this.apiFailed = true;
         this.placeholderMode = true;
         // Crea una struttura placeholder dei dati per poter disegnare i grafici comunque
@@ -172,7 +193,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getBarWidth(count: number): number {
     if (!this.typeEntries.length) return 0;
-    const maxCount = Math.max(...this.typeEntries.map(e => e.count));
+    const maxCount = Math.max(...this.typeEntries.map((e) => e.count));
     // Scala da 20% (minimo) a 100% (massimo) per rendere le barre più visibili
     const percentage = (count / maxCount) * 100;
     return Math.max(20, percentage);
@@ -181,196 +202,68 @@ export class DashboardComponent implements OnInit, OnDestroy {
   initCharts(): void {
     // Grafico Colore (Pie)
     this.colorChartOptions = {
-      series: this.colorEntries.map(e => e.count),
+      series: this.colorEntries.map((e) => e.count),
       chart: {
         type: 'pie',
-        height: 380,
-        width: '100%'
+        height: 380
       },
-      labels: this.colorEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
-      colors: this.colorEntries.map(e => this.colorColors[e.name] || '#95a5a6'),
+      labels: this.colorEntries.map((e) => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
+      colors: this.colorEntries.map((e) => this.colorColors[e.name] || '#95a5a6'),
       legend: {
-        position: 'bottom',
-        horizontalAlign: 'center'
+        position: 'bottom'
       },
-      responsive: [
-        {
-          breakpoint: 1024,
-          options: {
-            chart: {
-              height: 350,
-              width: 350
-            },
-            legend: {
-              position: 'bottom',
-              fontSize: '13px',
-              horizontalAlign: 'center',
-              itemMargin: {
-                horizontal: 10,
-                vertical: 5
-              }
-            }
-          }
-        },
-        {
-          breakpoint: 820,
-          options: {
-            chart: {
-              height: 320,
-              width: 320
-            },
-            legend: {
-              position: 'bottom',
-              fontSize: '12px',
-              horizontalAlign: 'center',
-              itemMargin: {
-                horizontal: 8,
-                vertical: 4
-              }
-            }
-          }
-        },
-        {
-          breakpoint: 600,
-          options: {
-            chart: {
-              height: 280,
-              width: 280
-            },
-            legend: {
-              position: 'bottom',
-              fontSize: '11px',
-              horizontalAlign: 'center',
-              itemMargin: {
-                horizontal: 6,
-                vertical: 3
-              }
-            }
-          }
-        },
-        {
-          breakpoint: 400,
-          options: {
-            chart: {
-              height: 250,
-              width: 250
-            },
-            legend: {
-              position: 'bottom',
-              fontSize: '10px',
-              horizontalAlign: 'center',
-              itemMargin: {
-                horizontal: 5,
-                vertical: 2
-              }
-            }
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            height: 300
+          },
+          legend: {
+            position: 'bottom'
           }
         }
-      ]
+      }]
     };
 
     // Grafico Forma (Donut)
     this.shapeChartOptions = {
-      series: this.shapeEntries.map(e => e.count),
+      series: this.shapeEntries.map((e) => e.count),
       chart: {
         type: 'donut',
-        height: 380,
-        width: '100%'
+        height: 380
       },
-      labels: this.shapeEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
+      labels: this.shapeEntries.map((e) => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
       colors: this.shapeColors,
       legend: {
-        position: 'bottom',
-        horizontalAlign: 'center'
+        position: 'bottom'
       },
-      responsive: [
-        {
-          breakpoint: 1024,
-          options: {
-            chart: {
-              height: 350,
-              width: 350
-            },
-            legend: {
-              position: 'bottom',
-              fontSize: '13px',
-              horizontalAlign: 'center',
-              itemMargin: {
-                horizontal: 10,
-                vertical: 5
-              }
-            }
-          }
-        },
-        {
-          breakpoint: 820,
-          options: {
-            chart: {
-              height: 320,
-              width: 320
-            },
-            legend: {
-              position: 'bottom',
-              fontSize: '12px',
-              horizontalAlign: 'center',
-              itemMargin: {
-                horizontal: 8,
-                vertical: 4
-              }
-            }
-          }
-        },
-        {
-          breakpoint: 600,
-          options: {
-            chart: {
-              height: 280,
-              width: 280
-            },
-            legend: {
-              position: 'bottom',
-              fontSize: '11px',
-              horizontalAlign: 'center',
-              itemMargin: {
-                horizontal: 6,
-                vertical: 3
-              }
-            }
-          }
-        },
-        {
-          breakpoint: 400,
-          options: {
-            chart: {
-              height: 250,
-              width: 250
-            },
-            legend: {
-              position: 'bottom',
-              fontSize: '10px',
-              horizontalAlign: 'center',
-              itemMargin: {
-                horizontal: 5,
-                vertical: 2
-              }
-            }
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            height: 300
+          },
+          legend: {
+            position: 'bottom'
           }
         }
-      ]
+      }]
     };
 
     // Grafico Tipo (Barre orizzontali con icone)
     this.typeChartOptions = {
-      series: [{
-        name: 'Pokemon',
-        data: this.typeEntries.map(e => e.count)
-      }],
+      series: [
+        {
+          name: 'Pokemon',
+          data: this.typeEntries.map((e) => e.count),
+        },
+      ],
       chart: {
         type: 'bar',
         height: 600,
         toolbar: {
-          show: false
-        }
+          show: false,
+        },
       },
       plotOptions: {
         bar: {
@@ -378,45 +271,45 @@ export class DashboardComponent implements OnInit, OnDestroy {
           distributed: true,
           barHeight: '65%',
           dataLabels: {
-            position: 'top'
-          }
-        }
+            position: 'top',
+          },
+        },
       },
-      colors: this.typeEntries.map(e => this.typeColors[e.name] || '#95a5a6'),
+      colors: this.typeEntries.map((e) => this.typeColors[e.name] || '#95a5a6'),
       dataLabels: {
         enabled: true,
         offsetX: 30,
         style: {
           fontSize: '12px',
-          fontWeight: 600
-        }
+          fontWeight: 600,
+        },
       },
       xaxis: {
-        categories: this.typeEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
+        categories: this.typeEntries.map((e) => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
         labels: {
           style: {
             fontSize: '13px',
-            fontWeight: 500
-          }
-        }
+            fontWeight: 500,
+          },
+        },
       },
       yaxis: {
         labels: {
           style: {
-            fontSize: '13px'
-          }
-        }
+            fontSize: '13px',
+          },
+        },
       },
       legend: {
-        show: false
+        show: false,
       },
       grid: {
         xaxis: {
           lines: {
-            show: true
-          }
-        }
-      }
+            show: true,
+          },
+        },
+      },
     };
   }
 
@@ -426,44 +319,36 @@ export class DashboardComponent implements OnInit, OnDestroy {
       series: [],
       labels: this.colorEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
       colors: this.colorEntries.map(e => this.colorColors[e.name] || '#95a5a6'),
-      legend: { position: 'bottom', horizontalAlign: 'center' },
-      responsive: [
-        { breakpoint: 1024, options: { chart: { height: 350, width: 350 }, legend: { position: 'bottom', fontSize: '13px', horizontalAlign: 'center', itemMargin: { horizontal: 10, vertical: 5 } } } },
-        { breakpoint: 820, options: { chart: { height: 320, width: 320 }, legend: { position: 'bottom', fontSize: '12px', horizontalAlign: 'center', itemMargin: { horizontal: 8, vertical: 4 } } } },
-        { breakpoint: 600, options: { chart: { height: 280, width: 280 }, legend: { position: 'bottom', fontSize: '11px', horizontalAlign: 'center', itemMargin: { horizontal: 6, vertical: 3 } } } },
-        { breakpoint: 400, options: { chart: { height: 250, width: 250 }, legend: { position: 'bottom', fontSize: '10px', horizontalAlign: 'center', itemMargin: { horizontal: 5, vertical: 2 } } } }
-      ],
-      chart: { type: 'pie', height: 380, width: '100%', animations: { enabled: false } },
+      legend: { position: 'bottom' },
+      responsive: [{ breakpoint: 480, options: { chart: { height: 300 }, legend: { position: 'bottom' } } }],
+      chart: { type: 'pie', height: 380, animations: { enabled: false } },
       // @ts-ignore
-      noData: { text: 'Dati non disponibili', align: 'center' }
+      noData: { text: 'Dati non disponibili', align: 'center' },
     };
 
     this.shapeChartOptions = {
       series: [],
-      chart: { type: 'donut', height: 380, width: '100%', animations: { enabled: false } },
+      chart: { type: 'donut', height: 380, animations: { enabled: false } },
       labels: this.shapeEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
       colors: this.shapeColors,
-      legend: { position: 'bottom', horizontalAlign: 'center' },
-      responsive: [
-        { breakpoint: 1024, options: { chart: { height: 350, width: 350 }, legend: { position: 'bottom', fontSize: '13px', horizontalAlign: 'center', itemMargin: { horizontal: 10, vertical: 5 } } } },
-        { breakpoint: 820, options: { chart: { height: 320, width: 320 }, legend: { position: 'bottom', fontSize: '12px', horizontalAlign: 'center', itemMargin: { horizontal: 8, vertical: 4 } } } },
-        { breakpoint: 600, options: { chart: { height: 280, width: 280 }, legend: { position: 'bottom', fontSize: '11px', horizontalAlign: 'center', itemMargin: { horizontal: 6, vertical: 3 } } } },
-        { breakpoint: 400, options: { chart: { height: 250, width: 250 }, legend: { position: 'bottom', fontSize: '10px', horizontalAlign: 'center', itemMargin: { horizontal: 5, vertical: 2 } } } }
-      ],
+      legend: { position: 'bottom' },
+      responsive: [{ breakpoint: 480, options: { chart: { height: 300 }, legend: { position: 'bottom' } } }],
       // @ts-ignore
-      noData: { text: 'Dati non disponibili', align: 'center' }
+      noData: { text: 'Dati non disponibili', align: 'center' },
     };
 
     this.typeChartOptions = {
       series: [{ name: 'Pokemon', data: [] }],
       chart: { type: 'bar', height: 600, animations: { enabled: false }, toolbar: { show: false } },
       plotOptions: { bar: { horizontal: true, distributed: true, barHeight: '65%' } },
-      colors: this.typeEntries.map(e => this.typeColors[e.name] || '#95a5a6'),
+      colors: this.typeEntries.map((e) => this.typeColors[e.name] || '#95a5a6'),
       dataLabels: { enabled: false },
-      xaxis: { categories: this.typeEntries.map(e => e.name.charAt(0).toUpperCase() + e.name.slice(1)) },
+      xaxis: {
+        categories: this.typeEntries.map((e) => e.name.charAt(0).toUpperCase() + e.name.slice(1)),
+      },
       legend: { show: false },
       // @ts-ignore
-      noData: { text: 'Dati non disponibili', align: 'center' }
+      noData: { text: 'Dati non disponibili', align: 'center' },
     };
   }
 }

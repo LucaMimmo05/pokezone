@@ -1,18 +1,20 @@
 <section class="home">
     <div class="hero" [style.background]="currentBgColor">
         <app-logo> </app-logo>
+        <app-burger-menu class="burger-menu-top"></app-burger-menu>
         <div class="hero-content">
             <div class="hero-items">
                 <app-drop-svg class="hero-drop-svg" [color]="currentSvgColor"></app-drop-svg>
                 <app-lightning-svg class="hero-lightning-svg" [color]="currentSvgColor"></app-lightning-svg>
                 <app-message-svg class="hero-message-svg" [color]="currentSvgColor"></app-message-svg>
             </div>
+
             <div class="hero-tag">
                 <div class="bag">🎒</div>
-                <span class="bag-text">pokezone</span>
+                <span class="bag-text" [style.color]="currentBgColor">pokezone</span>
             </div>
             <div class="hero-title">
-                <h1>Who’s that Pokémon?</h1>
+                <h1>{{isChangePokeball() ? "Who’s that Pokémon?" : "Catch ’em all!"}}</h1>
                 <p>The perfect guide for those who want to catch Pokémon all over the world</p>
             </div>
             <div class="hero-items">
@@ -59,11 +61,21 @@
                 </button>
             </div>
         </div>
+
     </div>
 
     <div class="sec3">
         <div class="sec3-content">
+            <div class="sec3-top">
+                <app-small-pokeball-svg class="small-pokeball"></app-small-pokeball-svg>
+                <h3>150 Pokémons</h3>
+            </div>
+            @if (!isMobile) {
             <app-menu></app-menu>
+            }
+            @else {
+            <app-mobile-filter></app-mobile-filter>
+            }
             <div class="sec3-right">
 
             </div>
