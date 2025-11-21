@@ -156,26 +156,6 @@
   margin-top: 2vh;
 }
 
-.statList {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2vh;
-
-}
-
-.statRow {
-  width: 100%;
-}
-
-.customProgressBar {
-  height: 12px;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
 @media (min-width: 769px) {
   .cardHeader {
     height: 250px; 
