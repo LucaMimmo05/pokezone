@@ -127,7 +127,9 @@ export class Home implements OnInit, OnDestroy {
   }
 
   async onTypeSelected(type: string) {
-    this.selectedType = type;
+    // Map "insect" to "bug" for PokeAPI compatibility
+    const mappedType = type === 'insect' ? 'bug' : type;
+    this.selectedType = mappedType;
     this.offset = 0;
     await this.getPokemons();
     this.scrollToPokemonSection();

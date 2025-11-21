@@ -66,26 +66,27 @@
 
     <div class="sec3">
         <div class="sec3-content">
-            <div class="sec3-top">
-                <app-small-pokeball-svg class="small-pokeball"></app-small-pokeball-svg>
-                <h3>150 Pokémons</h3>
-            </div>
             @if (!isMobile) {
             <app-menu (typeSelected)="onTypeSelected($event)"></app-menu>
             }
-            @else {
-            <app-mobile-filter></app-mobile-filter>
-            }
             <div class="sec3-pokemon">
-                @for (pokemon of pokemons; track $index) {
-                <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
 
-                }
+                <div class="sec3-top">
+                    <app-small-pokeball-svg class="small-pokeball"></app-small-pokeball-svg>
+                    <h3>150 Pokémons</h3>
+                </div>
+                <app-mobile-filter class="app-mobile-filter"></app-mobile-filter>
+                <div class="pokemons-content">
+                    @for (pokemon of pokemons; track $index) {
+                    <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+
+                    }
+                </div>
             </div>
-            <div class="load-more">
-                <button (click)="loadMore()" [disabled]="isLoading">{{ isLoading ? 'Loading...' : 'Load more'
-                    }}</button>
-            </div>
+        </div>
+        <div class="load-more">
+            <button (click)="loadMore()" [disabled]="isLoading">{{ isLoading ? 'Loading...' : 'Load more'
+                }}</button>
         </div>
     </div>
 
