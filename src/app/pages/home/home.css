@@ -484,7 +484,7 @@
 
   .sec3-top h3 {
     font-size: 20px;
-    color: #4D5053;
+    color: #4d5053;
     font-family: Montserrat;
     font-weight: 600;
   }
@@ -495,4 +495,34 @@
     justify-content: center;
   }
 
+  .sec3-pokemon {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 55px;
+  }
+
+  .load-more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 48px;
+  }
+
+  .load-more button {
+    display: inline-flex;
+    padding: 14px 20px;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 6px;
+    background: rgba(63, 93, 179, 0.1);
+    border: none;
+    color: #3f5db3;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.14px;
+  }
 }

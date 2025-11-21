@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, inject } from '@angular/core';
 import { Logo } from '../../components/logo/logo';
 import { DropSVG } from '../../svg/drop-svg/drop-svg';
 import { LightningSVG } from '../../svg/lightning-svg/lightning-svg';
@@ -9,10 +9,13 @@ import { LeafSVG } from '../../svg/leaf-svg/leaf-svg';
 import { SparkSVG } from '../../svg/spark-svg/spark-svg';
 import { StarSVG } from '../../svg/star-svg/star-svg';
 import { CarouselDot } from '../../components/carousel-dot/carousel-dot';
-import { Menu } from "../../components/menu/menu";
-import { SmallPokeballSvg } from "../../svg/small-pokeball-svg/small-pokeball-svg";
-import { MobileFilter } from "../../components/mobile-filter/mobile-filter";
-import { BurgerMenu } from "../../components/burger-menu/burger-menu";
+import { Menu } from '../../components/menu/menu';
+import { SmallPokeballSvg } from '../../svg/small-pokeball-svg/small-pokeball-svg';
+import { MobileFilter } from '../../components/mobile-filter/mobile-filter';
+import { BurgerMenu } from '../../components/burger-menu/burger-menu';
+import { PokemonCard as PokemonCardComponent } from '../../components/pokemon-card/pokemon-card';
+import { PokemonCard } from '../../models/dashboard/pokemon-card';
+import { PokemonService } from '../../services/pokemon.service';
 
 @Component({
   selector: 'app-home',
@@ -30,8 +33,9 @@ import { BurgerMenu } from "../../components/burger-menu/burger-menu";
     Menu,
     SmallPokeballSvg,
     MobileFilter,
-    BurgerMenu
-],
+    BurgerMenu,
+    PokemonCardComponent,
+  ],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -42,6 +46,11 @@ export class Home implements OnInit, OnDestroy {
   currentShadowColor = '#e81414';
   isMobile = false;
   private interval: any;
+  pokemons: PokemonCard[] = [];
+  pokemonService = inject(PokemonService);
+  private offset = 0;
+  private limit = 9;
+  isLoading = false;
 
   @HostListener('window:resize')
   onResize() {
@@ -50,6 +59,7 @@ export class Home implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.checkScreenSize();
+    this.getPokemons();
     this.interval = setInterval(() => {
       this.currentActiveIndex = (this.currentActiveIndex + 1) % 2;
       this.onChangeBg();
@@ -88,5 +98,22 @@ export class Home implements OnInit, OnDestroy {
 
   checkScreenSize() {
     this.isMobile = window.innerWidth <= 480;
+  }
+
+  async getPokemons() {
+    this.isLoading = true;
+    const newPokemons = await this.pokemonService.getPokemonCards(this.limit, this.offset);
+    this.pokemons = newPokemons;
+    this.offset += this.limit;
+    this.isLoading = false;
+  }
+
+  async loadMore() {
+    if (this.isLoading) return;
+    this.isLoading = true;
+    const newPokemons = await this.pokemonService.getPokemonCards(this.limit, this.offset);
+    this.pokemons = [...this.pokemons, ...newPokemons];
+    this.offset += this.limit;
+    this.isLoading = false;
   }
 }
