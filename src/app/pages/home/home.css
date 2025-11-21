@@ -109,12 +109,10 @@
   transform: translateX(-50%);
   width: 300px;
   height: 40px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(0, 0, 0, 0.15) 40%,
-    transparent 70%
-  );
+  background: radial-gradient(ellipse at center,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.15) 40%,
+      transparent 70%);
   border-radius: 50%;
   z-index: 1;
 }
@@ -172,6 +170,7 @@
   left: -100px;
   bottom: -280px;
 }
+
 .hero-stars {
   display: flex;
   justify-content: center;
@@ -307,7 +306,7 @@
   color: transparent;
 }
 
-.search-bar input:focus + button {
+.search-bar input:focus+button {
   right: auto;
   left: 7px;
 }
@@ -343,31 +342,48 @@
 }
 
 
-  .load-more {
+.load-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 48px;
+}
+
+.load-more button {
+  display: inline-flex;
+  padding: 14px 20px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 6px;
+  background: rgba(63, 93, 179, 0.1);
+  border: none;
+  color: #3f5db3;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.14px;
+}
+
+@media (max-width: 480px) {
+  .hero-navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 900;
+    left: 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding-top: 48px;
+    padding-inline: 22px;
+    padding: 6px;
   }
 
-  .load-more button {
-    display: inline-flex;
-    padding: 14px 20px;
-    align-items: flex-start;
-    gap: 10px;
-    border-radius: 6px;
-    background: rgba(63, 93, 179, 0.1);
-    border: none;
-    color: #3f5db3;
-    font-family: Montserrat;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    letter-spacing: -0.14px;
+  .loading, .no-results{
+    font-family: Inter;
   }
-  
-@media (max-width: 480px) {
+
   .burger-menu-top {
     display: block;
   }
@@ -375,6 +391,7 @@
   .hero {
     padding-inline: 22px;
     height: 80vh;
+    margin-top: 30px;
   }
 
   .hero-title h1 {
@@ -488,6 +505,7 @@
   .search-bar {
     width: 100%;
   }
+
   .sec2-top h1 {
     font-size: 24px;
     letter-spacing: unset;
