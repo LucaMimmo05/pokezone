@@ -380,6 +380,10 @@
     padding: 6px;
   }
 
+  .loading, .no-results{
+    font-family: Inter;
+  }
+
   .burger-menu-top {
     display: block;
   }

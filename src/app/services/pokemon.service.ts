@@ -121,4 +121,78 @@ export class PokemonService {
       imageUrl: pokemon.sprites.other['official-artwork'].front_default || '',
     }));
   }
+
+ async searchPokemon(
+  term: string
+): Promise<{ id: number; name: string; imageUrl: string }[]> {
+  term = term.toLowerCase().trim();
+  if (!term) return [];
+
+  try {
+    // PRIMA cerca per ID se è un numero
+    const termAsNumber = Number(term);
+    if (!isNaN(termAsNumber) && termAsNumber > 0) {
+      try {
+        const url = `${this.baseUrl}/pokemon/${termAsNumber}`;
+        const pokemon: PokemonDetail = await firstValueFrom(this.http.get<PokemonDetail>(url));
+        
+        // Se arriva qui, ha trovato un Pokémon per ID
+        return [{
+          id: pokemon.id,
+          name: pokemon.name,
+          imageUrl: pokemon.sprites?.other?.['official-artwork']?.front_default || 
+                   pokemon.sprites?.front_default || 
+                   'assets/pokemon-placeholder.png',
+        }];
+      } catch (idError) {
+        // Se non trova per ID, continua con la ricerca per nome
+        console.log(`No Pokémon found with ID: ${term}`);
+      }
+    }
+
+    // POI cerca per nome
+    const searchUrl = `${this.baseUrl}/pokemon?limit=1000`;
+    const response: any = await firstValueFrom(this.http.get(searchUrl));
+    
+    // Filtra i pokemon per nome (includes per ricerca parziale)
+    const filteredPokemons = response.results.filter((pokemon: any) => 
+      pokemon.name.toLowerCase().includes(term)
+    ).slice(0, 9);
+
+    // Se non trova nulla con includes, prova con startsWith
+    if (filteredPokemons.length === 0) {
+      const exactMatchPokemons = response.results.filter((pokemon: any) => 
+        pokemon.name.toLowerCase().startsWith(term)
+      ).slice(0, 9);
+      
+      if (exactMatchPokemons.length > 0) {
+        filteredPokemons.push(...exactMatchPokemons);
+      }
+    }
+
+    // Fetch details per i Pokémon trovati
+    const searchResults = [];
+    for (const pokemon of filteredPokemons) {
+      try {
+        const details: PokemonDetail = await firstValueFrom(
+          this.http.get<PokemonDetail>(pokemon.url)
+        );
+        searchResults.push({
+          id: details.id,
+          name: details.name,
+          imageUrl: details.sprites?.other?.['official-artwork']?.front_default || 
+                   details.sprites?.front_default || 
+                   'assets/pokemon-placeholder.png',
+        });
+      } catch (error) {
+        console.error(`Error fetching details for ${pokemon.name}:`, error);
+      }
+    }
+
+    return searchResults;
+  } catch (error) {
+    console.error('Search error:', error);
+    return [];
+  }
+}
 }
