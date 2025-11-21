@@ -244,6 +244,14 @@
   padding-right: 110px;
 }
 
+.burger-menu-top {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
 .sec2-top {
   display: flex;
   justify-content: space-between;
@@ -334,6 +342,10 @@
   padding-block: 47px;
 }
 @media (max-width: 480px) {
+  .burger-menu-top {
+    display: block;
+  }
+
   .hero {
     padding-inline: 22px;
     height: 80vh;

@@ -12,6 +12,7 @@ import { CarouselDot } from '../../components/carousel-dot/carousel-dot';
 import { Menu } from "../../components/menu/menu";
 import { SmallPokeballSvg } from "../../svg/small-pokeball-svg/small-pokeball-svg";
 import { MobileFilter } from "../../components/mobile-filter/mobile-filter";
+import { BurgerMenu } from "../../components/burger-menu/burger-menu";
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,8 @@ import { MobileFilter } from "../../components/mobile-filter/mobile-filter";
     CarouselDot,
     Menu,
     SmallPokeballSvg,
-    MobileFilter
+    MobileFilter,
+    BurgerMenu
 ],
   templateUrl: './home.html',
   styleUrl: './home.css',

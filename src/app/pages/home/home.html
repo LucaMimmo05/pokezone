@@ -1,6 +1,7 @@
 <section class="home">
     <div class="hero" [style.background]="currentBgColor">
         <app-logo> </app-logo>
+        <app-burger-menu class="burger-menu-top"></app-burger-menu>
         <div class="hero-content">
             <div class="hero-items">
                 <app-drop-svg class="hero-drop-svg" [color]="currentSvgColor"></app-drop-svg>
@@ -67,7 +68,7 @@
         <div class="sec3-content">
             <div class="sec3-top">
                 <app-small-pokeball-svg class="small-pokeball"></app-small-pokeball-svg>
-                <h3>150 Pokemons</h3>
+                <h3>150 Pokémons</h3>
             </div>
             @if (!isMobile) {
             <app-menu></app-menu>
