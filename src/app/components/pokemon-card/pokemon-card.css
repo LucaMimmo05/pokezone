@@ -132,7 +132,7 @@
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .pokemon-card {
     width: 100%;
     border-radius: 12px;

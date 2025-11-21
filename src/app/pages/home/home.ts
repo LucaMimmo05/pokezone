@@ -101,7 +101,7 @@ export class Home implements OnInit, OnDestroy {
   }
 
   checkScreenSize() {
-    this.isMobile = window.innerWidth <= 480;
+    this.isMobile = window.innerWidth <= 1024;
   }
 
   async getPokemons() {
