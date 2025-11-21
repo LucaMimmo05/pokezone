@@ -8,6 +8,9 @@ import { PokemonSpecies } from '../models/dashboard/pokemon-species';
 import { DashboardStats } from '../models/dashboard/dashboard-stats';
 import { Pokemon as PokemonDetail } from '../models/pokemon-details/pokemon';
 
+// Re-export for backward compatibility
+export type { DashboardStats } from '../models/dashboard/dashboard-stats';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -15,7 +18,6 @@ export class PokemonService {
   private http = inject(HttpClient);
   private baseUrl = 'https://pokeapi.co/api/v2';
 
-  // Metodi originali di pokemon.service.ts
   async getAllPokemon(limit?: number): Promise<Pokemon[]> {
     const url = limit
       ? `${this.baseUrl}/pokemon?limit=${limit}`

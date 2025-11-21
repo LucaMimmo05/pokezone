@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PokezoneService } from '../../services/pokezone-service';
+import { PokemonService } from '../../services/pokemon.service';
 import { Pokemon } from '../../models/pokemon-details/pokemon';
 
 @Component({
@@ -11,7 +11,7 @@ import { Pokemon } from '../../models/pokemon-details/pokemon';
 })
 export class PokemonDetails {
   private readonly route = inject(ActivatedRoute);
-  private readonly pokezoneService = inject(PokezoneService);
+  private readonly pokemonService = inject(PokemonService);
   pokemon: Pokemon | null = null;
   id: number = 4;
   category: any = null;
@@ -24,15 +24,15 @@ export class PokemonDetails {
   }
 
   async loadPokemonDetails() {
-    this.pokemon = await this.pokezoneService.getPokemonDetails(this.id);
+    this.pokemon = await this.pokemonService.getPokemonDetailsById(this.id);
   }
 
   async loadPokemonCategory() {
-    this.category = await this.pokezoneService.getPokemonCategory(this.id);
+    this.category = await this.pokemonService.getPokemonCategory(this.id);
   }
 
   async loadPokemonWeaknesses() {
-    this.weaknesses = await this.pokezoneService.getPokemonWeaknessesByType(
+    this.weaknesses = await this.pokemonService.getPokemonWeaknessesByType(
       this.pokemon?.types[0].type.name || ''
     );
   }
