@@ -1,40 +1,39 @@
 <div class="pokemonDetailsContainer">
+  @if(pokemon){
   <div class="cardHeader">
     <div class="headerBackgroundContainer">
       <div class="headerBackground"
-        [style.--bg-image-url]="'url(/backgrounds/' + (pokemon?.types?.[0]?.type?.name || 'normal') + '.svg)'">
+        [style.--bg-image-url]="'url(/backgrounds/' + (pokemon.types[0].type.name || 'normal') + '.svg)'">
       </div>
     </div>
     <div class="pokemonImage">
-      <img
-        [src]="pokemon?.sprites?.other?.['official-artwork']?.front_default || pokemon?.sprites?.front_default"
-        [alt]="pokemon?.name + ' image'"
+      <img 
+        [src]="pokemon.sprites.other?.['official-artwork']?.front_default || pokemon.sprites.front_default"
+        [alt]="pokemon.name + ' image'" 
       />
     </div>
   </div>
   <div class="cardContent">
     <div class="titleSection">
-      <h2 class="pokemonName">{{ pokemon?.name }}</h2>
+      <h2 class="pokemonName">{{ pokemon.name }}</h2>
       <h2 class="pokemonNumber">{{ idWithZeros }}</h2>
     </div>
     <div class="typeSection">
-      @if(pokemon?.types != null){
-        @for(pokemon of pokemon!.types; track $index) {
-          <span class="pokemonType" [ngClass]="'type-' + pokemon.type.name">
-            {{ pokemon.type.name }}
-          </span>
-        }
+      @for(pokemon of pokemon.types; track $index) {
+        <span class="pokemonType" [ngClass]="'type-' + pokemon.type.name">
+          {{ pokemon.type.name }}
+        </span>
       }
     </div>
     <div class="infoSection">
       <div class="physicalInfoBox">
         <div class="box">
           <span class="infoLabel">Weight:</span>
-          <span class="infoValue">{{ ((pokemon?.weight ?? 0) / 10).toFixed(1) }}kg</span>
+          <span class="infoValue">{{ (pokemon.weight / 10).toFixed(1) }}kg</span>
         </div>
         <div class="box">
           <span class="infoLabel">Height:</span>
-          <span class="infoValue">{{ ((pokemon?.height ?? 0) / 10).toFixed(1) }}m</span>
+          <span class="infoValue">{{ (pokemon.height / 10).toFixed(1) }}m</span>
         </div>
       </div>
       <div class="box">
@@ -44,8 +43,8 @@
       <div class="box">
         <span class="infoLabel">Abilities:</span>
         <div class="abilitiesList">
-          @for (abilities of pokemon?.abilities; track $index) {
-            <span class="infoValue">{{ abilities?.ability?.name }}@if (!$last) {, }</span>
+          @for (abilities of pokemon.abilities; track $index) {
+            <span class="infoValue">{{ abilities.ability.name }}@if (!$last) {, }</span>
           }
         </div>
       </div>
@@ -57,7 +56,12 @@
               {{ weakness }}
             </span>
           }
+        </div>
       </div>
     </div>
+    <div>
+      <app-pokemon-details-stats [stats]="pokemon.stats"></app-pokemon-details-stats>
+    </div>
   </div>
+  }
 </div>
