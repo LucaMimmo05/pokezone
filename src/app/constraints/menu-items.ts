@@ -1,3 +1,4 @@
+import { DarkSvg } from "../svg/dark-svg/dark-svg";
 import { DragonSvg } from "../svg/dragon-svg/dragon-svg";
 import { ElectricSvg } from "../svg/electric-svg/electric-svg";
 import { FairySvg } from "../svg/fairy-svg/fairy-svg";
@@ -20,6 +21,7 @@ import { WaterSvg } from "../svg/water-svg/water-svg";
 export const MENU_ITEMS = [
     { label: 'All types', icon: PokeballSvg, route: '/' }, // Added route property
     { label: 'Insect', icon: InsectSvg, route: '/' },
+    { label: 'Dark', icon: DarkSvg, route: '/' },
     { label: 'Dragon', icon: DragonSvg, route: '/' },
     { label: 'Electric', icon: ElectricSvg, route: '/' },
     { label: 'Fairy', icon: FairySvg, route: '/' },
