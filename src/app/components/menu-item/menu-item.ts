@@ -12,4 +12,5 @@ export class MenuItem {
   label = input<string>();
   icon = input<any>();
   route = input<string>();
+  isActive = input<boolean>();
 }

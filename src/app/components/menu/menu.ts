@@ -12,5 +12,8 @@ import { MENU_ITEMS } from '../../constraints/menu-items';
 
 export class Menu {
   items = MENU_ITEMS;
+  handleActive(): boolean {
+    return true;
+  }
 }
 
