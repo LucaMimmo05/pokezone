@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Logo } from '../../components/logo/logo';
 import { DropSVG } from '../../svg/drop-svg/drop-svg';
 import { LightningSVG } from '../../svg/lightning-svg/lightning-svg';
@@ -10,6 +10,9 @@ import { SparkSVG } from '../../svg/spark-svg/spark-svg';
 import { StarSVG } from '../../svg/star-svg/star-svg';
 import { CarouselDot } from '../../components/carousel-dot/carousel-dot';
 import { Menu } from "../../components/menu/menu";
+import { SmallPokeballSvg } from "../../svg/small-pokeball-svg/small-pokeball-svg";
+import { MobileFilter } from "../../components/mobile-filter/mobile-filter";
+import { BurgerMenu } from "../../components/burger-menu/burger-menu";
 
 @Component({
   selector: 'app-home',
@@ -23,8 +26,12 @@ import { Menu } from "../../components/menu/menu";
     LeafSVG,
     SparkSVG,
     StarSVG,
-    CarouselDot, 
-    Menu],
+    CarouselDot,
+    Menu,
+    SmallPokeballSvg,
+    MobileFilter,
+    BurgerMenu
+],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -33,9 +40,16 @@ export class Home implements OnInit, OnDestroy {
   currentBgColor = '#c20001';
   currentSvgColor = '#E87878';
   currentShadowColor = '#e81414';
+  isMobile = false;
   private interval: any;
 
+  @HostListener('window:resize')
+  onResize() {
+    this.checkScreenSize();
+  }
+
   ngOnInit() {
+    this.checkScreenSize();
     this.interval = setInterval(() => {
       this.currentActiveIndex = (this.currentActiveIndex + 1) % 2;
       this.onChangeBg();
@@ -70,5 +84,9 @@ export class Home implements OnInit, OnDestroy {
 
   handleSVG() {
     return this.currentActiveIndex === 0 ? '#ff9a76' : '#76c7ff';
+  }
+
+  checkScreenSize() {
+    this.isMobile = window.innerWidth <= 480;
   }
 }
