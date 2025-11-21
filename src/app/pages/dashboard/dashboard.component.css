@@ -1,0 +1,547 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.hero {
+  padding-inline: 111px;
+  padding-block: 80px;
+  background: #c20001;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  animation: heroColorTransition 30s ease-in-out infinite;
+}
+
+@keyframes heroColorTransition {
+  0%, 40% {
+    background: #c20001;
+  }
+  50%, 90% {
+    background: #5876c4;
+  }
+  100% {
+    background: #c20001;
+  }
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  gap: 29px;
+}
+
+.hero-tag {
+  background-color: white;
+  border-radius: 244px;
+  width: 145px;
+  height: 34px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+.bag {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  background: rgba(63, 103, 186, 0.15);
+}
+
+.bag-text {
+  color: #3f67ba;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+}
+
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.hero-title h1 {
+  color: #fff;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.64px;
+  margin: 0;
+}
+
+.hero-title p {
+  color: #fff;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  margin: 0;
+}
+
+.hero-items {
+  position: absolute;
+  left: 50px;
+  bottom: 90%;
+  transform: translate(50%);
+  opacity: 0.7;
+}
+
+.hero-items:nth-child(4) {
+  left: auto;
+  right: 50px;
+}
+
+.hero-drop-svg {
+  position: absolute;
+}
+
+.hero-lightning-svg {
+  position: absolute;
+  left: 180px;
+  top: 25px;
+}
+
+.hero-message-svg {
+  position: absolute;
+  left: 60px;
+  bottom: -200px;
+}
+
+.hero-fire-svg {
+  position: absolute;
+  right: 130px;
+  top: -70px;
+}
+
+.hero-snow-svg {
+  position: absolute;
+  right: -30px;
+  bottom: -70px;
+}
+
+.hero-leaf-svg {
+  position: absolute;
+  left: -270px;
+  top: 95px;
+}
+
+.hero-spark-svg {
+  position: absolute;
+  left: -100px;
+  bottom: -240px;
+}
+
+.loading {
+  text-align: center;
+  padding: 80px 50px;
+  background: white;
+  width: 100%;
+}
+
+.pokeball-spinner {
+  width: 45px;
+  height: 45px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error {
+  text-align: center;
+  padding: 20px;
+  color: #e74c3c;
+}
+
+/* Button styles aligned with site look */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 9999px;
+  font-weight: 600;
+  letter-spacing: .2px;
+  border: 0;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.btn:active { transform: translateY(1px) scale(0.99); }
+.btn:focus { outline: none; box-shadow: 0 0 0 3px rgba(63,103,186,.25); }
+
+.btn-primary {
+  background: linear-gradient(180deg, #3f67ba 0%, #2f56a8 100%);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(180deg, #4670c8 0%, #345eb6 100%);
+  box-shadow: 0 4px 10px rgba(52, 94, 182, .20);
+}
+
+.error .btn { margin-top: 12px; }
+
+.placeholder-banner {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  padding: 14px 22px;
+  margin: 0 111px 30px 111px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 60px 111px 40px 111px;
+  max-width: 100%;
+  width: 100%;
+  background: white;
+  box-sizing: border-box;
+}
+
+.stat-card {
+  background: #f8f9fa;
+  color: #2c3e50;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: white;
+}
+
+.stat-card h3 {
+  margin: 0 0 15px 0;
+  font-size: 1rem;
+  color: #7f8c8d;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.stat-number {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #dc0a2d;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 0 111px 80px 111px;
+  width: 100%;
+  background: white;
+  box-sizing: border-box;
+}
+
+.pie-charts-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.chart-section {
+  background: #f8f9fa;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.chart-section:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: white;
+}
+
+.chart-section.full-width {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.chart-section h2 {
+  color: #2c3e50;
+  margin: 0 0 25px 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-bottom: none;
+  padding-bottom: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ApexCharts styling */
+.apexcharts-canvas {
+  margin: 0 auto;
+}
+
+/* Custom Type Bars con icone */
+.type-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px 0;
+}
+
+.type-bar-item {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 20px;
+  align-items: center;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.type-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 15px;
+  transition: transform 0.2s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.type-bar-item:hover .type-label {
+  transform: translateX(5px);
+}
+
+.type-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.type-bar-item:hover .type-icon {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.type-bar-container {
+  background: #e9ecef;
+  border-radius: 12px;
+  height: 50px;
+  overflow: visible;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.type-bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 16px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  min-width: 80px;
+  animation: growBar 1s ease-out forwards;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes growBar {
+  from {
+    width: 0 !important;
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+ /* Shimmer effect removed for a cleaner, static look */
+
+.type-bar:hover {
+  transform: scaleY(1.03);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+}
+
+.type-count {
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  position: relative;
+}
+
+/* Aggiungi icone ai tipi Pokemon nelle label dell'asse Y */
+.apexcharts-yaxis-label {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Icone per ogni tipo */
+.apexcharts-yaxis text:has(tspan):before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  margin-right: 8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Mapping icone tipo per tipo */
+.apexcharts-yaxis-texts-g text tspan:first-child {
+  margin-left: 32px;
+}
+
+/* Icone tipo Pokemon - usando attributi data */
+.apexcharts-yaxis text[data-type="Fire"]:before,
+.apexcharts-yaxis text tspan:first-child::before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* Colori per le slice dei tipi Pokemon */
+.type-slice[data-type="fire"] { fill: #f08030; }
+.type-slice[data-type="water"] { fill: #6890f0; }
+.type-slice[data-type="grass"] { fill: #78c850; }
+.type-slice[data-type="electric"] { fill: #f8d030; }
+.type-slice[data-type="psychic"] { fill: #f85888; }
+.type-slice[data-type="ice"] { fill: #98d8d8; }
+.type-slice[data-type="dragon"] { fill: #7038f8; }
+.type-slice[data-type="dark"] { fill: #705848; }
+.type-slice[data-type="fairy"] { fill: #ee99ac; }
+.type-slice[data-type="normal"] { fill: #a8a878; }
+.type-slice[data-type="fighting"] { fill: #c03028; }
+.type-slice[data-type="flying"] { fill: #a890f0; }
+.type-slice[data-type="poison"] { fill: #a040a0; }
+.type-slice[data-type="ground"] { fill: #e0c068; }
+.type-slice[data-type="rock"] { fill: #b8a038; }
+.type-slice[data-type="bug"] { fill: #a8b820; }
+.type-slice[data-type="ghost"] { fill: #705898; }
+.type-slice[data-type="steel"] { fill: #b8b8d0; }
+
+/* Colori per le slice dei colori Pokemon */
+.color-slice[data-color="red"] { fill: #ff4444; }
+.color-slice[data-color="blue"] { fill: #4169e1; }
+.color-slice[data-color="yellow"] { fill: #ffd700; }
+.color-slice[data-color="green"] { fill: #32cd32; }
+.color-slice[data-color="black"] { fill: #333333; }
+.color-slice[data-color="brown"] { fill: #8b4513; }
+.color-slice[data-color="purple"] { fill: #9370db; }
+.color-slice[data-color="gray"] { fill: #808080; }
+.color-slice[data-color="white"] { fill: #f5f5f5; }
+.color-slice[data-color="pink"] { fill: #ffb6c1; }
+
+/* Colori per le slice delle forme - gradient arcobaleno */
+.shape-slice:nth-child(1) { fill: #e74c3c; }
+.shape-slice:nth-child(2) { fill: #e67e22; }
+.shape-slice:nth-child(3) { fill: #f39c12; }
+.shape-slice:nth-child(4) { fill: #f1c40f; }
+.shape-slice:nth-child(5) { fill: #2ecc71; }
+.shape-slice:nth-child(6) { fill: #1abc9c; }
+.shape-slice:nth-child(7) { fill: #3498db; }
+.shape-slice:nth-child(8) { fill: #9b59b6; }
+.shape-slice:nth-child(9) { fill: #e91e63; }
+.shape-slice:nth-child(10) { fill: #95a5a6; }
+
+/* Colori per la legenda tipi */
+.legend-color[data-type="fire"] { background: #f08030; }
+.legend-color[data-type="water"] { background: #6890f0; }
+.legend-color[data-type="grass"] { background: #78c850; }
+.legend-color[data-type="electric"] { background: #f8d030; }
+.legend-color[data-type="psychic"] { background: #f85888; }
+.legend-color[data-type="ice"] { background: #98d8d8; }
+.legend-color[data-type="dragon"] { background: #7038f8; }
+.legend-color[data-type="dark"] { background: #705848; }
+.legend-color[data-type="fairy"] { background: #ee99ac; }
+.legend-color[data-type="normal"] { background: #a8a878; }
+.legend-color[data-type="fighting"] { background: #c03028; }
+.legend-color[data-type="flying"] { background: #a890f0; }
+.legend-color[data-type="poison"] { background: #a040a0; }
+.legend-color[data-type="ground"] { background: #e0c068; }
+.legend-color[data-type="rock"] { background: #b8a038; }
+.legend-color[data-type="bug"] { background: #a8b820; }
+.legend-color[data-type="ghost"] { background: #705898; }
+.legend-color[data-type="steel"] { background: #b8b8d0; }
+
+/* Colori per la legenda colori */
+.color-indicator[data-color="red"] { background: #ff4444; }
+.color-indicator[data-color="blue"] { background: #4169e1; }
+.color-indicator[data-color="yellow"] { background: #ffd700; }
+.color-indicator[data-color="green"] { background: #32cd32; }
+.color-indicator[data-color="black"] { background: #333333; }
+.color-indicator[data-color="brown"] { background: #8b4513; }
+.color-indicator[data-color="purple"] { background: #9370db; }
+.color-indicator[data-color="gray"] { background: #808080; }
+.color-indicator[data-color="white"] { background: #f5f5f5; border: 1px solid #ccc; }
+.color-indicator[data-color="pink"] { background: #ffb6c1; }
+
+/* Colori per la legenda forme */
+.shape-indicator:nth-child(1) { background: #e74c3c; }
+.shape-indicator:nth-child(2) { background: #e67e22; }
+.shape-indicator:nth-child(3) { background: #f39c12; }
+.shape-indicator:nth-child(4) { background: #f1c40f; }
+.shape-indicator:nth-child(5) { background: #2ecc71; }
+.shape-indicator:nth-child(6) { background: #1abc9c; }
+.shape-indicator:nth-child(7) { background: #3498db; }
+.shape-indicator:nth-child(8) { background: #9b59b6; }
+.shape-indicator:nth-child(9) { background: #e91e63; }
+.shape-indicator:nth-child(10) { background: #95a5a6; }

@@ -1,0 +1,9 @@
+<div class="menu-item" [routerLink]="route()">
+  <div class="menu-icon" [style.width.px]="28" [style.height.px]="28">
+    <ng-container *ngComponentOutlet="icon()"></ng-container>
+  </div>
+
+  <span class="menu-label">
+    {{ label() }}
+  </span>
+</div>
