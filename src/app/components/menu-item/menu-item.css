@@ -16,3 +16,10 @@
     width: 24px;
     height: 24px;
 }
+
+@media (max-width: 480px) {
+    .menu-item span{
+        font-size: 20px;
+    }
+    
+}
