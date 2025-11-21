@@ -102,14 +102,26 @@ export class PokemonService {
 
   async getPokemonCards(
     limit: number = 20,
-    offset: number = 0
-  ): Promise<{ id: number; name: string; imageUrl: string }[]> {
-    const url = `${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`;
-    const response = await firstValueFrom(
-      this.http
-        .get<{ results: NamedAPIResource[] }>(url)
-        .pipe(map((response: any) => response.results))
-    );
+    offset: number = 0,
+    type: string = ''
+  ): Promise<{ id: number; name: string; imageUrl: string; types: string[] }[]> {
+    let url = `${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`;
+    let response: NamedAPIResource[];
+
+    if (type) {
+      // Se è specificato un tipo, usa l'endpoint /type/{type}
+      const typeResponse = await firstValueFrom(
+        this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(`${this.baseUrl}/type/${type}`)
+      );
+      response = typeResponse.pokemon.map((p) => p.pokemon).slice(offset, offset + limit);
+    } else {
+      response = await firstValueFrom(
+        this.http
+          .get<{ results: NamedAPIResource[] }>(url)
+          .pipe(map((response: any) => response.results))
+      );
+    }
+
     const detailsPromises = response.map((pokemon: NamedAPIResource) =>
       firstValueFrom(this.http.get<PokemonDetail>(pokemon.url))
     );
@@ -119,6 +131,7 @@ export class PokemonService {
       id: pokemon.id,
       name: pokemon.name,
       imageUrl: pokemon.sprites.other['official-artwork'].front_default || '',
+      types: pokemon.types.map((t: any) => t.type.name),
     }));
   }
 }

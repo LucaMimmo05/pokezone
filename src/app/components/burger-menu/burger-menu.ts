@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { MENU_ITEMS } from '../../constraints/menu-items';
 import { MenuItem } from '../menu-item/menu-item';
 
@@ -11,6 +11,7 @@ import { MenuItem } from '../menu-item/menu-item';
 export class BurgerMenu {
   items = MENU_ITEMS;
   activeIndex = 0;
+  typeSelected = output<string>();
 
   toggleMenu(event: Event) {
     const checked = (event.target as HTMLInputElement).checked;
@@ -21,8 +22,12 @@ export class BurgerMenu {
     }
   }
 
-
-  setActive(index: number) {
+  setActive(index: number, checkbox: HTMLInputElement) {
     this.activeIndex = index;
+    const type =
+      this.items[index].label === 'All types' ? '' : this.items[index].label.toLowerCase();
+    this.typeSelected.emit(type);
+    checkbox.checked = false; // Close the menu after selection
+    document.body.style.overflow = ''; // Restore scroll
   }
 }
