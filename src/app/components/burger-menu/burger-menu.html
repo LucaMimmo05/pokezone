@@ -1,1 +1,14 @@
-<p>burger-menu works!</p>
+<input type="checkbox" id="burger-toggle" class="burger-toggle" (change)="toggleMenu($event)" />
+
+<label for="burger-toggle" class="burger-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+</label>
+
+<aside class="burger-menu-container">
+    @for (menuItem of items; track $index) {
+    <app-menu-item [label]="menuItem.label" [icon]="menuItem.icon" [route]="menuItem.route" [activeColor]="menuItem.activeColor" [isActive]="$index === activeIndex" (click)="setActive($index)">
+    </app-menu-item>
+    }
+</aside>

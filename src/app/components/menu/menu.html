@@ -1,5 +1,7 @@
 <aside class="menu-container">
     @for (menuItem of items; track $index) {
-    <app-menu-item [label]="menuItem.label" [icon]="menuItem.icon" [route]="menuItem.route"> </app-menu-item>
+    <app-menu-item [label]="menuItem.label" [icon]="menuItem.icon" [route]="menuItem.route"
+        [activeColor]="menuItem.activeColor" [isActive]="$index === activeIndex" (click)="setActive($index)">
+    </app-menu-item>
     }
 </aside>

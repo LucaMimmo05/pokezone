@@ -2,11 +2,11 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Pokemon } from '../models/dashboard/pokemon';
 import { PokemonDetails } from '../models/dashboard/pokemon-details';
 import { PokemonSpecies } from '../models/dashboard/pokemon-species';
 import { DashboardStats } from '../models/dashboard/dashboard-stats';
 import { Pokemon as PokemonDetail } from '../models/pokemon-details/pokemon';
+import { NamedAPIResource } from '../models/pokemon-details/named-api-resource';
 
 // Re-export for backward compatibility
 export type { DashboardStats } from '../models/dashboard/dashboard-stats';
@@ -18,12 +18,14 @@ export class PokemonService {
   private http = inject(HttpClient);
   private baseUrl = 'https://pokeapi.co/api/v2';
 
-  async getAllPokemon(limit?: number): Promise<Pokemon[]> {
+  async getAllPokemon(limit?: number): Promise<NamedAPIResource[]> {
     const url = limit
       ? `${this.baseUrl}/pokemon?limit=${limit}`
       : `${this.baseUrl}/pokemon?limit=100000`;
     const response = await firstValueFrom(
-      this.http.get<{ results: Pokemon[] }>(url).pipe(map((response: any) => response.results))
+      this.http
+        .get<{ results: NamedAPIResource[] }>(url)
+        .pipe(map((response: any) => response.results))
     );
     return response;
   }
@@ -38,7 +40,9 @@ export class PokemonService {
 
   async getDashboardStats(limit?: number): Promise<DashboardStats> {
     const pokemons = await this.getAllPokemon(limit);
-    const details = await Promise.all(pokemons.map((p: Pokemon) => this.getPokemonDetails(p.url)));
+    const details = await Promise.all(
+      pokemons.map((p: NamedAPIResource) => this.getPokemonDetails(p.url))
+    );
     const species = await Promise.all(
       details.map((d: PokemonDetails) => this.getPokemonSpecies(d.species.url))
     );
@@ -94,5 +98,27 @@ export class PokemonService {
     const response = this.http.get<any>(`${this.baseUrl}/type/${type}`);
     const data = await firstValueFrom(response);
     return data.damage_relations.double_damage_from.map((t: any) => t.name);
+  }
+
+  async getPokemonCards(
+    limit: number = 20,
+    offset: number = 0
+  ): Promise<{ id: number; name: string; imageUrl: string }[]> {
+    const url = `${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`;
+    const response = await firstValueFrom(
+      this.http
+        .get<{ results: NamedAPIResource[] }>(url)
+        .pipe(map((response: any) => response.results))
+    );
+    const detailsPromises = response.map((pokemon: NamedAPIResource) =>
+      firstValueFrom(this.http.get<PokemonDetail>(pokemon.url))
+    );
+    const details = await Promise.all(detailsPromises);
+
+    return details.map((pokemon: PokemonDetail) => ({
+      id: pokemon.id,
+      name: pokemon.name,
+      imageUrl: pokemon.sprites.other['official-artwork'].front_default || '',
+    }));
   }
 }

@@ -1,18 +1,40 @@
 .menu-item {
-    display: flex;
-    align-items: center;
-    gap: 26px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .menu-item span {
-    color: #ACB9C1;
-    font-family: Inter;
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 150%;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 150%;
+  transition: color 0.2s ease;
 }
 
 .menu-item svg {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.menu-icon {
+  transition: color 0.2s ease;
+}
+
+.menu-icon svg {
+  color: inherit;
+}
+
+.menu-icon svg path,
+.menu-icon svg circle {
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+@media (max-width: 480px) {
+  .menu-item span {
+    font-size: 16px;
+  }
 }
