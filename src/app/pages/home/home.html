@@ -1,6 +1,7 @@
 <section class="home">
     <div class="hero" [style.background]="currentBgColor">
-        <app-navbar class="hero-navbar" [style.background]="currentBgColor"></app-navbar>
+        <app-navbar class="hero-navbar" [style.background]="currentBgColor"
+            (typeSelected)="onTypeSelected($event)"></app-navbar>
         <div class="hero-content">
             <div class="hero-items">
                 <app-drop-svg class="hero-drop-svg" [color]="currentSvgColor"></app-drop-svg>
@@ -82,7 +83,7 @@
                 </h3>
             </div>
             @if (!isMobile) {
-            <app-menu></app-menu>
+            <app-menu (typeSelected)="onTypeSelected($event)"></app-menu>
             }
             @else {
             <app-mobile-filter></app-mobile-filter>

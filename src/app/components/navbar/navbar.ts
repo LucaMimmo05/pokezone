@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { Logo } from "../logo/logo";
-import { BurgerMenu } from "../burger-menu/burger-menu";
+import { Component, output } from '@angular/core';
+import { Logo } from '../logo/logo';
+import { BurgerMenu } from '../burger-menu/burger-menu';
 
 @Component({
   selector: 'app-navbar',
@@ -9,5 +9,9 @@ import { BurgerMenu } from "../burger-menu/burger-menu";
   styleUrl: './navbar.css',
 })
 export class Navbar {
+  typeSelected = output<string>();
 
+  onTypeSelected(type: string) {
+    this.typeSelected.emit(type);
+  }
 }

@@ -5,7 +5,10 @@
     </div>
     <div class="pokemon-text">
         <div class="pokemon-id">#{{ poke.id.toString().padStart(3, '0') }}</div>
-        <h3 class="pokemon-name">{{ capitalize(poke.name) }}</h3>
+        <div class="pokemon-bottom">
+            <h3 class="pokemon-name">{{ capitalize(poke.name) }}</h3>
+            <div class="pokemon-type-icon" [class]="getTypeClass(poke.types[0])"></div>
+        </div>
     </div>
 </div>
 }

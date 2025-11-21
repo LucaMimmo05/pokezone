@@ -16,8 +16,7 @@ import { BurgerMenu } from '../../components/burger-menu/burger-menu';
 import { PokemonCard as PokemonCardComponent } from '../../components/pokemon-card/pokemon-card';
 import { PokemonCard } from '../../models/dashboard/pokemon-card';
 import { PokemonService } from '../../services/pokemon.service';
-import { Navbar } from "../../components/navbar/navbar";
-
+import { Navbar } from '../../components/navbar/navbar';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +34,7 @@ import { Navbar } from "../../components/navbar/navbar";
     SmallPokeballSvg,
     MobileFilter,
     PokemonCardComponent,
-    Navbar
+    Navbar,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -52,6 +51,7 @@ export class Home implements OnInit, OnDestroy {
   private offset = 0;
   private limit = 9;
   isLoading = false;
+  selectedType = '';
   searchQuery = '';
   isSearching = false;
 
@@ -106,7 +106,11 @@ export class Home implements OnInit, OnDestroy {
   async getPokemons() {
     this.isSearching = false;
     this.isLoading = true;
-    const newPokemons = await this.pokemonService.getPokemonCards(this.limit, this.offset);
+    const newPokemons = await this.pokemonService.getPokemonCards(
+      this.limit,
+      this.offset,
+      this.selectedType
+    );
     this.pokemons = newPokemons;
     this.offset += this.limit;
     this.isLoading = false;
@@ -115,10 +119,28 @@ export class Home implements OnInit, OnDestroy {
   async loadMore() {
     if (this.isLoading || this.isSearching) return;
     this.isLoading = true;
-    const newPokemons = await this.pokemonService.getPokemonCards(this.limit, this.offset);
+    const newPokemons = await this.pokemonService.getPokemonCards(
+      this.limit,
+      this.offset,
+      this.selectedType
+    );
     this.pokemons = [...this.pokemons, ...newPokemons];
     this.offset += this.limit;
     this.isLoading = false;
+  }
+
+  async onTypeSelected(type: string) {
+    this.selectedType = type;
+    this.offset = 0;
+    await this.getPokemons();
+    this.scrollToPokemonSection();
+  }
+
+  private scrollToPokemonSection() {
+    const section = document.querySelector('.sec3');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   async onSearchInput(event: Event) {
