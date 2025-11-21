@@ -14,7 +14,7 @@
                 <span class="bag-text" [style.color]="currentBgColor">pokezone</span>
             </div>
             <div class="hero-title">
-                <h1>{{isChangePokeball() ? "Who’s that Pokémon?" : "Catch ’em all!"}}</h1>
+                <h1>{{isChangePokeball() ? "Who's that Pokémon?" : "Catch 'em all!"}}</h1>
                 <p>The perfect guide for those who want to catch Pokémon all over the world</p>
             </div>
             <div class="hero-items">
@@ -49,8 +49,14 @@
         <div class="sec2-top">
             <h1>Select your Pokémon!</h1>
             <div class="search-bar">
-                <input type="text" placeholder="Search by name or code">
-                <button>
+                <input 
+                    type="text" 
+                    placeholder="Search by name or code"
+                    [value]="searchQuery"
+                    (input)="onSearchInput($event)"
+                    (keyup.enter)="onSearchSubmit()"
+                >
+                <button (click)="onSearchSubmit()" [disabled]="isLoading">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                         <path
                             d="M11.1931 2.72879C13.525 5.03385 13.525 8.7711 11.1931 11.0762C8.86132 13.3812 5.08069 13.3812 2.74887 11.0762C0.417045 8.7711 0.417045 5.03385 2.74887 2.72879C5.08069 0.423735 8.86132 0.423735 11.1931 2.72879"
@@ -66,6 +72,16 @@
 
     <div class="sec3">
         <div class="sec3-content">
+            <div class="sec3-top">
+                <app-small-pokeball-svg class="small-pokeball"></app-small-pokeball-svg>
+                <h3>
+                    @if (isSearching) {
+                        Search results
+                    } @else {
+                        {{ pokemons.length }} Pokémons
+                    }
+                </h3>
+            </div>
             @if (!isMobile) {
             <app-menu (typeSelected)="onTypeSelected($event)"></app-menu>
             }

@@ -52,6 +52,8 @@ export class Home implements OnInit, OnDestroy {
   private limit = 9;
   isLoading = false;
   selectedType = '';
+  searchQuery = '';
+  isSearching = false;
 
   @HostListener('window:resize')
   onResize() {
@@ -102,6 +104,7 @@ export class Home implements OnInit, OnDestroy {
   }
 
   async getPokemons() {
+    this.isSearching = false;
     this.isLoading = true;
     const newPokemons = await this.pokemonService.getPokemonCards(
       this.limit,
@@ -114,7 +117,7 @@ export class Home implements OnInit, OnDestroy {
   }
 
   async loadMore() {
-    if (this.isLoading) return;
+    if (this.isLoading || this.isSearching) return;
     this.isLoading = true;
     const newPokemons = await this.pokemonService.getPokemonCards(
       this.limit,
@@ -139,6 +142,63 @@ export class Home implements OnInit, OnDestroy {
     const section = document.querySelector('.sec3');
     if (section) {
       section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  async onSearchInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.searchQuery = input.value;
+
+    const termAsNumber = Number(this.searchQuery);
+    const isNumericSearch = !isNaN(termAsNumber) && termAsNumber > 0;
+
+    // Controlla i minimi caratteri richiesti
+    const hasMinChars = (isNumericSearch && this.searchQuery.length >= 2) ||
+      (!isNumericSearch && this.searchQuery.length >= 3);
+
+    if (hasMinChars) {
+      await this.performSearch();
+    } else if (this.searchQuery.length === 0) {
+      this.offset = 0;
+      this.getPokemons();
+    }
+  }
+
+  async onSearchSubmit() {
+    const termAsNumber = Number(this.searchQuery);
+    const isNumericSearch = !isNaN(termAsNumber) && termAsNumber > 0;
+
+    // Controlla i minimi caratteri richiesti anche per il submit
+    const hasMinChars = (isNumericSearch && this.searchQuery.length >= 2) ||
+      (!isNumericSearch && this.searchQuery.length >= 3);
+
+    if (this.searchQuery.trim() && hasMinChars) {
+      await this.performSearch();
+    }
+  }
+
+  private async performSearch() {
+    this.isSearching = true;
+    this.isLoading = true;
+
+    try {
+      const searchResults = await this.pokemonService.searchPokemon(this.searchQuery);
+
+      if (searchResults.length > 0) {
+        this.pokemons = searchResults.map(pokemon => ({
+          id: pokemon.id,
+          name: pokemon.name,
+          imageUrl: pokemon.imageUrl,
+          types: []
+        }));
+      } else {
+        this.pokemons = [];
+      }
+    } catch (error) {
+      console.error('Errore durante la ricerca:', error);
+      this.pokemons = [];
+    } finally {
+      this.isLoading = false;
     }
   }
 }
