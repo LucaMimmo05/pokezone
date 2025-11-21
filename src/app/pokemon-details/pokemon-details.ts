@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { PokezoneService } from '../services/pokezone-service';
 import { Pokemon } from '../models/pokemon-details/pokemon';
 
 @Component({
   selector: 'app-pokemon-details',
-  imports: [CommonModule],
+  imports: [CommonModule, MatProgressBarModule],
   templateUrl: './pokemon-details.html',
   styleUrl: './pokemon-details.css'
 })
@@ -17,6 +18,7 @@ export class PokemonDetails {
     id: number = 4;
     category: any = null;
     weaknesses: string[] = [];
+    MAX_STAT_VALUE = 200;
 
     async ngOnInit() {
       await this.loadPokemonDetails();
@@ -41,5 +43,10 @@ export class PokemonDetails {
         return '#' + this.pokemon.id.toString().padStart(3, '0')
       }
       else return;
+    }
+    
+    getStatPercentage(baseStat: number): number {
+      let percentage = (baseStat / this.MAX_STAT_VALUE) * 100;
+      return Math.min(percentage, 100); 
     }
 }

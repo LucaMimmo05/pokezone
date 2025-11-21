@@ -53,6 +53,7 @@
 }
 
 .titleSection {
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,6 +75,7 @@
 }
 
 .typeSection {
+  width: 90%;
   display: flex;
   justify-content: center;  
   text-align: center; 
@@ -114,6 +116,7 @@
 .infoLabel {
   color: #7A7D80;
   margin-right: 0.5em;
+  text-transform: capitalize;
 }
 
 .infoValue {
@@ -130,7 +133,7 @@
   margin-top: 2vh;
 }
 
-.weaknessLabel{
+.label{
   font-weight: 700;
   color: #4D5053;
   padding: 2vh 0;
@@ -142,6 +145,35 @@
   justify-content: center; 
   gap: 2vw;
   max-width: 80%;
+}
+
+.statSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2vh;
+}
+
+.statList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2vh;
+
+}
+
+.statRow {
+  width: 100%;
+}
+
+.customProgressBar {
+  height: 12px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 @media (min-width: 769px) {
