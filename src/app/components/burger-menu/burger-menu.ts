@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MENU_ITEMS } from '../../constraints/menu-items';
-import { MenuItem } from "../menu-item/menu-item";
+import { MenuItem } from '../menu-item/menu-item';
 
 @Component({
   selector: 'app-burger-menu',
@@ -8,10 +8,9 @@ import { MenuItem } from "../menu-item/menu-item";
   templateUrl: './burger-menu.html',
   styleUrl: './burger-menu.css',
 })
-
 export class BurgerMenu {
-
   items = MENU_ITEMS;
+  activeIndex = 0;
 
   toggleMenu(event: Event) {
     const checked = (event.target as HTMLInputElement).checked;
@@ -21,5 +20,9 @@ export class BurgerMenu {
       document.body.style.overflow = '';
     }
   }
-}
 
+
+  setActive(index: number) {
+    this.activeIndex = index;
+  }
+}
