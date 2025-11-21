@@ -9,23 +9,10 @@
 .hero {
   padding-inline: 111px;
   padding-block: 80px;
-  background: #c20001;
   width: 100%;
   display: flex;
   justify-content: center;
-  animation: heroColorTransition 30s ease-in-out infinite;
-}
-
-@keyframes heroColorTransition {
-  0%, 40% {
-    background: #c20001;
-  }
-  50%, 90% {
-    background: #5876c4;
-  }
-  100% {
-    background: #c20001;
-  }
+  transition: background 0.5s ease;
 }
 
 .hero-content {
@@ -74,6 +61,8 @@
   flex-direction: column;
   gap: 8px;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-title h1 {
@@ -105,6 +94,7 @@
   bottom: 90%;
   transform: translate(50%);
   opacity: 0.7;
+  z-index: 1;
 }
 
 .hero-items:nth-child(4) {
@@ -170,8 +160,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .error {
@@ -193,11 +188,17 @@
   border: 0;
   cursor: pointer;
   transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
 }
 
-.btn:active { transform: translateY(1px) scale(0.99); }
-.btn:focus { outline: none; box-shadow: 0 0 0 3px rgba(63,103,186,.25); }
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(63, 103, 186, .25);
+}
 
 .btn-primary {
   background: linear-gradient(180deg, #3f67ba 0%, #2f56a8 100%);
@@ -209,7 +210,9 @@
   box-shadow: 0 4px 10px rgba(52, 94, 182, .20);
 }
 
-.error .btn { margin-top: 12px; }
+.error .btn {
+  margin-top: 12px;
+}
 
 .placeholder-banner {
   background: #fff3cd;
@@ -220,7 +223,7 @@
   border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .stats-grid {
@@ -341,6 +344,7 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -403,12 +407,13 @@
     width: 0 !important;
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
 
- /* Shimmer effect removed for a cleaner, static look */
+/* Shimmer effect removed for a cleaner, static look */
 
 .type-bar:hover {
   transform: scaleY(1.03);
@@ -459,89 +464,836 @@
 }
 
 /* Colori per le slice dei tipi Pokemon */
-.type-slice[data-type="fire"] { fill: #f08030; }
-.type-slice[data-type="water"] { fill: #6890f0; }
-.type-slice[data-type="grass"] { fill: #78c850; }
-.type-slice[data-type="electric"] { fill: #f8d030; }
-.type-slice[data-type="psychic"] { fill: #f85888; }
-.type-slice[data-type="ice"] { fill: #98d8d8; }
-.type-slice[data-type="dragon"] { fill: #7038f8; }
-.type-slice[data-type="dark"] { fill: #705848; }
-.type-slice[data-type="fairy"] { fill: #ee99ac; }
-.type-slice[data-type="normal"] { fill: #a8a878; }
-.type-slice[data-type="fighting"] { fill: #c03028; }
-.type-slice[data-type="flying"] { fill: #a890f0; }
-.type-slice[data-type="poison"] { fill: #a040a0; }
-.type-slice[data-type="ground"] { fill: #e0c068; }
-.type-slice[data-type="rock"] { fill: #b8a038; }
-.type-slice[data-type="bug"] { fill: #a8b820; }
-.type-slice[data-type="ghost"] { fill: #705898; }
-.type-slice[data-type="steel"] { fill: #b8b8d0; }
+.type-slice[data-type="fire"] {
+  fill: #f08030;
+}
+
+.type-slice[data-type="water"] {
+  fill: #6890f0;
+}
+
+.type-slice[data-type="grass"] {
+  fill: #78c850;
+}
+
+.type-slice[data-type="electric"] {
+  fill: #f8d030;
+}
+
+.type-slice[data-type="psychic"] {
+  fill: #f85888;
+}
+
+.type-slice[data-type="ice"] {
+  fill: #98d8d8;
+}
+
+.type-slice[data-type="dragon"] {
+  fill: #7038f8;
+}
+
+.type-slice[data-type="dark"] {
+  fill: #705848;
+}
+
+.type-slice[data-type="fairy"] {
+  fill: #ee99ac;
+}
+
+.type-slice[data-type="normal"] {
+  fill: #a8a878;
+}
+
+.type-slice[data-type="fighting"] {
+  fill: #c03028;
+}
+
+.type-slice[data-type="flying"] {
+  fill: #a890f0;
+}
+
+.type-slice[data-type="poison"] {
+  fill: #a040a0;
+}
+
+.type-slice[data-type="ground"] {
+  fill: #e0c068;
+}
+
+.type-slice[data-type="rock"] {
+  fill: #b8a038;
+}
+
+.type-slice[data-type="bug"] {
+  fill: #a8b820;
+}
+
+.type-slice[data-type="ghost"] {
+  fill: #705898;
+}
+
+.type-slice[data-type="steel"] {
+  fill: #b8b8d0;
+}
 
 /* Colori per le slice dei colori Pokemon */
-.color-slice[data-color="red"] { fill: #ff4444; }
-.color-slice[data-color="blue"] { fill: #4169e1; }
-.color-slice[data-color="yellow"] { fill: #ffd700; }
-.color-slice[data-color="green"] { fill: #32cd32; }
-.color-slice[data-color="black"] { fill: #333333; }
-.color-slice[data-color="brown"] { fill: #8b4513; }
-.color-slice[data-color="purple"] { fill: #9370db; }
-.color-slice[data-color="gray"] { fill: #808080; }
-.color-slice[data-color="white"] { fill: #f5f5f5; }
-.color-slice[data-color="pink"] { fill: #ffb6c1; }
+.color-slice[data-color="red"] {
+  fill: #ff4444;
+}
+
+.color-slice[data-color="blue"] {
+  fill: #4169e1;
+}
+
+.color-slice[data-color="yellow"] {
+  fill: #ffd700;
+}
+
+.color-slice[data-color="green"] {
+  fill: #32cd32;
+}
+
+.color-slice[data-color="black"] {
+  fill: #333333;
+}
+
+.color-slice[data-color="brown"] {
+  fill: #8b4513;
+}
+
+.color-slice[data-color="purple"] {
+  fill: #9370db;
+}
+
+.color-slice[data-color="gray"] {
+  fill: #808080;
+}
+
+.color-slice[data-color="white"] {
+  fill: #f5f5f5;
+}
+
+.color-slice[data-color="pink"] {
+  fill: #ffb6c1;
+}
 
 /* Colori per le slice delle forme - gradient arcobaleno */
-.shape-slice:nth-child(1) { fill: #e74c3c; }
-.shape-slice:nth-child(2) { fill: #e67e22; }
-.shape-slice:nth-child(3) { fill: #f39c12; }
-.shape-slice:nth-child(4) { fill: #f1c40f; }
-.shape-slice:nth-child(5) { fill: #2ecc71; }
-.shape-slice:nth-child(6) { fill: #1abc9c; }
-.shape-slice:nth-child(7) { fill: #3498db; }
-.shape-slice:nth-child(8) { fill: #9b59b6; }
-.shape-slice:nth-child(9) { fill: #e91e63; }
-.shape-slice:nth-child(10) { fill: #95a5a6; }
+.shape-slice:nth-child(1) {
+  fill: #e74c3c;
+}
+
+.shape-slice:nth-child(2) {
+  fill: #e67e22;
+}
+
+.shape-slice:nth-child(3) {
+  fill: #f39c12;
+}
+
+.shape-slice:nth-child(4) {
+  fill: #f1c40f;
+}
+
+.shape-slice:nth-child(5) {
+  fill: #2ecc71;
+}
+
+.shape-slice:nth-child(6) {
+  fill: #1abc9c;
+}
+
+.shape-slice:nth-child(7) {
+  fill: #3498db;
+}
+
+.shape-slice:nth-child(8) {
+  fill: #9b59b6;
+}
+
+.shape-slice:nth-child(9) {
+  fill: #e91e63;
+}
+
+.shape-slice:nth-child(10) {
+  fill: #95a5a6;
+}
 
 /* Colori per la legenda tipi */
-.legend-color[data-type="fire"] { background: #f08030; }
-.legend-color[data-type="water"] { background: #6890f0; }
-.legend-color[data-type="grass"] { background: #78c850; }
-.legend-color[data-type="electric"] { background: #f8d030; }
-.legend-color[data-type="psychic"] { background: #f85888; }
-.legend-color[data-type="ice"] { background: #98d8d8; }
-.legend-color[data-type="dragon"] { background: #7038f8; }
-.legend-color[data-type="dark"] { background: #705848; }
-.legend-color[data-type="fairy"] { background: #ee99ac; }
-.legend-color[data-type="normal"] { background: #a8a878; }
-.legend-color[data-type="fighting"] { background: #c03028; }
-.legend-color[data-type="flying"] { background: #a890f0; }
-.legend-color[data-type="poison"] { background: #a040a0; }
-.legend-color[data-type="ground"] { background: #e0c068; }
-.legend-color[data-type="rock"] { background: #b8a038; }
-.legend-color[data-type="bug"] { background: #a8b820; }
-.legend-color[data-type="ghost"] { background: #705898; }
-.legend-color[data-type="steel"] { background: #b8b8d0; }
+.legend-color[data-type="fire"] {
+  background: #f08030;
+}
+
+.legend-color[data-type="water"] {
+  background: #6890f0;
+}
+
+.legend-color[data-type="grass"] {
+  background: #78c850;
+}
+
+.legend-color[data-type="electric"] {
+  background: #f8d030;
+}
+
+.legend-color[data-type="psychic"] {
+  background: #f85888;
+}
+
+.legend-color[data-type="ice"] {
+  background: #98d8d8;
+}
+
+.legend-color[data-type="dragon"] {
+  background: #7038f8;
+}
+
+.legend-color[data-type="dark"] {
+  background: #705848;
+}
+
+.legend-color[data-type="fairy"] {
+  background: #ee99ac;
+}
+
+.legend-color[data-type="normal"] {
+  background: #a8a878;
+}
+
+.legend-color[data-type="fighting"] {
+  background: #c03028;
+}
+
+.legend-color[data-type="flying"] {
+  background: #a890f0;
+}
+
+.legend-color[data-type="poison"] {
+  background: #a040a0;
+}
+
+.legend-color[data-type="ground"] {
+  background: #e0c068;
+}
+
+.legend-color[data-type="rock"] {
+  background: #b8a038;
+}
+
+.legend-color[data-type="bug"] {
+  background: #a8b820;
+}
+
+.legend-color[data-type="ghost"] {
+  background: #705898;
+}
+
+.legend-color[data-type="steel"] {
+  background: #b8b8d0;
+}
 
 /* Colori per la legenda colori */
-.color-indicator[data-color="red"] { background: #ff4444; }
-.color-indicator[data-color="blue"] { background: #4169e1; }
-.color-indicator[data-color="yellow"] { background: #ffd700; }
-.color-indicator[data-color="green"] { background: #32cd32; }
-.color-indicator[data-color="black"] { background: #333333; }
-.color-indicator[data-color="brown"] { background: #8b4513; }
-.color-indicator[data-color="purple"] { background: #9370db; }
-.color-indicator[data-color="gray"] { background: #808080; }
-.color-indicator[data-color="white"] { background: #f5f5f5; border: 1px solid #ccc; }
-.color-indicator[data-color="pink"] { background: #ffb6c1; }
+.color-indicator[data-color="red"] {
+  background: #ff4444;
+}
+
+.color-indicator[data-color="blue"] {
+  background: #4169e1;
+}
+
+.color-indicator[data-color="yellow"] {
+  background: #ffd700;
+}
+
+.color-indicator[data-color="green"] {
+  background: #32cd32;
+}
+
+.color-indicator[data-color="black"] {
+  background: #333333;
+}
+
+.color-indicator[data-color="brown"] {
+  background: #8b4513;
+}
+
+.color-indicator[data-color="purple"] {
+  background: #9370db;
+}
+
+.color-indicator[data-color="gray"] {
+  background: #808080;
+}
+
+.color-indicator[data-color="white"] {
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+}
+
+.color-indicator[data-color="pink"] {
+  background: #ffb6c1;
+}
 
 /* Colori per la legenda forme */
-.shape-indicator:nth-child(1) { background: #e74c3c; }
-.shape-indicator:nth-child(2) { background: #e67e22; }
-.shape-indicator:nth-child(3) { background: #f39c12; }
-.shape-indicator:nth-child(4) { background: #f1c40f; }
-.shape-indicator:nth-child(5) { background: #2ecc71; }
-.shape-indicator:nth-child(6) { background: #1abc9c; }
-.shape-indicator:nth-child(7) { background: #3498db; }
-.shape-indicator:nth-child(8) { background: #9b59b6; }
-.shape-indicator:nth-child(9) { background: #e91e63; }
-.shape-indicator:nth-child(10) { background: #95a5a6; }
+.shape-indicator:nth-child(1) {
+  background: #e74c3c;
+}
+
+.shape-indicator:nth-child(2) {
+  background: #e67e22;
+}
+
+.shape-indicator:nth-child(3) {
+  background: #f39c12;
+}
+
+.shape-indicator:nth-child(4) {
+  background: #f1c40f;
+}
+
+.shape-indicator:nth-child(5) {
+  background: #2ecc71;
+}
+
+.shape-indicator:nth-child(6) {
+  background: #1abc9c;
+}
+
+.shape-indicator:nth-child(7) {
+  background: #3498db;
+}
+
+.shape-indicator:nth-child(8) {
+  background: #9b59b6;
+}
+
+.shape-indicator:nth-child(9) {
+  background: #e91e63;
+}
+
+.shape-indicator:nth-child(10) {
+  background: #95a5a6;
+}
+
+/* ===== RESPONSIVE DESIGN - MOBILE ===== */
+
+/* Tablet grandi e desktop piccoli (max 1024px) */
+@media (max-width: 1024px) {
+
+  /* Nascondi SVG decorativi sotto 1024px */
+  .hero-items {
+    display: none;
+  }
+
+  .hero {
+    padding-inline: 80px;
+    padding-block: 70px;
+  }
+
+  .hero-title h1 {
+    font-size: 52px;
+  }
+
+  .hero-title p {
+    font-size: 17px;
+  }
+
+  .stats-grid {
+    padding: 50px 80px 35px 80px;
+    gap: 28px;
+  }
+
+  .charts-container {
+    padding: 0 80px 70px 80px;
+    gap: 35px;
+  }
+
+  .placeholder-banner {
+    margin: 0 80px 30px 80px;
+  }
+
+  .pie-charts-row {
+    gap: 35px;
+  }
+
+  .pie-charts-row .chart-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .chart-section {
+    padding: 30px;
+  }
+
+  .chart-section apx-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+/* Tablet medi (max 912px - Surface Pro 7) */
+@media (max-width: 912px) {
+  .hero {
+    padding-inline: 60px;
+    padding-block: 60px;
+  }
+
+  .hero-title h1 {
+    font-size: 48px;
+  }
+
+  .hero-title p {
+    font-size: 16px;
+  }
+
+  .stats-grid {
+    padding: 40px 60px 30px 60px;
+    gap: 25px;
+  }
+
+  .charts-container {
+    padding: 0 60px 60px 60px;
+    gap: 30px;
+  }
+
+  .placeholder-banner {
+    margin: 0 60px 25px 60px;
+  }
+
+  /* Grafici a torta in colonna da 912px */
+  .pie-charts-row {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chart-section h2 {
+    text-align: center;
+  }
+}
+
+/* Tablet e Asus Zenbook Fold (max 853px) */
+@media (max-width: 853px) {
+  .hero {
+    padding-inline: 50px;
+    padding-block: 55px;
+  }
+
+  .hero-title h1 {
+    font-size: 44px;
+  }
+
+  .stats-grid {
+    padding: 35px 50px 28px 50px;
+  }
+
+  .charts-container {
+    padding: 0 50px 55px 50px;
+  }
+
+  .placeholder-banner {
+    margin: 0 50px 22px 50px;
+  }
+}
+
+/* iPad Air e schermi simili (max 820px) */
+@media (max-width: 820px) {
+  .hero {
+    padding-inline: 40px;
+    padding-block: 50px;
+  }
+
+  .hero-title h1 {
+    font-size: 42px;
+  }
+
+  .hero-title p {
+    font-size: 16px;
+  }
+
+  .stats-grid {
+    padding: 35px 40px 28px 40px;
+    gap: 22px;
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 32px;
+  }
+
+  .charts-container {
+    padding: 0 40px 50px 40px;
+    gap: 28px;
+  }
+
+  .placeholder-banner {
+    margin: 0 40px 22px 40px;
+  }
+
+  .chart-section {
+    padding: 28px;
+  }
+
+  .pie-charts-row {
+    gap: 28px;
+  }
+
+  .chart-section h2 {
+    font-size: 1.25rem;
+    margin-bottom: 22px;
+  }
+
+  /* Adatta barre dei tipi */
+  .type-bar-item {
+    grid-template-columns: 130px 1fr;
+    gap: 14px;
+  }
+
+  .type-label {
+    font-size: 14px;
+    gap: 9px;
+  }
+
+  .type-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .type-bar-container {
+    height: 44px;
+  }
+
+  .type-bar {
+    padding-right: 13px;
+  }
+
+  .type-count {
+    font-size: 14px;
+  }
+
+  .type-bars {
+    gap: 16px;
+  }
+}
+
+/* iPad Mini e tablet piccoli (max 768px) */
+@media (max-width: 768px) {
+  .hero {
+    padding-inline: 35px;
+    padding-block: 45px;
+  }
+
+  .hero-title h1 {
+    font-size: 38px;
+    letter-spacing: -0.38px;
+  }
+
+  .hero-title p {
+    font-size: 15px;
+  }
+
+  .stats-grid {
+    padding: 32px 35px 26px 35px;
+    gap: 20px;
+  }
+
+  .stat-card {
+    padding: 30px;
+  }
+
+  .stat-number {
+    font-size: 3rem;
+  }
+
+  .charts-container {
+    padding: 0 35px 48px 35px;
+    gap: 26px;
+  }
+
+  .placeholder-banner {
+    margin: 0 35px 20px 35px;
+    padding: 12px 18px;
+    font-size: 13px;
+  }
+
+  .pie-charts-row {
+    gap: 26px;
+  }
+
+  .chart-section {
+    padding: 26px;
+  }
+
+  .chart-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+
+  .type-bar-item {
+    grid-template-columns: 120px 1fr;
+    gap: 12px;
+  }
+
+  .type-label {
+    font-size: 14px;
+    gap: 8px;
+  }
+
+  .type-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .type-bar-container {
+    height: 42px;
+  }
+
+  .type-bar {
+    padding-right: 12px;
+  }
+
+  .type-count {
+    font-size: 14px;
+  }
+
+  .type-bars {
+    gap: 15px;
+  }
+}
+
+/* Surface Duo e mobile landscape (max 720px) */
+@media (max-width: 720px) {
+  .hero {
+    padding-inline: 30px;
+    padding-block: 42px;
+  }
+
+  .hero-title h1 {
+    font-size: 36px;
+  }
+
+  .stats-grid {
+    padding: 30px 30px 24px 30px;
+  }
+
+  .charts-container {
+    padding: 0 30px 45px 30px;
+  }
+
+  .placeholder-banner {
+    margin: 0 30px 18px 30px;
+  }
+}
+
+/* Mobile grandi (max 600px) */
+@media (max-width: 600px) {
+  .hero {
+    padding-inline: 28px;
+    padding-block: 40px;
+  }
+
+  .hero-title h1 {
+    font-size: 34px;
+  }
+
+  .stats-grid {
+    padding: 28px 28px 22px 28px;
+    gap: 18px;
+  }
+
+  .stat-card {
+    padding: 28px;
+  }
+
+  .stat-number {
+    font-size: 2.8rem;
+  }
+
+  .charts-container {
+    padding: 0 28px 42px 28px;
+    gap: 24px;
+  }
+
+  .placeholder-banner {
+    margin: 0 28px 18px 28px;
+  }
+
+  .chart-section {
+    padding: 24px;
+  }
+
+  .pie-charts-row {
+    gap: 24px;
+  }
+}
+
+/* Mobile piccolo (max 480px) */
+@media (max-width: 480px) {
+  .hero {
+    padding-inline: 20px;
+    padding-block: 40px;
+  }
+
+  .hero-content {
+    gap: 20px;
+  }
+
+  .hero-tag {
+    width: 130px;
+    height: 32px;
+  }
+
+  .bag {
+    width: 24px;
+    height: 24px;
+    font-size: 13px;
+  }
+
+  .bag-text {
+    font-size: 14px;
+  }
+
+  .hero-title h1 {
+    font-size: 28px;
+    letter-spacing: -0.28px;
+  }
+
+  .hero-title p {
+    font-size: 14px;
+    padding: 0 10px;
+  }
+
+  .stats-grid {
+    padding: 25px 20px 20px 20px;
+    gap: 15px;
+  }
+
+  .stat-card {
+    padding: 25px 20px;
+  }
+
+  .stat-card h3 {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+  }
+
+  .charts-container {
+    padding: 0 20px 40px 20px;
+    gap: 20px;
+  }
+
+  .placeholder-banner {
+    margin: 0 20px 15px 20px;
+    padding: 10px 15px;
+    font-size: 12px;
+  }
+
+  .chart-section {
+    padding: 20px;
+  }
+
+  .chart-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+
+  /* Barre ancora più compatte su mobile piccolo */
+  .type-bar-item {
+    grid-template-columns: 100px 1fr;
+    gap: 10px;
+  }
+
+  .type-label {
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .type-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .type-bar-container {
+    height: 38px;
+  }
+
+  .type-bar {
+    padding-right: 10px;
+    min-width: 60px;
+  }
+
+  .type-count {
+    font-size: 13px;
+  }
+
+  .type-bars {
+    gap: 12px;
+    padding: 5px 0;
+  }
+
+  .loading {
+    padding: 60px 30px;
+  }
+
+  .pokeball-spinner {
+    width: 40px;
+    height: 40px;
+  }
+
+  .error {
+    padding: 20px 15px;
+    font-size: 14px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile molto piccolo (max 360px) */
+@media (max-width: 360px) {
+  .hero-title h1 {
+    font-size: 24px;
+  }
+
+  .hero-title p {
+    font-size: 13px;
+  }
+
+  .stat-number {
+    font-size: 2.2rem;
+  }
+
+  .type-bar-item {
+    grid-template-columns: 85px 1fr;
+    gap: 8px;
+  }
+
+  .type-label {
+    font-size: 12px;
+    gap: 5px;
+  }
+
+  .type-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .type-bar-container {
+    height: 35px;
+  }
+
+  .type-count {
+    font-size: 12px;
+  }
+}
