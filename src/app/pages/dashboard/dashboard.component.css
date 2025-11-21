@@ -61,6 +61,8 @@
   flex-direction: column;
   gap: 8px;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-title h1 {
@@ -92,6 +94,7 @@
   bottom: 90%;
   transform: translate(50%);
   opacity: 0.7;
+  z-index: 1;
 }
 
 .hero-items:nth-child(4) {
@@ -157,8 +160,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .error {
@@ -180,11 +188,17 @@
   border: 0;
   cursor: pointer;
   transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
 }
 
-.btn:active { transform: translateY(1px) scale(0.99); }
-.btn:focus { outline: none; box-shadow: 0 0 0 3px rgba(63,103,186,.25); }
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(63, 103, 186, .25);
+}
 
 .btn-primary {
   background: linear-gradient(180deg, #3f67ba 0%, #2f56a8 100%);
@@ -196,7 +210,9 @@
   box-shadow: 0 4px 10px rgba(52, 94, 182, .20);
 }
 
-.error .btn { margin-top: 12px; }
+.error .btn {
+  margin-top: 12px;
+}
 
 .placeholder-banner {
   background: #fff3cd;
@@ -207,7 +223,7 @@
   border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .stats-grid {
@@ -328,6 +344,7 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -390,12 +407,13 @@
     width: 0 !important;
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
 
- /* Shimmer effect removed for a cleaner, static look */
+/* Shimmer effect removed for a cleaner, static look */
 
 .type-bar:hover {
   transform: scaleY(1.03);
@@ -446,97 +464,321 @@
 }
 
 /* Colori per le slice dei tipi Pokemon */
-.type-slice[data-type="fire"] { fill: #f08030; }
-.type-slice[data-type="water"] { fill: #6890f0; }
-.type-slice[data-type="grass"] { fill: #78c850; }
-.type-slice[data-type="electric"] { fill: #f8d030; }
-.type-slice[data-type="psychic"] { fill: #f85888; }
-.type-slice[data-type="ice"] { fill: #98d8d8; }
-.type-slice[data-type="dragon"] { fill: #7038f8; }
-.type-slice[data-type="dark"] { fill: #705848; }
-.type-slice[data-type="fairy"] { fill: #ee99ac; }
-.type-slice[data-type="normal"] { fill: #a8a878; }
-.type-slice[data-type="fighting"] { fill: #c03028; }
-.type-slice[data-type="flying"] { fill: #a890f0; }
-.type-slice[data-type="poison"] { fill: #a040a0; }
-.type-slice[data-type="ground"] { fill: #e0c068; }
-.type-slice[data-type="rock"] { fill: #b8a038; }
-.type-slice[data-type="bug"] { fill: #a8b820; }
-.type-slice[data-type="ghost"] { fill: #705898; }
-.type-slice[data-type="steel"] { fill: #b8b8d0; }
+.type-slice[data-type="fire"] {
+  fill: #f08030;
+}
+
+.type-slice[data-type="water"] {
+  fill: #6890f0;
+}
+
+.type-slice[data-type="grass"] {
+  fill: #78c850;
+}
+
+.type-slice[data-type="electric"] {
+  fill: #f8d030;
+}
+
+.type-slice[data-type="psychic"] {
+  fill: #f85888;
+}
+
+.type-slice[data-type="ice"] {
+  fill: #98d8d8;
+}
+
+.type-slice[data-type="dragon"] {
+  fill: #7038f8;
+}
+
+.type-slice[data-type="dark"] {
+  fill: #705848;
+}
+
+.type-slice[data-type="fairy"] {
+  fill: #ee99ac;
+}
+
+.type-slice[data-type="normal"] {
+  fill: #a8a878;
+}
+
+.type-slice[data-type="fighting"] {
+  fill: #c03028;
+}
+
+.type-slice[data-type="flying"] {
+  fill: #a890f0;
+}
+
+.type-slice[data-type="poison"] {
+  fill: #a040a0;
+}
+
+.type-slice[data-type="ground"] {
+  fill: #e0c068;
+}
+
+.type-slice[data-type="rock"] {
+  fill: #b8a038;
+}
+
+.type-slice[data-type="bug"] {
+  fill: #a8b820;
+}
+
+.type-slice[data-type="ghost"] {
+  fill: #705898;
+}
+
+.type-slice[data-type="steel"] {
+  fill: #b8b8d0;
+}
 
 /* Colori per le slice dei colori Pokemon */
-.color-slice[data-color="red"] { fill: #ff4444; }
-.color-slice[data-color="blue"] { fill: #4169e1; }
-.color-slice[data-color="yellow"] { fill: #ffd700; }
-.color-slice[data-color="green"] { fill: #32cd32; }
-.color-slice[data-color="black"] { fill: #333333; }
-.color-slice[data-color="brown"] { fill: #8b4513; }
-.color-slice[data-color="purple"] { fill: #9370db; }
-.color-slice[data-color="gray"] { fill: #808080; }
-.color-slice[data-color="white"] { fill: #f5f5f5; }
-.color-slice[data-color="pink"] { fill: #ffb6c1; }
+.color-slice[data-color="red"] {
+  fill: #ff4444;
+}
+
+.color-slice[data-color="blue"] {
+  fill: #4169e1;
+}
+
+.color-slice[data-color="yellow"] {
+  fill: #ffd700;
+}
+
+.color-slice[data-color="green"] {
+  fill: #32cd32;
+}
+
+.color-slice[data-color="black"] {
+  fill: #333333;
+}
+
+.color-slice[data-color="brown"] {
+  fill: #8b4513;
+}
+
+.color-slice[data-color="purple"] {
+  fill: #9370db;
+}
+
+.color-slice[data-color="gray"] {
+  fill: #808080;
+}
+
+.color-slice[data-color="white"] {
+  fill: #f5f5f5;
+}
+
+.color-slice[data-color="pink"] {
+  fill: #ffb6c1;
+}
 
 /* Colori per le slice delle forme - gradient arcobaleno */
-.shape-slice:nth-child(1) { fill: #e74c3c; }
-.shape-slice:nth-child(2) { fill: #e67e22; }
-.shape-slice:nth-child(3) { fill: #f39c12; }
-.shape-slice:nth-child(4) { fill: #f1c40f; }
-.shape-slice:nth-child(5) { fill: #2ecc71; }
-.shape-slice:nth-child(6) { fill: #1abc9c; }
-.shape-slice:nth-child(7) { fill: #3498db; }
-.shape-slice:nth-child(8) { fill: #9b59b6; }
-.shape-slice:nth-child(9) { fill: #e91e63; }
-.shape-slice:nth-child(10) { fill: #95a5a6; }
+.shape-slice:nth-child(1) {
+  fill: #e74c3c;
+}
+
+.shape-slice:nth-child(2) {
+  fill: #e67e22;
+}
+
+.shape-slice:nth-child(3) {
+  fill: #f39c12;
+}
+
+.shape-slice:nth-child(4) {
+  fill: #f1c40f;
+}
+
+.shape-slice:nth-child(5) {
+  fill: #2ecc71;
+}
+
+.shape-slice:nth-child(6) {
+  fill: #1abc9c;
+}
+
+.shape-slice:nth-child(7) {
+  fill: #3498db;
+}
+
+.shape-slice:nth-child(8) {
+  fill: #9b59b6;
+}
+
+.shape-slice:nth-child(9) {
+  fill: #e91e63;
+}
+
+.shape-slice:nth-child(10) {
+  fill: #95a5a6;
+}
 
 /* Colori per la legenda tipi */
-.legend-color[data-type="fire"] { background: #f08030; }
-.legend-color[data-type="water"] { background: #6890f0; }
-.legend-color[data-type="grass"] { background: #78c850; }
-.legend-color[data-type="electric"] { background: #f8d030; }
-.legend-color[data-type="psychic"] { background: #f85888; }
-.legend-color[data-type="ice"] { background: #98d8d8; }
-.legend-color[data-type="dragon"] { background: #7038f8; }
-.legend-color[data-type="dark"] { background: #705848; }
-.legend-color[data-type="fairy"] { background: #ee99ac; }
-.legend-color[data-type="normal"] { background: #a8a878; }
-.legend-color[data-type="fighting"] { background: #c03028; }
-.legend-color[data-type="flying"] { background: #a890f0; }
-.legend-color[data-type="poison"] { background: #a040a0; }
-.legend-color[data-type="ground"] { background: #e0c068; }
-.legend-color[data-type="rock"] { background: #b8a038; }
-.legend-color[data-type="bug"] { background: #a8b820; }
-.legend-color[data-type="ghost"] { background: #705898; }
-.legend-color[data-type="steel"] { background: #b8b8d0; }
+.legend-color[data-type="fire"] {
+  background: #f08030;
+}
+
+.legend-color[data-type="water"] {
+  background: #6890f0;
+}
+
+.legend-color[data-type="grass"] {
+  background: #78c850;
+}
+
+.legend-color[data-type="electric"] {
+  background: #f8d030;
+}
+
+.legend-color[data-type="psychic"] {
+  background: #f85888;
+}
+
+.legend-color[data-type="ice"] {
+  background: #98d8d8;
+}
+
+.legend-color[data-type="dragon"] {
+  background: #7038f8;
+}
+
+.legend-color[data-type="dark"] {
+  background: #705848;
+}
+
+.legend-color[data-type="fairy"] {
+  background: #ee99ac;
+}
+
+.legend-color[data-type="normal"] {
+  background: #a8a878;
+}
+
+.legend-color[data-type="fighting"] {
+  background: #c03028;
+}
+
+.legend-color[data-type="flying"] {
+  background: #a890f0;
+}
+
+.legend-color[data-type="poison"] {
+  background: #a040a0;
+}
+
+.legend-color[data-type="ground"] {
+  background: #e0c068;
+}
+
+.legend-color[data-type="rock"] {
+  background: #b8a038;
+}
+
+.legend-color[data-type="bug"] {
+  background: #a8b820;
+}
+
+.legend-color[data-type="ghost"] {
+  background: #705898;
+}
+
+.legend-color[data-type="steel"] {
+  background: #b8b8d0;
+}
 
 /* Colori per la legenda colori */
-.color-indicator[data-color="red"] { background: #ff4444; }
-.color-indicator[data-color="blue"] { background: #4169e1; }
-.color-indicator[data-color="yellow"] { background: #ffd700; }
-.color-indicator[data-color="green"] { background: #32cd32; }
-.color-indicator[data-color="black"] { background: #333333; }
-.color-indicator[data-color="brown"] { background: #8b4513; }
-.color-indicator[data-color="purple"] { background: #9370db; }
-.color-indicator[data-color="gray"] { background: #808080; }
-.color-indicator[data-color="white"] { background: #f5f5f5; border: 1px solid #ccc; }
-.color-indicator[data-color="pink"] { background: #ffb6c1; }
+.color-indicator[data-color="red"] {
+  background: #ff4444;
+}
+
+.color-indicator[data-color="blue"] {
+  background: #4169e1;
+}
+
+.color-indicator[data-color="yellow"] {
+  background: #ffd700;
+}
+
+.color-indicator[data-color="green"] {
+  background: #32cd32;
+}
+
+.color-indicator[data-color="black"] {
+  background: #333333;
+}
+
+.color-indicator[data-color="brown"] {
+  background: #8b4513;
+}
+
+.color-indicator[data-color="purple"] {
+  background: #9370db;
+}
+
+.color-indicator[data-color="gray"] {
+  background: #808080;
+}
+
+.color-indicator[data-color="white"] {
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+}
+
+.color-indicator[data-color="pink"] {
+  background: #ffb6c1;
+}
 
 /* Colori per la legenda forme */
-.shape-indicator:nth-child(1) { background: #e74c3c; }
-.shape-indicator:nth-child(2) { background: #e67e22; }
-.shape-indicator:nth-child(3) { background: #f39c12; }
-.shape-indicator:nth-child(4) { background: #f1c40f; }
-.shape-indicator:nth-child(5) { background: #2ecc71; }
-.shape-indicator:nth-child(6) { background: #1abc9c; }
-.shape-indicator:nth-child(7) { background: #3498db; }
-.shape-indicator:nth-child(8) { background: #9b59b6; }
-.shape-indicator:nth-child(9) { background: #e91e63; }
-.shape-indicator:nth-child(10) { background: #95a5a6; }
+.shape-indicator:nth-child(1) {
+  background: #e74c3c;
+}
+
+.shape-indicator:nth-child(2) {
+  background: #e67e22;
+}
+
+.shape-indicator:nth-child(3) {
+  background: #f39c12;
+}
+
+.shape-indicator:nth-child(4) {
+  background: #f1c40f;
+}
+
+.shape-indicator:nth-child(5) {
+  background: #2ecc71;
+}
+
+.shape-indicator:nth-child(6) {
+  background: #1abc9c;
+}
+
+.shape-indicator:nth-child(7) {
+  background: #3498db;
+}
+
+.shape-indicator:nth-child(8) {
+  background: #9b59b6;
+}
+
+.shape-indicator:nth-child(9) {
+  background: #e91e63;
+}
+
+.shape-indicator:nth-child(10) {
+  background: #95a5a6;
+}
 
 /* ===== RESPONSIVE DESIGN - MOBILE ===== */
 
 /* Tablet grandi e desktop piccoli (max 1024px) */
 @media (max-width: 1024px) {
+
   /* Nascondi SVG decorativi sotto 1024px */
   .hero-items {
     display: none;

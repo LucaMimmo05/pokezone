@@ -38,53 +38,49 @@
   }
 
   @if (!loading) {
-    <div class="stats-grid">
-      <div class="stat-card">
-        <h3>Total Pokemon</h3>
-        <p class="stat-number">{{ stats?.totalPokemon || 0 }}</p>
-      </div>
-      
-      <div class="stat-card">
-        <h3>Total Types</h3>
-        <p class="stat-number">{{ stats?.totalTypes || typeEntries.length }}</p>
-      </div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>Total Pokemon</h3>
+      <p class="stat-number">{{ stats?.totalPokemon || 0 }}</p>
     </div>
+
+    <div class="stat-card">
+      <h3>Total Types</h3>
+      <p class="stat-number">{{ stats?.totalTypes || typeEntries.length }}</p>
+    </div>
+  </div>
 
     @if (apiFailed) {
       <div class="placeholder-banner">Data temporarily unavailable</div>
     }
 
     <div class="charts-container">
-      <!-- Grafici a Torta - Sopra in 2 colonne -->
       <div class="pie-charts-row">
-        <!-- Grafico a Torta per Colore -->
         <div class="chart-section">
           <h2>Pokemon by Color</h2>
-          <apx-chart
-            [series]="colorChartOptions.series!"
+          <apx-chart 
+            [series]="colorChartOptions.series!" 
             [chart]="colorChartOptions.chart!"
-            [labels]="colorChartOptions.labels!"
-            [colors]="colorChartOptions.colors!"
+            [labels]="colorChartOptions.labels!" 
+            [colors]="colorChartOptions.colors!" 
             [legend]="colorChartOptions.legend!"
-            [responsive]="colorChartOptions.responsive!"
-          ></apx-chart>
+            [responsive]="colorChartOptions.responsive!">
+          </apx-chart>
         </div>
 
-        <!-- Grafico a Donut per Forma -->
         <div class="chart-section">
           <h2>Pokemon by Shape</h2>
-          <apx-chart
-            [series]="shapeChartOptions.series!"
+          <apx-chart 
+            [series]="shapeChartOptions.series!" 
             [chart]="shapeChartOptions.chart!"
-            [labels]="shapeChartOptions.labels!"
-            [colors]="shapeChartOptions.colors!"
+            [labels]="shapeChartOptions.labels!" 
+            [colors]="shapeChartOptions.colors!" 
             [legend]="shapeChartOptions.legend!"
-            [responsive]="shapeChartOptions.responsive!"
-          ></apx-chart>
+            [responsive]="shapeChartOptions.responsive!">
+          </apx-chart>
         </div>
       </div>
 
-      <!-- Grafico Pokemon per Tipo con icone -->
       <div class="chart-section full-width">
         <h2>Pokemon by Type</h2>
         <div class="type-bars">
@@ -92,14 +88,14 @@
             <div class="type-bar-item">
               <div class="type-label">
                 <img [src]="'/' + type.name.charAt(0).toUpperCase() + type.name.slice(1) + '.png'" 
-                     [alt]="type.name" 
+                     [alt]="type.name"
                      class="type-icon" />
                 <span>{{ type.name.charAt(0).toUpperCase() + type.name.slice(1) }}</span>
               </div>
               <div class="type-bar-container">
                 <div class="type-bar" 
                      [style.width.%]="getBarWidth(type.count)"
-                     [style.background-color]="typeColors[type.name]"
+                     [style.background-color]="typeColors[type.name]" 
                      [style.animation-delay.ms]="$index * 50">
                   <span class="type-count">{{ apiFailed ? '—' : type.count }}</span>
                 </div>
