@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-fire-svg',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './fire-svg.css',
 })
 export class FireSVG {
-
+  color = input<string>('#E87878');
 }

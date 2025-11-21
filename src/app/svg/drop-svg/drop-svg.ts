@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-drop-svg',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './drop-svg.css',
 })
 export class DropSVG {
-
+  color = input<string>('#E87878');
 }

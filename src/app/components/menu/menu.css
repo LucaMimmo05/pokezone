@@ -1,0 +1,7 @@
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    width: 150px;
+    
+}

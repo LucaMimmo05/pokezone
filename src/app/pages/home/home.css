@@ -2,16 +2,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  height: auto;
   width: 100%;
+  background-color: #eff3f6;
 }
 
 .hero {
   padding-inline: 111px;
   padding-block: 11px;
-  background: #c20001;
   height: 80vh;
   width: 100%;
+  position: relative;
+  transition: background 0.5s ease;
 }
 
 .hero-content {
@@ -33,6 +35,8 @@
   align-items: center;
   justify-content: center;
   gap: 9px;
+  position: relative;
+  z-index: 2;
 }
 
 .bag {
@@ -60,6 +64,8 @@
   flex-direction: column;
   margin-top: 29px;
   gap: 8px;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-title h1 {
@@ -85,7 +91,7 @@
 
 .pokeball-img {
   position: absolute;
-  bottom: -270px;
+  bottom: 0px;
   display: flex;
   flex-direction: column;
   z-index: 3;
@@ -96,12 +102,30 @@
   position: relative;
 }
 
+.pokeball-ground-shadow {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 40px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.15) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  z-index: 1;
+}
+
 .hero-items {
   position: absolute;
   left: 50px;
   bottom: 70%;
   transform: translate(50%);
   opacity: 0.7;
+  z-index: 1;
 }
 
 .hero-items:nth-child(4) {
@@ -174,29 +198,18 @@
   height: 100%;
 }
 
-.hero-img::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 322px;
-  background: white;
-  z-index: 1;
-}
-
 .hero-shadows {
   position: absolute;
   width: 100%;
   height: 100%;
-  top: -100px;
+  top: -10px;
   left: 0;
   z-index: 0;
 }
 
 .hero-pokeball-shadow {
   border-radius: 50%;
-  border: 24px solid #e81414;
+  border: 24px solid;
   overflow: hidden;
   position: absolute;
   z-index: 0;
@@ -206,6 +219,7 @@
   width: 516px;
   height: 516px;
   opacity: 0.3;
+  transition: border-color 0.5s ease;
 }
 
 .hero-pokeball-shadow.large {
@@ -218,4 +232,267 @@
   width: 408px;
   height: 408px;
   opacity: 0.5;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding-bottom: 60px;
+  padding-right: 110px;
+}
+
+.burger-menu-top {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.sec2-top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.sec2 {
+  padding-block: 149px;
+  width: 100%;
+  padding-inline: 111px;
+  height: 309px;
+}
+
+.sec2-top h1 {
+  color: #2f3133;
+  font-family: Montserrat;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.32px;
+}
+
+.search-bar {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 56px;
+  width: auto;
+  gap: 10px;
+}
+
+.search-bar input {
+  width: 403px;
+  height: 56px;
+  border: none;
+  border-radius: 122px;
+  padding: 25px 17px;
+  font-size: 15px;
+  font-weight: 400;
+  font-family: Inter;
+  line-height: 150%;
+  outline: none;
+  transition: padding-left 0.3s ease;
+}
+
+.search-bar input:focus {
+  border: 1px solid #3f67ba;
+  padding-left: 53px;
+}
+
+.search-bar input:focus::placeholder {
+  color: transparent;
+}
+
+.search-bar input:focus + button {
+  right: auto;
+  left: 7px;
+}
+
+.search-bar button {
+  position: absolute;
+  right: 5px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(158, 185, 225, 0.1);
+  color: white;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 150%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sec3 {
+  background-color: white;
+  width: 100%;
+  height: auto;
+}
+
+.sec3-content {
+  padding-inline: 111px;
+  padding-block: 47px;
+}
+@media (max-width: 480px) {
+  .burger-menu-top {
+    display: block;
+  }
+
+  .hero {
+    padding-inline: 22px;
+    height: 80vh;
+  }
+
+  .hero-title h1 {
+    color: #fff;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.48px;
+  }
+
+  .hero-title p {
+    color: #fff;
+    text-align: center;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  .hero-tag {
+    margin-block: 30px;
+  }
+
+  .carousel-dots {
+    display: none;
+  }
+
+  .pokeball-img {
+    bottom: -80px;
+  }
+
+  .pokeball-red {
+    width: 250px !important;
+    height: 250px !important;
+  }
+
+  .pokeball-ground-shadow {
+    width: 200px;
+    height: 30px;
+    bottom: -35px;
+  }
+
+  .hero-items {
+    display: block;
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  .hero-items:nth-child(2) {
+    left: 0;
+    right: auto;
+    transform: none;
+  }
+
+  .hero-items:nth-child(4) {
+    left: 0;
+    right: 0;
+    transform: none;
+  }
+
+  .hero-drop-svg,
+  .hero-lightning-svg,
+  .hero-message-svg,
+  .hero-spark-svg {
+    display: none;
+  }
+
+  .hero-fire-svg {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -80px;
+  }
+
+  .hero-snow-svg {
+    right: 0;
+    left: auto;
+    bottom: -100px;
+  }
+
+  .hero-leaf-svg {
+    left: 0;
+    right: auto;
+    top: 150px;
+  }
+
+  .hero-stars {
+    gap: 15px;
+  }
+
+  .sec2 {
+    padding-inline: 22px;
+    padding-top: 170px;
+    padding-bottom: 50px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 34px;
+  }
+
+  .sec2-top {
+    flex-direction: column;
+    gap: 54px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+  .sec2-top h1 {
+    font-size: 24px;
+    letter-spacing: unset;
+    white-space: nowrap;
+  }
+
+  .sec2-top input {
+    width: 100%;
+  }
+
+  .sec3-content {
+    padding-inline: 24px;
+  }
+
+  .sec3-top {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .sec3-top h3 {
+    font-size: 20px;
+    color: #4D5053;
+    font-family: Montserrat;
+    font-weight: 600;
+  }
+
+  .small-pokeball {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
 }

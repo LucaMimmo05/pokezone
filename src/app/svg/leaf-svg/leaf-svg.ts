@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-leaf-svg',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './leaf-svg.css',
 })
 export class LeafSVG {
-
+  color = input<string>('#E87878');
 }
