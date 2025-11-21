@@ -16,11 +16,11 @@ import { BurgerMenu } from '../../components/burger-menu/burger-menu';
 import { PokemonCard as PokemonCardComponent } from '../../components/pokemon-card/pokemon-card';
 import { PokemonCard } from '../../models/dashboard/pokemon-card';
 import { PokemonService } from '../../services/pokemon.service';
+import { Navbar } from "../../components/navbar/navbar";
 
 @Component({
   selector: 'app-home',
   imports: [
-    Logo,
     DropSVG,
     LightningSVG,
     MessageSVG,
@@ -33,8 +33,8 @@ import { PokemonService } from '../../services/pokemon.service';
     Menu,
     SmallPokeballSvg,
     MobileFilter,
-    BurgerMenu,
     PokemonCardComponent,
+    Navbar
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
