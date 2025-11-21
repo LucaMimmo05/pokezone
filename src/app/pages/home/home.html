@@ -49,13 +49,8 @@
         <div class="sec2-top">
             <h1>Select your Pokémon!</h1>
             <div class="search-bar">
-                <input 
-                    type="text" 
-                    placeholder="Search by name or code"
-                    [value]="searchQuery"
-                    (input)="onSearchInput($event)"
-                    (keyup.enter)="onSearchSubmit()"
-                >
+                <input type="text" placeholder="Search by name or code" [value]="searchQuery"
+                    (input)="onSearchInput($event)" (keyup.enter)="onSearchSubmit()">
                 <button (click)="onSearchSubmit()" [disabled]="isLoading">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                         <path
@@ -79,13 +74,7 @@
 
                 <div class="sec3-top">
                     <app-small-pokeball-svg class="small-pokeball"></app-small-pokeball-svg>
-                <h3>
-                    @if (isSearching) {
-                        Search results
-                    } @else {
-                        {{ pokemons.length }} Pokémons
-                    }
-                </h3>
+                    <h3>{{ capitalize(selectedType === 'bug' ? "Insect" : (selectedType || 'All Pokémons') )}}</h3>
                 </div>
                 <app-mobile-filter class="app-mobile-filter"></app-mobile-filter>
                 <div class="pokemons-content">

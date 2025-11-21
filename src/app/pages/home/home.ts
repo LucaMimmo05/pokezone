@@ -17,7 +17,7 @@ import { PokemonCard as PokemonCardComponent } from '../../components/pokemon-ca
 import { PokemonCard } from '../../models/dashboard/pokemon-card';
 import { PokemonService } from '../../services/pokemon.service';
 import { Navbar } from '../../components/navbar/navbar';
-
+import { capitalize } from '../../util/capitalize';
 @Component({
   selector: 'app-home',
   imports: [
@@ -40,6 +40,7 @@ import { Navbar } from '../../components/navbar/navbar';
   styleUrl: './home.css',
 })
 export class Home implements OnInit, OnDestroy {
+  capitalize = capitalize;
   currentActiveIndex = 0;
   currentBgColor = '#c20001';
   currentSvgColor = '#E87878';
@@ -153,7 +154,8 @@ export class Home implements OnInit, OnDestroy {
     const isNumericSearch = !isNaN(termAsNumber) && termAsNumber > 0;
 
     // Controlla i minimi caratteri richiesti
-    const hasMinChars = (isNumericSearch && this.searchQuery.length >= 2) ||
+    const hasMinChars =
+      (isNumericSearch && this.searchQuery.length >= 2) ||
       (!isNumericSearch && this.searchQuery.length >= 3);
 
     if (hasMinChars) {
@@ -169,7 +171,8 @@ export class Home implements OnInit, OnDestroy {
     const isNumericSearch = !isNaN(termAsNumber) && termAsNumber > 0;
 
     // Controlla i minimi caratteri richiesti anche per il submit
-    const hasMinChars = (isNumericSearch && this.searchQuery.length >= 2) ||
+    const hasMinChars =
+      (isNumericSearch && this.searchQuery.length >= 2) ||
       (!isNumericSearch && this.searchQuery.length >= 3);
 
     if (this.searchQuery.trim() && hasMinChars) {
@@ -185,11 +188,11 @@ export class Home implements OnInit, OnDestroy {
       const searchResults = await this.pokemonService.searchPokemon(this.searchQuery);
 
       if (searchResults.length > 0) {
-        this.pokemons = searchResults.map(pokemon => ({
+        this.pokemons = searchResults.map((pokemon) => ({
           id: pokemon.id,
           name: pokemon.name,
           imageUrl: pokemon.imageUrl,
-          types: []
+          types: pokemon.types,
         }));
       } else {
         this.pokemons = [];
