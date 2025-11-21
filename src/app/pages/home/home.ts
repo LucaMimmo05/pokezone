@@ -18,6 +18,7 @@ import { PokemonCard } from '../../models/dashboard/pokemon-card';
 import { PokemonService } from '../../services/pokemon.service';
 import { Navbar } from '../../components/navbar/navbar';
 import { capitalize } from '../../util/capitalize';
+
 @Component({
   selector: 'app-home',
   imports: [
@@ -55,14 +56,21 @@ export class Home implements OnInit, OnDestroy {
   selectedType = '';
   searchQuery = '';
   isSearching = false;
+  showScrollButton = false;
 
   @HostListener('window:resize')
   onResize() {
     this.checkScreenSize();
   }
 
+  @HostListener('window:scroll')
+  onScroll() {
+    this.checkScrollPosition();
+  }
+
   ngOnInit() {
     this.checkScreenSize();
+    this.checkScrollPosition();
     this.getPokemons();
     this.interval = setInterval(() => {
       this.currentActiveIndex = (this.currentActiveIndex + 1) % 2;
@@ -74,6 +82,20 @@ export class Home implements OnInit, OnDestroy {
     if (this.interval) {
       clearInterval(this.interval);
     }
+    // Rimuovi l'event listener per sicurezza
+    window.removeEventListener('scroll', this.checkScrollPosition.bind(this));
+  }
+
+  checkScrollPosition() {
+    // Mostra il pulsante quando si è scrollato più di 300px
+    this.showScrollButton = window.scrollY > 300;
+  }
+
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
 
   handleActiveItem(index: number) {
