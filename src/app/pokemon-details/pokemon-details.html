@@ -15,12 +15,18 @@
     <div class="cardContent">
       <div class="titleSection">
         <h2 class="pokemonName">{{ pokemon?.name }}</h2>
-        <h2 class="pokemonNumber">#{{ pokemon?.id }}</h2>
+        <h2 class="pokemonNumber">
+          {{ idWithZeros }}
+        </h2>
       </div>
       <div class="typeSection">
-        <span class="pokemonType" [ngClass]="'type-' + pokemon?.types?.[0]?.type?.name">
-          {{ pokemon?.types?.[0]?.type?.name }}
-        </span>
+        @if(pokemon?.types != null){
+          @for(pokemon of pokemon!.types; track $index) {
+            <span class="pokemonType" [ngClass]="'type-' + pokemon.type.name">
+                {{ pokemon.type.name }}
+            </span>
+          }
+        }
       </div>
       <div class="infoSection">
         <div class="physicalInfoBox">

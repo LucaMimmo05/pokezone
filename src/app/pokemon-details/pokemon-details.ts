@@ -35,4 +35,11 @@ export class PokemonDetails {
     async loadPokemonWeaknesses() {
       this.weaknesses = await this.pokezoneService.getPokemonWeaknessesByType(this.pokemon?.types[0].type.name || '');
     }
+
+    get idWithZeros(): void | string {
+      if(this.pokemon?.id){
+        return '#' + this.pokemon.id.toString().padStart(3, '0')
+      }
+      else return;
+    }
 }
