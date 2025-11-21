@@ -66,8 +66,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   };
 
   readonly shapeColors: string[] = [
-    '#e74c3c', '#e67e22', '#f39c12', '#f1c40f', '#2ecc71',
-    '#1abc9c', '#3498db', '#9b59b6', '#e91e63', '#95a5a6'
+    '#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6',
+    '#1abc9c', '#e67e22', '#34495e', '#e91e63', '#16a085',
+    '#f1c40f', '#8e44ad', '#c0392b', '#27ae60'
   ];
 
   ngOnInit() {
@@ -162,7 +163,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       series: hasData ? entries.map((e) => e.count) : [],
       chart: {
         type,
-        height: 380,
+        height: 410,
         animations: { enabled: hasData }
       },
       labels: entries.map((e) => this.capitalizeFirstLetter(e.name)),
@@ -171,7 +172,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       responsive: [{
         breakpoint: 480,
         options: {
-          chart: { height: 300 },
+          chart: { height: 380 },
           legend: { position: 'bottom' }
         }
       }],
@@ -183,13 +184,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.colorChartOptions = this.createPieChartOptions(
       this.colorEntries,
       this.colorEntries.map((e) => this.colorColors[e.name] || '#95a5a6'),
-      'pie'
+      'donut'
     );
 
     this.shapeChartOptions = this.createPieChartOptions(
       this.shapeEntries,
       this.shapeColors,
-      'donut'
+      'pie'
     );
   }
 
