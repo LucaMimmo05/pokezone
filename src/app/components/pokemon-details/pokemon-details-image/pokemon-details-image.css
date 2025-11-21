@@ -1,0 +1,11 @@
+.pokemonImage {
+  position: relative;
+  z-index: 1;
+  margin-bottom: -70px; 
+}
+
+.pokemonImage img {
+  width: 180px; 
+  height: auto;
+  display: block;
+}

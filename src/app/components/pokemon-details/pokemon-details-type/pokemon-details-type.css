@@ -1,0 +1,7 @@
+.typeSection {
+  display: flex;
+  justify-content: center;  
+  text-align: center; 
+  gap: 2vw;
+  margin-top: 2vh;
+}

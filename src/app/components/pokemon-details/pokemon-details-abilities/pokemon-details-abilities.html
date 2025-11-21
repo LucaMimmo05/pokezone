@@ -1,0 +1,10 @@
+<div class="infoSection">
+    <div class="box">
+        <span class="infoLabel">Abilities:</span>
+        <div>
+            @for (a of abilities; track $index) {
+                <span class="infoValue">{{ a.ability.name }}@if (!$last) {, }</span>
+            }
+        </div>
+    </div>
+</div>

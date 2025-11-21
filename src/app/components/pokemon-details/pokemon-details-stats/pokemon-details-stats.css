@@ -1,4 +1,4 @@
-.label{
+.statslabel{
     font-weight: 700;
     color: #4D5053;
     padding: 2vh;
@@ -32,10 +32,4 @@
     width: 100%;
     flex-direction: column;
     justify-content: center;
-}
-
-.infoLabel {
-    font-weight: 300;
-    color: #7A7D80;
-    text-transform: capitalize;
 }

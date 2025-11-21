@@ -1,0 +1,7 @@
+<div class="typeSection">
+    @for(pokemon of types; track $index) {
+        <span class="pokemonType" [class]="'type-' + pokemon.type.name">
+            {{ pokemon.type.name }}
+        </span>
+    }
+</div>
