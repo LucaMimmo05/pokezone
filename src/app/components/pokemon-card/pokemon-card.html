@@ -1,0 +1,11 @@
+@if (pokemon(); as poke) {
+<div class="pokemon-card">
+    <div class="pokemon-image">
+        <img [src]="poke.imageUrl" [alt]="poke.name" class="pokemon-image">
+    </div>
+    <div class="pokemon-text">
+        <div class="pokemon-id">#{{ poke.id.toString().padStart(3, '0') }}</div>
+        <h3 class="pokemon-name">{{ capitalize(poke.name) }}</h3>
+    </div>
+</div>
+}
