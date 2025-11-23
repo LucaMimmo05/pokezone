@@ -2,11 +2,11 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Pokemon } from '../models/dashboard/pokemon';
 import { PokemonDetails } from '../models/dashboard/pokemon-details';
 import { PokemonSpecies } from '../models/dashboard/pokemon-species';
 import { DashboardStats } from '../models/dashboard/dashboard-stats';
 import { Pokemon as PokemonDetail } from '../models/pokemon-details/pokemon';
+import { NamedAPIResource } from '../models/pokemon-details/named-api-resource';
 
 // Re-export for backward compatibility
 export type { DashboardStats } from '../models/dashboard/dashboard-stats';
@@ -18,12 +18,14 @@ export class PokemonService {
   private http = inject(HttpClient);
   private baseUrl = 'https://pokeapi.co/api/v2';
 
-  async getAllPokemon(limit?: number): Promise<Pokemon[]> {
+  async getAllPokemon(limit?: number): Promise<NamedAPIResource[]> {
     const url = limit
       ? `${this.baseUrl}/pokemon?limit=${limit}`
       : `${this.baseUrl}/pokemon?limit=100000`;
     const response = await firstValueFrom(
-      this.http.get<{ results: Pokemon[] }>(url).pipe(map((response: any) => response.results))
+      this.http
+        .get<{ results: NamedAPIResource[] }>(url)
+        .pipe(map((response: any) => response.results))
     );
     return response;
   }
@@ -38,7 +40,9 @@ export class PokemonService {
 
   async getDashboardStats(limit?: number): Promise<DashboardStats> {
     const pokemons = await this.getAllPokemon(limit);
-    const details = await Promise.all(pokemons.map((p: Pokemon) => this.getPokemonDetails(p.url)));
+    const details = await Promise.all(
+      pokemons.map((p: NamedAPIResource) => this.getPokemonDetails(p.url))
+    );
     const species = await Promise.all(
       details.map((d: PokemonDetails) => this.getPokemonSpecies(d.species.url))
     );
@@ -94,5 +98,120 @@ export class PokemonService {
     const response = this.http.get<any>(`${this.baseUrl}/type/${type}`);
     const data = await firstValueFrom(response);
     return data.damage_relations.double_damage_from.map((t: any) => t.name);
+  }
+
+  async getPokemonCards(
+    limit: number = 20,
+    offset: number = 0,
+    type: string = ''
+  ): Promise<{ id: number; name: string; imageUrl: string; types: string[] }[]> {
+    let url = `${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`;
+    let response: NamedAPIResource[];
+
+    if (type) {
+      // Se è specificato un tipo, usa l'endpoint /type/{type}
+      const typeResponse = await firstValueFrom(
+        this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(`${this.baseUrl}/type/${type}`)
+      );
+      response = typeResponse.pokemon.map((p) => p.pokemon).slice(offset, offset + limit);
+    } else {
+      response = await firstValueFrom(
+        this.http
+          .get<{ results: NamedAPIResource[] }>(url)
+          .pipe(map((response: any) => response.results))
+      );
+    }
+
+    const detailsPromises = response.map((pokemon: NamedAPIResource) =>
+      firstValueFrom(this.http.get<PokemonDetail>(pokemon.url))
+    );
+    const details = await Promise.all(detailsPromises);
+
+    return details.map((pokemon: PokemonDetail) => ({
+      id: pokemon.id,
+      name: pokemon.name,
+      imageUrl: pokemon.sprites.other['official-artwork'].front_default || '',
+      types: pokemon.types.map((t: any) => t.type.name),
+    }));
+  }
+
+  async searchPokemon(
+    term: string
+  ): Promise<{ id: number; name: string; imageUrl: string; types: string[] }[]> {
+    term = term.toLowerCase().trim();
+    if (!term) return [];
+
+    try {
+      // PRIMA cerca per ID se è un numero
+      const termAsNumber = Number(term);
+      if (!isNaN(termAsNumber) && termAsNumber > 0) {
+        try {
+          const url = `${this.baseUrl}/pokemon/${termAsNumber}`;
+          const pokemon: PokemonDetail = await firstValueFrom(this.http.get<PokemonDetail>(url));
+
+          // Se arriva qui, ha trovato un Pokémon per ID
+          return [
+            {
+              id: pokemon.id,
+              name: pokemon.name,
+              imageUrl:
+                pokemon.sprites?.other?.['official-artwork']?.front_default ||
+                pokemon.sprites?.front_default ||
+                'assets/pokemon-placeholder.png',
+              types: pokemon.types.map((t: any) => t.type.name),
+            },
+          ];
+        } catch (idError) {
+          // Se non trova per ID, continua con la ricerca per nome
+          console.log(`No Pokémon found with ID: ${term}`);
+        }
+      }
+
+      // POI cerca per nome
+      const searchUrl = `${this.baseUrl}/pokemon?limit=1000`;
+      const response: any = await firstValueFrom(this.http.get(searchUrl));
+
+      // Filtra i pokemon per nome (includes per ricerca parziale)
+      const filteredPokemons = response.results
+        .filter((pokemon: any) => pokemon.name.toLowerCase().includes(term))
+        .slice(0, 9);
+
+      // Se non trova nulla con includes, prova con startsWith
+      if (filteredPokemons.length === 0) {
+        const exactMatchPokemons = response.results
+          .filter((pokemon: any) => pokemon.name.toLowerCase().startsWith(term))
+          .slice(0, 9);
+
+        if (exactMatchPokemons.length > 0) {
+          filteredPokemons.push(...exactMatchPokemons);
+        }
+      }
+
+      // Fetch details per i Pokémon trovati
+      const searchResults: { id: number; name: string; imageUrl: string; types: string[] }[] = [];
+      for (const pokemon of filteredPokemons) {
+        try {
+          const details: PokemonDetail = await firstValueFrom(
+            this.http.get<PokemonDetail>(pokemon.url)
+          );
+          searchResults.push({
+            id: details.id,
+            name: details.name,
+            imageUrl:
+              details.sprites?.other?.['official-artwork']?.front_default ||
+              details.sprites?.front_default ||
+              'assets/pokemon-placeholder.png',
+            types: details.types.map((t: any) => t.type.name),
+          });
+        } catch (error) {
+          console.error(`Error fetching details for ${pokemon.name}:`, error);
+        }
+      }
+
+      return searchResults;
+    } catch (error) {
+      console.error('Search error:', error);
+      return [];
+    }
   }
 }
