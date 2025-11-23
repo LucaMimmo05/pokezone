@@ -1,5 +1,5 @@
 .stat-row {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .bar-container {
@@ -10,7 +10,7 @@
     border: 1px solid #ccc;
     border-radius: 6px;
     overflow: hidden;
-    margin-bottom: 3vh;
+    margin-top: 7px;
 }
 
 .bar-fill {
