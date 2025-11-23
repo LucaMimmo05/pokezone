@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { StatEntry } from '../../../models/pokemon-details/stat-entry';
 
 @Component({

@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { PokemonService } from '../../services/pokemon.service';
 import { Pokemon } from '../../models/pokemon-details/pokemon';
 import { PokemonDetailsImage } from "../../components/pokemon-details/pokemon-details-image/pokemon-details-image";
@@ -11,6 +10,7 @@ import { PokemonDetailsPhysicalInfo } from "../../components/pokemon-details/pok
 import { PokemonDetailsAbilities } from "../../components/pokemon-details/pokemon-details-abilities/pokemon-details-abilities";
 import { PokemonDetailsWeaknesses } from "../../components/pokemon-details/pokemon-details-weaknesses/pokemon-details-weaknesses";
 import { PokemonDetailsStats } from "../../components/pokemon-details/pokemon-details-stats/pokemon-details-stats";
+import { PokemonDetailsEvolutionChain } from "../../components/pokemon-details/pokemon-details-evolution-chain/pokemon-details-evolution-chain";
 
 @Component({
   selector: 'app-pokemon-details',
@@ -22,7 +22,8 @@ import { PokemonDetailsStats } from "../../components/pokemon-details/pokemon-de
     PokemonDetailsPhysicalInfo,
     PokemonDetailsAbilities,
     PokemonDetailsWeaknesses,
-    PokemonDetailsStats
+    PokemonDetailsStats,
+    PokemonDetailsEvolutionChain
   ],
   templateUrl: './pokemon-details.html',
   styleUrl: './pokemon-details.css'

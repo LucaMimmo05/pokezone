@@ -31,3 +31,11 @@
     font-weight: 600;
     text-transform: capitalize;
 }
+
+.centeredlabel{
+    font-weight: 700;
+    color: #4D5053;
+    padding: 2vh;
+    display: flex;
+    justify-content: center;
+}
