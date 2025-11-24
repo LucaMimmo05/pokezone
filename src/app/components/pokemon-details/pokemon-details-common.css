@@ -1,10 +1,3 @@
-.infoSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
 .box {
     display: flex; 
     align-items: center;
@@ -32,10 +25,36 @@
     text-transform: capitalize;
 }
 
-.centeredlabel{
+.centeredLabel{
     font-weight: 700;
     color: #4D5053;
     padding: 2vh;
     display: flex;
     justify-content: center;
+}
+
+@media (min-width: 900px) {
+  .box {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    margin-bottom: 2vh;
+  }
+  
+  .infoLabel {
+    font-size: 1em;
+    font-weight: 500;
+    margin-right: 0;
+  }
+
+  .infoValue {
+    font-size: 1.1em;
+    font-weight: 700;
+    margin-top: 0.5vh;
+  }
+
+  .centeredLabel {
+    font-size: 1.2em;
+    padding: 1vh 0;
+  }
 }

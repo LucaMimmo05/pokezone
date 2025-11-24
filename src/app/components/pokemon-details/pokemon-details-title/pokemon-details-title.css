@@ -18,3 +18,15 @@
   position: relative;
   top: 3px;
 }
+
+@media (min-width: 900px) {
+  .titleSection {
+    width: 100%;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .pokemonName {
+    font-size: 2.8em; 
+  }
+}

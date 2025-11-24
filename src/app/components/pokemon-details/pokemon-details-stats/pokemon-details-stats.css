@@ -25,3 +25,9 @@
     flex-direction: column;
     justify-content: center;
 }
+
+@media (min-width: 900px) {
+    .statsSection {
+        margin-top: 2vh;
+    }
+}

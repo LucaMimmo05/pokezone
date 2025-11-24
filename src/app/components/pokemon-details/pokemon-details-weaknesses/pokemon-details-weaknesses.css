@@ -6,16 +6,23 @@
   margin-top: 2vh;
 }
 
-.label{
-  font-weight: 700;
-  color: #4D5053;
-  padding: 2vh;
-}
-
 .weaknessesList {
   display: flex;
   flex-wrap: wrap; 
   justify-content: center; 
   gap: 2vw;
   padding-bottom: 2vh;
+}
+
+@media (min-width: 900px) {
+   .weaknessesSection {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .weaknessesList {
+    justify-content: flex-start;
+    max-width: 100%;
+    gap: 10px;
+  }
 }
