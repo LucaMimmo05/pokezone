@@ -577,12 +577,15 @@
 
   .hero {
     padding-inline: 22px;
-    height: 80vh;
+    height: 100svh;
     margin-top: 0;
   }
 
   .hero-content {
     padding-top: 55px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   .hero-title h1 {
@@ -615,7 +618,12 @@
   }
 
   .pokeball-img {
-    bottom: calc(-12vh);
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: calc(10svh);
+    margin-bottom: 20px;
   }
 
   .pokeball-red {

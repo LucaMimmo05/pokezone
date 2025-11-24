@@ -94,7 +94,7 @@ export class Home implements OnInit, OnDestroy {
   scrollToTop() {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   }
 
@@ -192,13 +192,13 @@ export class Home implements OnInit, OnDestroy {
     const termAsNumber = Number(this.searchQuery);
     const isNumericSearch = !isNaN(termAsNumber) && termAsNumber > 0;
 
-    // Controlla i minimi caratteri richiesti anche per il submit
     const hasMinChars =
       (isNumericSearch && this.searchQuery.length >= 2) ||
       (!isNumericSearch && this.searchQuery.length >= 3);
 
     if (this.searchQuery.trim() && hasMinChars) {
       await this.performSearch();
+      this.scrollToPokemonSection();
     }
   }
 

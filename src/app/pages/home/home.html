@@ -76,7 +76,8 @@
                     <app-small-pokeball-svg class="small-pokeball"></app-small-pokeball-svg>
                     <h3>{{ capitalize(selectedType === 'bug' ? "Insect" : (selectedType || 'All Pokémons') )}}</h3>
                 </div>
-                <app-mobile-filter class="app-mobile-filter"></app-mobile-filter>
+                <app-mobile-filter class="app-mobile-filter" [view]="selectedType"
+                    (typeSelected)="onTypeSelected($event)"></app-mobile-filter>
                 <div class="pokemons-content">
                     @for (pokemon of pokemons; track $index) {
                     <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
