@@ -1,0 +1,12 @@
+<div class="infoSection">
+    <div class="weaknessesSection">
+        <span class="label">Weaknesses</span>
+        <div class="weaknessesList">
+            @for (weakness of weaknesses; track $index) {
+                <span class="pokemonType" [class]="'type-' + weakness">
+                {{ weakness }}
+                </span>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+.titleSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3vw;
+}
+
+.pokemonName {
+    text-transform: capitalize;
+    font-size: 1.8rem; 
+    font-weight: 700;
+}
+
+.pokemonNumber {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #7A7D80;
+  position: relative;
+  top: 3px;
+}

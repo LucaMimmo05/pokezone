@@ -1,63 +1,31 @@
-<div class="pokemonDetailsContainer">
+<div class="pokemonCardContainer">
+  @if(pokemon){
   <div class="cardHeader">
-    <div class="headerBackgroundContainer">
-      <div class="headerBackground"
-        [style.--bg-image-url]="'url(/backgrounds/' + (pokemon?.types?.[0]?.type?.name || 'normal') + '.svg)'">
-      </div>
-    </div>
-    <div class="pokemonImage">
-      <img
-        [src]="pokemon?.sprites?.other?.['official-artwork']?.front_default || pokemon?.sprites?.front_default"
-        [alt]="pokemon?.name + ' image'"
-      />
-    </div>
+    <app-pokemon-details-header [types]="pokemon.types"></app-pokemon-details-header>
+    <app-pokemon-details-image
+      [sprites]="pokemon.sprites"
+      [name]="pokemon.name"
+    ></app-pokemon-details-image>
   </div>
-  <div class="cardContent">
-    <div class="titleSection">
-      <h2 class="pokemonName">{{ pokemon?.name }}</h2>
-      <h2 class="pokemonNumber">{{ idWithZeros }}</h2>
-    </div>
-    <div class="typeSection">
-      @if(pokemon?.types != null){
-        @for(pokemon of pokemon!.types; track $index) {
-          <span class="pokemonType" [ngClass]="'type-' + pokemon.type.name">
-            {{ pokemon.type.name }}
-          </span>
-        }
-      }
-    </div>
-    <div class="infoSection">
-      <div class="physicalInfoBox">
-        <div class="box">
-          <span class="infoLabel">Weight:</span>
-          <span class="infoValue">{{ ((pokemon?.weight ?? 0) / 10).toFixed(1) }}kg</span>
-        </div>
-        <div class="box">
-          <span class="infoLabel">Height:</span>
-          <span class="infoValue">{{ ((pokemon?.height ?? 0) / 10).toFixed(1) }}m</span>
-        </div>
-      </div>
-      <div class="box">
-        <span class="infoLabel">Category:</span>
-        <span class="infoValue">{{ category }}</span>
-      </div>
-      <div class="box">
-        <span class="infoLabel">Abilities:</span>
-        <div class="abilitiesList">
-          @for (abilities of pokemon?.abilities; track $index) {
-            <span class="infoValue">{{ abilities?.ability?.name }}@if (!$last) {, }</span>
-          }
-        </div>
-      </div>
-      <div class="weaknessesSection">
-        <span class="label">Weaknesses</span>
-        <div class="weaknessesList">
-          @for (weakness of weaknesses; track $index) {
-            <span class="pokemonType" [ngClass]="'type-' + weakness">
-              {{ weakness }}
-            </span>
-          }
-      </div>
-    </div>
+
+  <div class="pokemonDetailsContainer">
+    <app-pokemon-details-title [name]="pokemon.name" [id]="id"></app-pokemon-details-title>
+
+    <app-pokemon-details-type [types]="pokemon.types"></app-pokemon-details-type>
+
+    <app-pokemon-details-physical-info
+      [weight]="pokemon.weight"
+      [height]="pokemon.height"
+      [category]="category"
+    ></app-pokemon-details-physical-info>
+
+    <app-pokemon-details-abilities [abilities]="pokemon.abilities"></app-pokemon-details-abilities>
+
+    <app-pokemon-details-weaknesses [weaknesses]="weaknesses"></app-pokemon-details-weaknesses>
+
+    <app-pokemon-details-stats [stats]="pokemon.stats"></app-pokemon-details-stats>
+
+    <app-pokemon-details-evolution-chain [species]="pokemon.species"></app-pokemon-details-evolution-chain>
   </div>
+  }
 </div>
