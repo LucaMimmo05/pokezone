@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NamedAPIResource } from '../../../models/pokemon-details/named-api-resource';
 import { EvolutionStage } from '../../../models/pokemon-details/evolution-stage';
-import { EvolutionChain } from '../../../models/pokemon-details/evolution-chain';
 import { getDataFromUrl } from '../../../utils/url-utils';
 import { ArrowSvg } from '../../../svg/arrow-svg/arrow-svg';
 import { PokemonService } from '../../../services/pokemon.service';
