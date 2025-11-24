@@ -102,14 +102,25 @@ export class PokemonService {
 
   async getPokemonCards(
     limit: number = 20,
-    offset: number = 0
-  ): Promise<{ id: number; name: string; imageUrl: string }[]> {
-    const url = `${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`;
-    const response = await firstValueFrom(
-      this.http
-        .get<{ results: NamedAPIResource[] }>(url)
-        .pipe(map((response: any) => response.results))
-    );
+    offset: number = 0,
+    type: string = ''
+  ): Promise<{ id: number; name: string; imageUrl: string; types: string[] }[]> {
+    let url = `${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`;
+    let response: NamedAPIResource[];
+
+    if (type) {
+      const typeResponse = await firstValueFrom(
+        this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(`${this.baseUrl}/type/${type}`)
+      );
+      response = typeResponse.pokemon.map((p) => p.pokemon).slice(offset, offset + limit);
+    } else {
+      response = await firstValueFrom(
+        this.http
+          .get<{ results: NamedAPIResource[] }>(url)
+          .pipe(map((response: any) => response.results))
+      );
+    }
+
     const detailsPromises = response.map((pokemon: NamedAPIResource) =>
       firstValueFrom(this.http.get<PokemonDetail>(pokemon.url))
     );
@@ -119,6 +130,80 @@ export class PokemonService {
       id: pokemon.id,
       name: pokemon.name,
       imageUrl: pokemon.sprites.other['official-artwork'].front_default || '',
+      types: pokemon.types.map((t: any) => t.type.name),
     }));
+  }
+
+  async searchPokemon(
+    term: string
+  ): Promise<{ id: number; name: string; imageUrl: string; types: string[] }[]> {
+    term = term.toLowerCase().trim();
+    if (!term) return [];
+
+    try {
+      const termAsNumber = Number(term);
+      if (!isNaN(termAsNumber) && termAsNumber > 0) {
+        try {
+          const url = `${this.baseUrl}/pokemon/${termAsNumber}`;
+          const pokemon: PokemonDetail = await firstValueFrom(this.http.get<PokemonDetail>(url));
+
+          return [
+            {
+              id: pokemon.id,
+              name: pokemon.name,
+              imageUrl:
+                pokemon.sprites?.other?.['official-artwork']?.front_default ||
+                pokemon.sprites?.front_default ||
+                'assets/pokemon-placeholder.png',
+              types: pokemon.types.map((t: any) => t.type.name),
+            },
+          ];
+        } catch (idError) {
+          console.log(`No Pokémon found with ID: ${term}`);
+        }
+      }
+
+      const searchUrl = `${this.baseUrl}/pokemon?limit=1000`;
+      const response: any = await firstValueFrom(this.http.get(searchUrl));
+
+      const filteredPokemons = response.results
+        .filter((pokemon: any) => pokemon.name.toLowerCase().includes(term))
+        .slice(0, 9);
+
+      if (filteredPokemons.length === 0) {
+        const exactMatchPokemons = response.results
+          .filter((pokemon: any) => pokemon.name.toLowerCase().startsWith(term))
+          .slice(0, 9);
+
+        if (exactMatchPokemons.length > 0) {
+          filteredPokemons.push(...exactMatchPokemons);
+        }
+      }
+
+      const searchResults: { id: number; name: string; imageUrl: string; types: string[] }[] = [];
+      for (const pokemon of filteredPokemons) {
+        try {
+          const details: PokemonDetail = await firstValueFrom(
+            this.http.get<PokemonDetail>(pokemon.url)
+          );
+          searchResults.push({
+            id: details.id,
+            name: details.name,
+            imageUrl:
+              details.sprites?.other?.['official-artwork']?.front_default ||
+              details.sprites?.front_default ||
+              'assets/pokemon-placeholder.png',
+            types: details.types.map((t: any) => t.type.name),
+          });
+        } catch (error) {
+          console.error(`Error fetching details for ${pokemon.name}:`, error);
+        }
+      }
+
+      return searchResults;
+    } catch (error) {
+      console.error('Search error:', error);
+      return [];
+    }
   }
 }

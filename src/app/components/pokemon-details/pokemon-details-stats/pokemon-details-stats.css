@@ -1,0 +1,27 @@
+.stat-row {
+    margin-bottom: 12px;
+}
+
+.bar-container {
+    display: flex;
+    width: 100%;
+    height: 12px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 7px;
+}
+
+.bar-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #d77d37, #f1691a, #df4848, #da1e1e, #f10909);
+    transition: width 0.3s ease;
+    border-radius: 6px;
+}
+
+.statsSection {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+}

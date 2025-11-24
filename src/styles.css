@@ -11,3 +11,93 @@
 body {
   height: 100vh;
 }
+
+.type-normal { 
+  background-color: rgba(160, 162, 159, 0.1); 
+  color: #909090; 
+}
+
+.type-fire { 
+  background-color: rgba(233, 99, 3, 0.1);
+  color: #E96303; 
+}
+
+.type-water { 
+  background-color: rgba(136, 163, 212, 0.1);
+  color: #4F77BE; 
+}
+
+.type-grass { 
+  background-color: rgba(92, 164, 138, 0.1);
+  color: #73B861; 
+}
+
+.type-electric { 
+  background-color: rgba(238, 217, 103, 0.1); 
+  color: #D4BC34; 
+}
+
+.type-ice { 
+  background-color: rgba(139, 206, 193, 0.1);
+  color: #71BAAC; 
+}
+
+.type-fighting { 
+  background-color: rgba(196, 77, 97, 0.1); 
+  color: #C44D61; 
+}
+
+.type-poison { 
+  background-color: rgba(172, 106, 202, 0.1);
+  color: #AC6ACA; 
+}
+
+.type-ground { 
+  background-color: rgba(206, 128, 86, 0.1);
+  color: #CE8056; 
+}
+
+.type-flying { 
+  background-color: rgba(166, 187, 232, 0.1);
+  color: #758CBD; 
+}
+
+.type-psychic { 
+  background-color: rgba(235, 139, 133, 0.1);
+  color: #EB8B85; 
+}
+
+.type-bug { 
+  background-color: rgba(155, 186, 72, 0.1); 
+  color: #9BBA48; 
+}
+
+.type-rock { 
+  background-color: rgba(101, 103, 103, 0.1);
+  color: #656767; 
+}
+
+.type-ghost { 
+  background-color: rgba(97, 110, 183, 0.1);
+  color: #616EB7; 
+}
+
+.type-dragon { 
+  background-color: rgba(44, 106, 193, 0.1); 
+  color: #2C6AC1; 
+}
+
+.type-steel { 
+  background-color: rgba(101, 148, 161, 0.1);
+  color: #6594A1; 
+}
+
+.type-dark { 
+  background-color: rgba(55, 54, 60, 0.1);
+  color: #37363C; 
+}
+
+.type-fairy { 
+  background-color: rgba(226, 150, 225, 0.1);
+  color: #E296E1; 
+}

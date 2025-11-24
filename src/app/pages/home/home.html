@@ -1,7 +1,7 @@
 <section class="home">
     <div class="hero" [style.background]="currentBgColor">
-        <app-logo> </app-logo>
-        <app-burger-menu class="burger-menu-top"></app-burger-menu>
+        <app-navbar class="hero-navbar" [style.background]="currentBgColor"
+            (typeSelected)="onTypeSelected($event)"></app-navbar>
         <div class="hero-content">
             <div class="hero-items">
                 <app-drop-svg class="hero-drop-svg" [color]="currentSvgColor"></app-drop-svg>
@@ -14,7 +14,7 @@
                 <span class="bag-text" [style.color]="currentBgColor">pokezone</span>
             </div>
             <div class="hero-title">
-                <h1>{{isChangePokeball() ? "Who’s that Pokémon?" : "Catch ’em all!"}}</h1>
+                <h1>{{isChangePokeball() ? "Who's that Pokémon?" : "Catch 'em all!"}}</h1>
                 <p>The perfect guide for those who want to catch Pokémon all over the world</p>
             </div>
             <div class="hero-items">
@@ -49,8 +49,9 @@
         <div class="sec2-top">
             <h1>Select your Pokémon!</h1>
             <div class="search-bar">
-                <input type="text" placeholder="Search by name or code">
-                <button>
+                <input type="text" placeholder="Search by name or code" [value]="searchQuery"
+                    (input)="onSearchInput($event)" (keyup.enter)="onSearchSubmit()">
+                <button (click)="onSearchSubmit()" [disabled]="isLoading">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                         <path
                             d="M11.1931 2.72879C13.525 5.03385 13.525 8.7711 11.1931 11.0762C8.86132 13.3812 5.08069 13.3812 2.74887 11.0762C0.417045 8.7711 0.417045 5.03385 2.74887 2.72879C5.08069 0.423735 8.86132 0.423735 11.1931 2.72879"
@@ -66,27 +67,36 @@
 
     <div class="sec3">
         <div class="sec3-content">
-            <div class="sec3-top">
-                <app-small-pokeball-svg class="small-pokeball"></app-small-pokeball-svg>
-                <h3>150 Pokémons</h3>
-            </div>
             @if (!isMobile) {
-            <app-menu></app-menu>
-            }
-            @else {
-            <app-mobile-filter></app-mobile-filter>
+            <app-menu (typeSelected)="onTypeSelected($event)"></app-menu>
             }
             <div class="sec3-pokemon">
-                @for (pokemon of pokemons; track $index) {
-                <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
 
-                }
-            </div>
-            <div class="load-more">
-                <button (click)="loadMore()" [disabled]="isLoading">{{ isLoading ? 'Loading...' : 'Load more'
-                    }}</button>
+                <div class="sec3-top">
+                    <app-small-pokeball-svg class="small-pokeball"></app-small-pokeball-svg>
+                    <h3>{{ capitalize(selectedType === 'bug' ? "Insect" : (selectedType || 'All Pokémons') )}}</h3>
+                </div>
+                <app-mobile-filter class="app-mobile-filter" [view]="selectedType"
+                    (typeSelected)="onTypeSelected($event)"></app-mobile-filter>
+                <div class="pokemons-content">
+                    @for (pokemon of pokemons; track $index) {
+                    <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+
+                    }
+                </div>
             </div>
         </div>
+        <div class="load-more">
+            <button (click)="loadMore()" [disabled]="isLoading">{{ isLoading ? 'Loading...' : 'Load more'
+                }}</button>
+        </div>
     </div>
+
+    <button class="scroll-to-top" [class.hidden]="!showScrollButton" (click)="scrollToTop()"
+        aria-label="Torna all'inizio" [style.background]="currentBgColor">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7" />
+        </svg>
+    </button>
 
 </section>
