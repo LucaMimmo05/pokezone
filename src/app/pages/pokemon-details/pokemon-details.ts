@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonService } from '../../services/pokemon.service';
 import { Pokemon } from '../../models/pokemon-details/pokemon';
 import { PokemonDetailsImage } from "../../components/pokemon-details/pokemon-details-image/pokemon-details-image";
@@ -30,6 +30,7 @@ import { PokemonDetailsEvolutionChain } from "../../components/pokemon-details/p
 })
 export class PokemonDetails {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly pokezoneService = inject(PokemonService);
   pokemon: Pokemon | null = null;
   id: number = Number(this.route.snapshot.paramMap.get('id'));
@@ -43,7 +44,14 @@ export class PokemonDetails {
   }
 
   async loadPokemonDetails() {
-    this.pokemon = await this.pokezoneService.getPokemonDetailsById(this.id);
+    try {
+      this.pokemon = await this.pokezoneService.getPokemonDetailsById(this.id);
+      if (!this.pokemon) {
+        this.router.navigate(['/not-found']);
+      }
+    } catch (error) {
+      this.router.navigate(['/not-found']);
+    }
   }
 
   async loadPokemonCategory() {
