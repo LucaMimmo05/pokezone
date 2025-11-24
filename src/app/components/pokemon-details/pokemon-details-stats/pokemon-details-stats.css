@@ -15,7 +15,7 @@
 
 .bar-fill {
     height: 100%;
-    background: red;
+    background: linear-gradient(135deg, #d77d37, #f1691a, #df4848, #da1e1e, #f10909);
     transition: width 0.3s ease;
     border-radius: 6px;
 }

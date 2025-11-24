@@ -12,6 +12,11 @@
   align-self: center;
 }
 
+.pokemonName {
+  color: #4D5053;
+  text-transform: capitalize;
+}
+
 .evolutionCard img {
   display: flex;
   max-width: 80px;
