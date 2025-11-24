@@ -19,6 +19,8 @@ import { PokemonCard } from '../../models/dashboard/pokemon-card';
 import { PokemonService } from '../../services/pokemon.service';
 import { Navbar } from '../../components/navbar/navbar';
 import { capitalize } from '../../util/capitalize';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -41,6 +43,7 @@ import { capitalize } from '../../util/capitalize';
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
+  providers: [],
 })
 export class Home implements OnInit, OnDestroy {
   capitalize = capitalize;
@@ -60,6 +63,9 @@ export class Home implements OnInit, OnDestroy {
   searchQuery = '';
   isSearching = false;
   showScrollButton = false;
+  
+  private searchSubject = new Subject<string>();
+  private searchSubscription: Subscription | undefined;
 
   @HostListener('window:resize')
   onResize() {
@@ -79,11 +85,22 @@ export class Home implements OnInit, OnDestroy {
       this.currentActiveIndex = (this.currentActiveIndex + 1) % 2;
       this.onChangeBg();
     }, 7000);
+
+    // Setup live search
+    this.searchSubscription = this.searchSubject.pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    ).subscribe(term => {
+      this.handleSearch(term);
+    });
   }
 
   ngOnDestroy() {
     if (this.interval) {
       clearInterval(this.interval);
+    }
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
     }
     // Rimuovi l'event listener per sicurezza
     window.removeEventListener('scroll', this.checkScrollPosition.bind(this));
@@ -193,9 +210,29 @@ export class Home implements OnInit, OnDestroy {
   }
 
   onSearchInput(event: any) {
-    this.searchQuery = event.target.value;
-    this.offset = 0;
-    this.isSearching = false;
+    const term = event.target.value;
+    this.searchQuery = term;
+    this.searchSubject.next(term);
+  }
+
+  async handleSearch(term: string) {
+    const termAsNumber = Number(term);
+    const isNumericSearch = !isNaN(termAsNumber) && termAsNumber > 0;
+
+    const hasMinChars =
+      (isNumericSearch && term.length >= 1) || // Allow 1 char for ID
+      (!isNumericSearch && term.length >= 3);
+
+    if (term.trim() && hasMinChars) {
+      this.offset = 0;
+      await this.performSearch();
+    } else if (!term.trim()) {
+      // Reset if empty
+      this.isSearching = false;
+      this.offset = 0;
+      this.pokemons = [];
+      this.getPokemons();
+    }
   }
 
   scrollToPokemonSection() {
@@ -206,15 +243,9 @@ export class Home implements OnInit, OnDestroy {
   }
 
   async onSearchSubmit() {
-    const termAsNumber = Number(this.searchQuery);
-    const isNumericSearch = !isNaN(termAsNumber) && termAsNumber > 0;
-
-    const hasMinChars =
-      (isNumericSearch && this.searchQuery.length >= 2) ||
-      (!isNumericSearch && this.searchQuery.length >= 3);
-
-    if (this.searchQuery.trim() && hasMinChars) {
-      await this.performSearch();
+    // Manual submit still works
+    this.handleSearch(this.searchQuery);
+    if (this.searchQuery.length >= 3) {
       this.scrollToPokemonSection();
     }
   }
