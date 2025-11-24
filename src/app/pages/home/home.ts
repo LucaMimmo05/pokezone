@@ -12,6 +12,7 @@ import { CarouselDot } from '../../components/carousel-dot/carousel-dot';
 import { Menu } from '../../components/menu/menu';
 import { SmallPokeballSvg } from '../../svg/small-pokeball-svg/small-pokeball-svg';
 import { MobileFilter } from '../../components/mobile-filter/mobile-filter';
+import { AbilityFilter } from '../../components/ability-filter/ability-filter';
 import { BurgerMenu } from '../../components/burger-menu/burger-menu';
 import { PokemonCard as PokemonCardComponent } from '../../components/pokemon-card/pokemon-card';
 import { PokemonCard } from '../../models/dashboard/pokemon-card';
@@ -34,6 +35,7 @@ import { capitalize } from '../../util/capitalize';
     Menu,
     SmallPokeballSvg,
     MobileFilter,
+    AbilityFilter,
     PokemonCardComponent,
     Navbar,
   ],
@@ -54,6 +56,7 @@ export class Home implements OnInit, OnDestroy {
   private limit = 9;
   isLoading = false;
   selectedType = '';
+  selectedAbility = '';
   searchQuery = '';
   isSearching = false;
   showScrollButton = false;
@@ -127,16 +130,53 @@ export class Home implements OnInit, OnDestroy {
   }
 
   async getPokemons() {
-    this.isSearching = false;
+    if (this.isLoading) return;
     this.isLoading = true;
-    const newPokemons = await this.pokemonService.getPokemonCards(
-      this.limit,
-      this.offset,
-      this.selectedType
-    );
-    this.pokemons = newPokemons;
-    this.offset += this.limit;
-    this.isLoading = false;
+
+    try {
+      if (this.isSearching && this.searchQuery) {
+        const results = await this.pokemonService.searchPokemon(this.searchQuery);
+        this.pokemons = results;
+      } else {
+        const newPokemons = await this.pokemonService.getPokemonCards(
+          this.limit,
+          this.offset,
+          this.selectedType,
+          this.selectedAbility
+        );
+
+        if (this.offset === 0) {
+          this.pokemons = newPokemons;
+        } else {
+          this.pokemons = [...this.pokemons, ...newPokemons];
+        }
+        this.offset += this.limit;
+      }
+    } catch (error) {
+      console.error('Error loading pokemons:', error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  onTypeSelected(type: string) {
+    this.selectedType = type;
+    // this.selectedAbility = ''; // Allow combined filtering
+    this.offset = 0;
+    this.pokemons = [];
+    this.isSearching = false;
+    this.searchQuery = '';
+    this.getPokemons();
+  }
+
+  onAbilitySelected(ability: string) {
+    this.selectedAbility = ability;
+    // this.selectedType = ''; // Allow combined filtering
+    this.offset = 0;
+    this.pokemons = [];
+    this.isSearching = false;
+    this.searchQuery = '';
+    this.getPokemons();
   }
 
   async loadMore() {
@@ -152,39 +192,16 @@ export class Home implements OnInit, OnDestroy {
     this.isLoading = false;
   }
 
-  async onTypeSelected(type: string) {
-    // Map "insect" to "bug" for PokeAPI compatibility
-    const mappedType = type === 'insect' ? 'bug' : type;
-    this.selectedType = mappedType;
+  onSearchInput(event: any) {
+    this.searchQuery = event.target.value;
     this.offset = 0;
-    await this.getPokemons();
-    this.scrollToPokemonSection();
+    this.isSearching = false;
   }
 
-  private scrollToPokemonSection() {
-    const section = document.querySelector('.sec3');
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  async onSearchInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.searchQuery = input.value;
-
-    const termAsNumber = Number(this.searchQuery);
-    const isNumericSearch = !isNaN(termAsNumber) && termAsNumber > 0;
-
-    // Controlla i minimi caratteri richiesti
-    const hasMinChars =
-      (isNumericSearch && this.searchQuery.length >= 2) ||
-      (!isNumericSearch && this.searchQuery.length >= 3);
-
-    if (hasMinChars) {
-      await this.performSearch();
-    } else if (this.searchQuery.length === 0) {
-      this.offset = 0;
-      this.getPokemons();
+  scrollToPokemonSection() {
+    const element = document.querySelector('.sec3');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   }
 

@@ -30,6 +30,18 @@ export class PokemonService {
     return response;
   }
 
+  async getAllAbilities(): Promise<NamedAPIResource[]> {
+    const url = `${this.baseUrl}/ability?limit=1000`;
+    const response = await firstValueFrom(
+      this.http
+        .get<{ results: NamedAPIResource[] }>(url)
+        .pipe(map((response: any) => response.results))
+    );
+    return response.sort((a: NamedAPIResource, b: NamedAPIResource) =>
+      a.name.localeCompare(b.name)
+    );
+  }
+
   async getPokemonDetails(url: string): Promise<PokemonDetails> {
     return firstValueFrom(this.http.get<PokemonDetails>(url));
   }
@@ -103,16 +115,51 @@ export class PokemonService {
   async getPokemonCards(
     limit: number = 20,
     offset: number = 0,
-    type: string = ''
+    type: string = '',
+    ability: string = ''
   ): Promise<{ id: number; name: string; imageUrl: string; types: string[] }[]> {
     let url = `${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`;
-    let response: NamedAPIResource[];
+    let response: NamedAPIResource[] = [];
 
-    if (type) {
+    if (type && ability) {
+      const [typeResponse, abilityResponse] = await Promise.all([
+        firstValueFrom(
+          this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(
+            `${this.baseUrl}/type/${type}`
+          )
+        ),
+        firstValueFrom(
+          this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(
+            `${this.baseUrl}/ability/${ability}`
+          )
+        ),
+      ]);
+
+      const typePokemons = typeResponse.pokemon.map((p) => p.pokemon);
+      const abilityPokemons = abilityResponse.pokemon.map((p) => p.pokemon);
+
+      // Intersection
+      response = typePokemons.filter((tp) =>
+        abilityPokemons.some((ap) => ap.name === tp.name)
+      );
+      
+      // Apply pagination manually for filtered results
+      response = response.slice(offset, offset + limit);
+
+    } else if (type) {
       const typeResponse = await firstValueFrom(
-        this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(`${this.baseUrl}/type/${type}`)
+        this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(
+          `${this.baseUrl}/type/${type}`
+        )
       );
       response = typeResponse.pokemon.map((p) => p.pokemon).slice(offset, offset + limit);
+    } else if (ability) {
+      const abilityResponse = await firstValueFrom(
+        this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(
+          `${this.baseUrl}/ability/${ability}`
+        )
+      );
+      response = abilityResponse.pokemon.map((p) => p.pokemon).slice(offset, offset + limit);
     } else {
       response = await firstValueFrom(
         this.http
