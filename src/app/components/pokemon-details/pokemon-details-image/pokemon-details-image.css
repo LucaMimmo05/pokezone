@@ -9,3 +9,17 @@
   height: auto;
   display: block;
 }
+
+@media (min-width: 900px) {
+  .pokemonImage {
+    position: relative;
+    z-index: 2;
+    right: -80px;
+    margin-bottom: 0; 
+  }
+
+  .pokemonImage img {
+    width: 400px;
+    height: auto;
+  }
+}
