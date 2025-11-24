@@ -49,11 +49,15 @@
 
 .bag-text {
   color: #3f67ba;
-  font-family: 'Poppins', sans-serif;
+  font-family: Inter;
   font-size: 15px;
   font-style: normal;
   font-weight: 600;
   line-height: 150%;
+}
+
+.loading-text {
+  font-family: Inter;
 }
 
 .hero-title {
@@ -68,7 +72,7 @@
 .hero-title h1 {
   color: #fff;
   text-align: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Inter;
   font-size: 64px;
   font-style: normal;
   font-weight: 700;
@@ -80,7 +84,7 @@
 .hero-title p {
   color: #fff;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: Inter;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -155,8 +159,7 @@
   animation: spin 1s linear infinite;
   margin: 20px auto;
   display: block;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
+  color: #c20001;
 }
 
 @keyframes spin {
@@ -261,7 +264,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-family: 'Poppins', sans-serif;
+  font-family: Inter;
 }
 
 .stat-number {
@@ -269,7 +272,7 @@
   font-weight: 700;
   margin: 0;
   color: #dc0a2d;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Inter;
 }
 
 .charts-container {
@@ -314,7 +317,7 @@
   font-weight: 600;
   border-bottom: none;
   padding-bottom: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: Inter;
 }
 
 /* ApexCharts styling */
@@ -359,7 +362,7 @@
   color: #2c3e50;
   font-size: 15px;
   transition: transform 0.2s ease;
-  font-family: 'Poppins', sans-serif;
+  font-family: Inter;
 }
 
 .type-bar-item:hover .type-label {
@@ -423,6 +426,7 @@
 .type-count {
   color: white;
   font-weight: 700;
+  font-family: Inter;
   font-size: 15px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   z-index: 1;
@@ -974,6 +978,7 @@
 
   .type-count {
     font-size: 14px;
+    font-family: Inter;
   }
 
   .type-bars {
@@ -1295,5 +1300,6 @@
 
   .type-count {
     font-size: 12px;
+    font-family: Inter;
   }
 }
