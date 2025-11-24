@@ -6,6 +6,6 @@ import { PokeballSvg } from '../../svg/pokeball-svg/pokeball-svg';
   selector: 'app-not-found',
   imports: [RouterLink, PokeballSvg],
   templateUrl: './not-found.html',
-  styleUrl: './not-found.css'
+  styleUrl: './not-found.css',
 })
 export class NotFound {}

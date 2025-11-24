@@ -9,7 +9,8 @@ export const routes: Routes = [
   { path: '', component: Home },
   {
     path: 'pokemon/:id',
-    component: PokemonDetails },
+    component: PokemonDetails,
+  },
   { path: 'not-found', component: NotFound },
-  { path: '**', redirectTo: 'not-found' }
+  { path: '**', redirectTo: 'not-found' },
 ];
