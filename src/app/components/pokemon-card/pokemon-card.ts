@@ -2,6 +2,7 @@ import { Component, input } from '@angular/core';
 import { PokemonCard as PokemonCardModel } from '../../models/dashboard/pokemon-card';
 import { capitalize } from '../../util/capitalize';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pokemon-card',
@@ -34,7 +35,7 @@ export class PokemonCard {
     dark: '#5A5465',
   };
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer, private router: Router) {}
 
   getTypeColor(type: string): string {
     return this.typeColorMap[type.toLowerCase()] || '#A0A29F';
@@ -42,5 +43,12 @@ export class PokemonCard {
 
   getTypeClass(type: string): string {
     return `type-${type.toLowerCase()}`;
+  }
+
+  handleClick(): void {
+    const pokemon = this.pokemon();
+    if (pokemon) {
+      this.router.navigate(['/pokemon', pokemon.id]);
+    }
   }
 }

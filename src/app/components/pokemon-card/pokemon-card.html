@@ -1,5 +1,5 @@
 @if (pokemon(); as poke) {
-<div class="pokemon-card">
+<div class="pokemon-card" (click)="handleClick()">
     <div class="pokemon-image">
         <img [src]="poke.imageUrl" [alt]="poke.name" class="pokemon-image">
     </div>
