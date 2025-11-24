@@ -32,7 +32,7 @@ export class PokemonDetails {
   private readonly route = inject(ActivatedRoute);
   private readonly pokezoneService = inject(PokemonService);
   pokemon: Pokemon | null = null;
-  id: number = 4;
+  id: number = Number(this.route.snapshot.paramMap.get('id'));
   category: any = null;
   weaknesses: string[] = [];
 

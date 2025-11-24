@@ -7,6 +7,6 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: '', component: Home },
   {
-    path: 'pokemon',
+    path: 'pokemon/:id',
     component: PokemonDetails },
 ];
