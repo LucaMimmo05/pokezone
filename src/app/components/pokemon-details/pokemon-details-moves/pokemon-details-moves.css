@@ -1,0 +1,23 @@
+.moves-container {
+    margin-top: 5vh;
+}
+
+.moves {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+}
+
+.move {
+    height: 24px;
+    display: inline-block;
+    padding: 4px 25px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin: 4px;
+    text-align: center;
+    background-color: #f5f5f5db;
+    color: #4D5053;
+}

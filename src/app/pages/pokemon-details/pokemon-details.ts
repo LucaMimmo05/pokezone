@@ -13,6 +13,7 @@ import { PokemonDetailsWeaknesses } from '../../components/pokemon-details/pokem
 import { PokemonDetailsStats } from '../../components/pokemon-details/pokemon-details-stats/pokemon-details-stats';
 import { PokemonDetailsEvolutionChain } from '../../components/pokemon-details/pokemon-details-evolution-chain/pokemon-details-evolution-chain';
 import { LoaderComponent } from '../../components/loader/loader';
+import { PokemonDetailsMoves } from "../../components/pokemon-details/pokemon-details-moves/pokemon-details-moves";
 
 @Component({
   selector: 'app-pokemon-details',
@@ -27,7 +28,8 @@ import { LoaderComponent } from '../../components/loader/loader';
     PokemonDetailsWeaknesses,
     PokemonDetailsStats,
     PokemonDetailsEvolutionChain,
-  ],
+    PokemonDetailsMoves
+],
   templateUrl: './pokemon-details.html',
   styleUrl: './pokemon-details.css',
 })

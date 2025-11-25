@@ -1,0 +1,8 @@
+<div class="moves-container">
+    <span class="centeredLabel">Moves</span>
+    <div class="moves">    
+        @for(move of moves; track $index){
+            <span class="move">{{moves[$index].move.name}}</span>
+        }
+    </div>
+</div>
