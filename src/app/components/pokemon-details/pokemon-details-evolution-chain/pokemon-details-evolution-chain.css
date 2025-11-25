@@ -33,6 +33,12 @@
   filter: brightness(1.1);
 }
 
+.pokemonName {
+  text-transform: capitalize;
+  color: #4D5053;
+}
+
+
 app-arrow-svg {
   display: flex;
   justify-content: center;
