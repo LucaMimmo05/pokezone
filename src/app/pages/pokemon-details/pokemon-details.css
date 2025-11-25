@@ -54,12 +54,11 @@ app-pokemon-details-weaknesses {
   margin-top: 2.5vh;
 }
 
-/* Back button wrapper and styling */
 .back-btn-wrapper {
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  position: absolute;
+  position: fixed;
   top: 20px;
   left: 0;
   z-index: 10;
