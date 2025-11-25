@@ -1,17 +1,17 @@
 <div class="pokemonCardContainer">
+    <div class="back-btn-wrapper">
+        <button class="back-btn" (click)="goBack()" aria-label="Go back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Back
+        </button>
+    </div>
     @if(!pokemon){
     <app-loader></app-loader>
     } @else {
     <div class="firstContainer">
-        <div class="back-btn-wrapper">
-            <button class="back-btn" (click)="goBack()" aria-label="Go back">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-                Back
-            </button>
-        </div>
         <div class="cardHeader">
             <app-pokemon-details-header [types]="pokemon.types"></app-pokemon-details-header>
             <app-pokemon-details-image [sprites]="pokemon.sprites" [name]="pokemon.name"></app-pokemon-details-image>

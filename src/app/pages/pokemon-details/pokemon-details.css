@@ -29,7 +29,8 @@
 
 .cardHeader {
   position: relative; 
-  height: 100vh;
+  height: auto;
+  min-height: 150px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -59,10 +60,10 @@ app-pokemon-details-weaknesses {
   display: flex;
   justify-content: flex-start;
   position: absolute;
-  top: 40px;
+  top: 20px;
   left: 0;
   z-index: 10;
-  padding-left: 32px;
+  padding-left: 20px;
 }
 
 .back-btn {
@@ -143,5 +144,6 @@ app-pokemon-details-weaknesses {
   
   .back-btn-wrapper {
     padding-left: 48px;
+    top: 40px;
   }
 }
