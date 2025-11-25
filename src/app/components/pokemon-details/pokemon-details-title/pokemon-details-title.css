@@ -13,7 +13,7 @@
 
 .nameContainer {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.8rem;
 }
 
@@ -21,20 +21,38 @@
     text-transform: capitalize;
     font-size: 1.8rem; 
     font-weight: 700;
+    line-height: 1;
 }
 
 .criesButton {
     background: none;
     border: none;
-    font-size: 1.5rem;
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0;
     border-radius: 50%;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #c20001;
+    flex-shrink: 0;
+    margin-top: 0.4rem;
+}
+
+.criesButton svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke: #c20001;
 }
 
 .criesButton:hover {
     background-color: rgba(194, 0, 1, 0.1);
+}
+
+.criesButton:hover svg {
+    stroke-width: 2.5;
 }
 
 .criesButton:active {
@@ -67,4 +85,19 @@
   .pokemonName {
     font-size: 2.8em; 
   }
+
+  .criesButton:hover {
+    background-color: rgba(194, 0, 1, 0.1);
 }
+}
+
+@media (max-width: 900px) {
+  .criesButton {
+    margin-top: -0.2rem;
+  }
+
+  .criesButton:hover {
+    background-color: rgba(194, 0, 1, 0.1);
+}
+}
+
