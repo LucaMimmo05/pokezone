@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Footer } from "./components/footer/footer";
+import { FooterVisibilityService } from './services/footer-visibility.service';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,9 @@ import { Footer } from "./components/footer/footer";
 })
 export class App {
   protected readonly title = signal('pokezone');
+  private footerService = inject(FooterVisibilityService);
+
+  get showFooter() {
+    return this.footerService.showFooter;
+  }
 }
