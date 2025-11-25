@@ -28,8 +28,8 @@ import { LoaderComponent } from '../../components/loader/loader';
     SparkSVG,
     LoaderComponent,
   ],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
+  templateUrl: './dashboard.html',
+  styleUrl: './dashboard.css',
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private readonly pokemonService = inject(PokemonService);

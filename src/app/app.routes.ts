@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DashboardComponent } from './pages/dashboard/dashboard';
 import { Home } from './pages/home/home';
 import { PokemonDetails } from './pages/pokemon-details/pokemon-details';
 import { NotFound } from './pages/not-found/not-found';
