@@ -5,28 +5,22 @@ import { NgApexchartsModule, ApexOptions } from 'ng-apexcharts';
 import { PokemonService, DashboardStats } from '../../services/pokemon.service';
 import { from } from 'rxjs';
 
-import { DropSVG } from '../../svg/drop-svg/drop-svg';
-import { LightningSVG } from '../../svg/lightning-svg/lightning-svg';
-import { MessageSVG } from '../../svg/message-svg/message-svg';
-import { FireSVG } from '../../svg/fire-svg/fire-svg';
-import { SnowSVG } from '../../svg/snow-svg/snow-svg';
-import { LeafSVG } from '../../svg/leaf-svg/leaf-svg';
-import { SparkSVG } from '../../svg/spark-svg/spark-svg';
 import { LoaderComponent } from '../../components/loader/loader';
+import { DashboardHeroComponent } from '../../components/dashboard/dashboard-hero/dashboard-hero';
+import { DashboardStatsComponent } from '../../components/dashboard/dashboard-stats/dashboard-stats';
+import { DashboardChartsComponent } from '../../components/dashboard/dashboard-charts/dashboard-charts';
+import { DashboardTypeBarsComponent } from '../../components/dashboard/dashboard-type-bars/dashboard-type-bars';
 
 @Component({
   selector: 'app-dashboard',
   imports: [
     CommonModule,
     NgApexchartsModule,
-    DropSVG,
-    LightningSVG,
-    MessageSVG,
-    FireSVG,
-    SnowSVG,
-    LeafSVG,
-    SparkSVG,
     LoaderComponent,
+    DashboardHeroComponent,
+    DashboardStatsComponent,
+    DashboardChartsComponent,
+    DashboardTypeBarsComponent,
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',

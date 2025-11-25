@@ -1,0 +1,24 @@
+<div class="pie-charts-row">
+  <div class="chart-section">
+    <h2>Pokémon by Color</h2>
+    <apx-chart 
+      [series]="colorChartOptions.series!" 
+      [chart]="colorChartOptions.chart!"
+      [labels]="colorChartOptions.labels!" 
+      [colors]="colorChartOptions.colors!" 
+      [legend]="colorChartOptions.legend!"
+      [responsive]="colorChartOptions.responsive!">
+    </apx-chart>
+  </div>
+  <div class="chart-section">
+    <h2>Pokémon by Shape</h2>
+    <apx-chart 
+      [series]="shapeChartOptions.series!" 
+      [chart]="shapeChartOptions.chart!"
+      [labels]="shapeChartOptions.labels!" 
+      [colors]="shapeChartOptions.colors!" 
+      [legend]="shapeChartOptions.legend!"
+      [responsive]="shapeChartOptions.responsive!">
+    </apx-chart>
+  </div>
+</div>

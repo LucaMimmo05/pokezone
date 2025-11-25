@@ -1,27 +1,5 @@
 <section class="dashboard">
-  <div class="hero" [style.background]="currentBgColor">
-    <div class="hero-content">
-      <div class="hero-items">
-        <app-drop-svg class="hero-drop-svg" [color]="currentSvgColor"></app-drop-svg>
-        <app-lightning-svg class="hero-lightning-svg" [color]="currentSvgColor"></app-lightning-svg>
-        <app-message-svg class="hero-message-svg" [color]="currentSvgColor"></app-message-svg>
-      </div>
-      <div class="hero-tag">
-        <div class="bag">📊</div>
-        <span class="bag-text">Dashboard</span>
-      </div>
-      <div class="hero-title">
-        <h1>Pokémon Dashboard</h1>
-        <p>Complete statistics and distribution of Pokémon around the world</p>
-      </div>
-      <div class="hero-items">
-        <app-fire-svg class="hero-fire-svg" [color]="currentSvgColor"></app-fire-svg>
-        <app-snow-svg class="hero-snow-svg" [color]="currentSvgColor"></app-snow-svg>
-        <app-leaf-svg class="hero-leaf-svg" [color]="currentSvgColor"></app-leaf-svg>
-        <app-spark-svg class="hero-spark-svg" [color]="currentSvgColor"></app-spark-svg>
-      </div>
-    </div>
-  </div>
+  <dashboard-hero [currentBgColor]="currentBgColor" [currentSvgColor]="currentSvgColor"></dashboard-hero>
 
   <div class="back-btn-wrapper">
     <button class="back-btn" (click)="goBack()" aria-label="Go back">
@@ -44,72 +22,15 @@
   }
 
   @if (!loading) {
-  <div class="stats-grid">
-    <div class="stat-card">
-      <h3>Total Pokémon</h3>
-      <p class="stat-number">{{ stats?.totalPokemon || 0 }}</p>
-    </div>
-
-    <div class="stat-card">
-      <h3>Total Types</h3>
-      <p class="stat-number">{{ stats?.totalTypes || typeEntries.length }}</p>
-    </div>
-  </div>
+  <dashboard-stats [stats]="stats" [typeEntries]="typeEntries"></dashboard-stats>
 
     @if (apiFailed) {
       <div class="placeholder-banner">Data temporarily unavailable.</div>
     }
 
     <div class="charts-container">
-      <div class="pie-charts-row">
-        <div class="chart-section">
-          <h2>Pokémon by Color</h2>
-          <apx-chart 
-            [series]="colorChartOptions.series!" 
-            [chart]="colorChartOptions.chart!"
-            [labels]="colorChartOptions.labels!" 
-            [colors]="colorChartOptions.colors!" 
-            [legend]="colorChartOptions.legend!"
-            [responsive]="colorChartOptions.responsive!">
-          </apx-chart>
-        </div>
-
-        <div class="chart-section">
-          <h2>Pokémon by Shape</h2>
-          <apx-chart 
-            [series]="shapeChartOptions.series!" 
-            [chart]="shapeChartOptions.chart!"
-            [labels]="shapeChartOptions.labels!" 
-            [colors]="shapeChartOptions.colors!" 
-            [legend]="shapeChartOptions.legend!"
-            [responsive]="shapeChartOptions.responsive!">
-          </apx-chart>
-        </div>
-      </div>
-
-      <div class="chart-section full-width">
-        <h2>Pokémon by Type</h2>
-        <div class="type-bars">
-          @for (type of typeEntries; track type.name) {
-            <div class="type-bar-item">
-              <div class="type-label">
-                <img [src]="'/' + type.name.charAt(0).toUpperCase() + type.name.slice(1) + '.png'" 
-                     [alt]="type.name"
-                     class="type-icon" />
-                <span>{{ type.name.charAt(0).toUpperCase() + type.name.slice(1) }}</span>
-              </div>
-              <div class="type-bar-container">
-                <div class="type-bar" 
-                     [style.width.%]="getBarWidth(type.count)"
-                     [style.background-color]="typeColors[type.name]" 
-                     [style.animation-delay.ms]="$index * 50">
-                  <span class="type-count">{{ apiFailed ? '—' : type.count }}</span>
-                </div>
-              </div>
-            </div>
-          }
-        </div>
-      </div>
+      <dashboard-charts [colorChartOptions]="colorChartOptions" [shapeChartOptions]="shapeChartOptions"></dashboard-charts>
+      <dashboard-type-bars [typeEntries]="typeEntries" [typeColors]="typeColors" [apiFailed]="apiFailed" [getBarWidth]="getBarWidth.bind(this)"></dashboard-type-bars>
     </div>
   }
 </section>

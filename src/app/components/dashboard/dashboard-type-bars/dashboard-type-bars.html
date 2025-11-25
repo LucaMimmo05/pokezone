@@ -1,0 +1,23 @@
+<div class="chart-section full-width">
+  <h2>Pokémon by Type</h2>
+  <div class="type-bars">
+    @for (type of typeEntries; track type.name) {
+      <div class="type-bar-item">
+        <div class="type-label">
+          <img [src]="'/' + type.name.charAt(0).toUpperCase() + type.name.slice(1) + '.png'" 
+               [alt]="type.name"
+               class="type-icon" />
+          <span>{{ type.name.charAt(0).toUpperCase() + type.name.slice(1) }}</span>
+        </div>
+        <div class="type-bar-container">
+          <div class="type-bar" 
+               [style.width.%]="getBarWidth(type.count)"
+               [style.background-color]="typeColors[type.name]" 
+               [style.animation-delay.ms]="$index * 50">
+            <span class="type-count">{{ apiFailed ? '—' : type.count }}</span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
