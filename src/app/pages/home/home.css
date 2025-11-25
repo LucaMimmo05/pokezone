@@ -393,6 +393,7 @@
 .load-more button {
   display: inline-flex;
   padding: 14px 20px;
+  height: 45px;
   align-items: flex-start;
   gap: 10px;
   border-radius: 6px;

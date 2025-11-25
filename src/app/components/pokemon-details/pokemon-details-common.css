@@ -17,10 +17,11 @@
 }
 
 .pokemonType {
+    height: 24px;
     display: inline-block;
-    padding: 0.5rem 2.5rem;
+    padding: 4px 25px;
     border-radius: 4px;
-    font-size: 1.1em;
+    font-size: 14px;
     font-weight: 600;
     text-transform: capitalize;
 }

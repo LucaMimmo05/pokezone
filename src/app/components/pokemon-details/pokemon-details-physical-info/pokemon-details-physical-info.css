@@ -1,8 +1,7 @@
 .physicalInfoBox {
   display: flex;
   flex-wrap: wrap;
-  gap: 10vw;
-  margin-top: 2vh;
+  flex-direction: column;
   justify-content: center;
 }
 

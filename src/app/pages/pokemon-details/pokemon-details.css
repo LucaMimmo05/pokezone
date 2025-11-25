@@ -28,6 +28,13 @@
   flex-direction: column;
 }
 
+.infoSection,
+app-pokemon-details-evolution-chain, 
+app-pokemon-details-stats, 
+app-pokemon-details-weaknesses {
+  margin-top: 5vh;
+}
+
 @media (min-width: 900px) {
   .pokemonCardContainer {
     display: flex;

@@ -24,6 +24,7 @@
     width: 100%;
     flex-direction: column;
     justify-content: center;
+    margin-top: 5vh;
 }
 
 @media (min-width: 900px) {

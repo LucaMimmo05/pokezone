@@ -21,6 +21,10 @@ export class PokemonDetailsEvolutionChain {
 
   evolutionPaths: EvolutionStage[][] = [];
 
+  visiblePaths = 1;
+  isLoading = false;
+  isSearching = false;
+
   constructor (
     private pokemonService: PokemonService, 
     private router: Router
@@ -44,6 +48,24 @@ export class PokemonDetailsEvolutionChain {
     const id = this.getDataFromUtils(stage.species.url);
     if (id) {
       this.router.navigate(['/pokemon', id]);
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
+  }
+
+  async loadMore() {
+    if (this.isLoading) return;
+
+    this.isLoading = true;
+
+    this.visiblePaths = this.evolutionPaths.length;
+
+    this.isLoading = false;
+  }
+
+  get displayedPaths(): EvolutionStage[][] {
+    return this.evolutionPaths.slice(0, this.visiblePaths);
   }
 }
