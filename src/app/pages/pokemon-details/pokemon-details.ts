@@ -79,4 +79,8 @@ export class PokemonDetails {
       this.pokemon?.types[0].type.name || ''
     );
   }
+
+  goBack() {
+    this.router.navigate(['/']);
+  }
 }
