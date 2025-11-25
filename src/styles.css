@@ -15,6 +15,17 @@ html, body {
   padding: 0;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .type-normal { 
   background-color: rgba(160, 162, 159, 0.1); 
   color: #909090; 

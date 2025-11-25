@@ -11,6 +11,7 @@ import { FireSVG } from '../../svg/fire-svg/fire-svg';
 import { SnowSVG } from '../../svg/snow-svg/snow-svg';
 import { LeafSVG } from '../../svg/leaf-svg/leaf-svg';
 import { SparkSVG } from '../../svg/spark-svg/spark-svg';
+import { PokeballSvg } from '../../svg/pokeball-svg/pokeball-svg';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,6 +25,7 @@ import { SparkSVG } from '../../svg/spark-svg/spark-svg';
     SnowSVG,
     LeafSVG,
     SparkSVG,
+    PokeballSvg,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

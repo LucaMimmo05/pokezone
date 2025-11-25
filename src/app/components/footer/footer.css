@@ -1,9 +1,10 @@
 footer {
-    height: 10svh;
+    height: auto;
     font-family: Inter;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 footer .footer-content {
@@ -30,9 +31,22 @@ footer .footer-content {
 .api-credit a {
     color: #c20001;
     text-decoration: none;
-    
 }
 
 .api-credit a:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    footer {
+        padding: 1rem 0.5rem;
+    }
+
+    .developers {
+        font-size: 0.75rem;
+    }
+
+    .api-credit {
+        font-size: 0.75rem;
+    }
 }
