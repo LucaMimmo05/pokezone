@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { PokemonCard as PokemonCardModel } from '../../models/dashboard/pokemon-card';
-import { capitalize } from '../../util/capitalize';
+import { capitalize } from '../../utils/capitalize';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 

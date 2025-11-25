@@ -19,7 +19,7 @@ import { PokemonCard as PokemonCardComponent } from '../../components/pokemon-ca
 import { PokemonCard } from '../../models/dashboard/pokemon-card';
 import { PokemonService } from '../../services/pokemon.service';
 import { Navbar } from '../../components/navbar/navbar';
-import { capitalize } from '../../util/capitalize';
+import { capitalize } from '../../utils/capitalize';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
@@ -65,7 +65,7 @@ export class Home implements OnInit, OnDestroy {
   searchQuery = '';
   isSearching = false;
   showScrollButton = false;
-  
+
   private searchSubject = new Subject<string>();
   private searchSubscription: Subscription | undefined;
 
@@ -89,12 +89,11 @@ export class Home implements OnInit, OnDestroy {
     }, 7000);
 
     // Setup live search
-    this.searchSubscription = this.searchSubject.pipe(
-      debounceTime(500),
-      distinctUntilChanged()
-    ).subscribe(term => {
-      this.handleSearch(term);
-    });
+    this.searchSubscription = this.searchSubject
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((term) => {
+        this.handleSearch(term);
+      });
   }
 
   ngOnDestroy() {
@@ -179,8 +178,7 @@ export class Home implements OnInit, OnDestroy {
   }
 
   onTypeSelected(type: string) {
-    this.selectedType = type;
-    // this.selectedAbility = ''; // Allow combined filtering
+    this.selectedType = type === 'insect' ? 'bug' : type;
     this.offset = 0;
     this.pokemons = [];
     this.isSearching = false;
@@ -190,7 +188,6 @@ export class Home implements OnInit, OnDestroy {
 
   onAbilitySelected(ability: string) {
     this.selectedAbility = ability;
-    // this.selectedType = ''; // Allow combined filtering
     this.offset = 0;
     this.pokemons = [];
     this.isSearching = false;
@@ -222,7 +219,7 @@ export class Home implements OnInit, OnDestroy {
     const isNumericSearch = !isNaN(termAsNumber) && termAsNumber > 0;
 
     const hasMinChars =
-      (isNumericSearch && term.length >= 1) || // Allow 1 char for ID
+      (isNumericSearch && term.length >= 1) ||
       (!isNumericSearch && term.length >= 3);
 
     if (term.trim() && hasMinChars) {
@@ -257,7 +254,11 @@ export class Home implements OnInit, OnDestroy {
     this.isLoading = true;
 
     try {
-      const searchResults = await this.pokemonService.searchPokemon(this.searchQuery);
+      const searchResults = await this.pokemonService.searchPokemon(
+        this.searchQuery,
+        this.selectedType === 'insect' ? 'bug' : this.selectedType,
+        this.selectedAbility
+      );
 
       if (searchResults.length > 0) {
         this.pokemons = searchResults.map((pokemon) => ({
