@@ -46,4 +46,14 @@ export class PokemonDetailsEvolutionChain {
       this.router.navigate(['/pokemon', id]);
     }
   }
+
+  zoomCard(event: MouseEvent): void {
+    const card = event.currentTarget as HTMLElement;
+    card.classList.add('zoomed');
+  }
+
+  unzoomCard(event: MouseEvent): void {
+    const card = event.currentTarget as HTMLElement;
+    card.classList.remove('zoomed');
+  }
 }
