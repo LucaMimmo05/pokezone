@@ -1,0 +1,41 @@
+.loading {
+    text-align: center;
+    padding: 80px 50px;
+    background: white;
+    width: 100%;
+}
+
+.pokeball-spinner {
+    width: 45px;
+    height: 45px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+    display: block;
+    color: #c20001;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-text {
+    font-family: Inter;
+}
+
+@media (max-width: 480px) {
+
+    .loading {
+        padding: 60px 30px;
+    }
+
+    .pokeball-spinner {
+        width: 40px;
+        height: 40px;
+    }
+}
