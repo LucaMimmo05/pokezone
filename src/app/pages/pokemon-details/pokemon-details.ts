@@ -37,15 +37,22 @@ export class PokemonDetails {
   private readonly pokezoneService = inject(PokemonService);
   private readonly footerService = inject(FooterVisibilityService);
   pokemon: Pokemon | null = null;
-  id: number = Number(this.route.snapshot.paramMap.get('id'));
+  id!: number;
   category: any = null;
   weaknesses: string[] = [];
 
   async ngOnInit() {
-    this.footerService.hideFooter();
-    await this.loadPokemonDetails();
-    await this.loadPokemonCategory();
-    await this.loadPokemonWeaknesses();
+    this.route.paramMap.subscribe(async params => {
+      this.id = Number(params.get('id'));
+
+      if (!this.id) return;
+
+      await this.loadPokemonDetails();
+      await this.loadPokemonCategory();
+      await this.loadPokemonWeaknesses();
+    });
+      this.footerService.hideFooter();
+
   }
 
   ngOnDestroy() {
