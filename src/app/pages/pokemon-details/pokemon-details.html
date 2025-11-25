@@ -1,41 +1,48 @@
 <div class="pokemonCardContainer">
-  @if(!pokemon){
+    @if(!pokemon){
     <app-loader></app-loader>
-  } @else {
+    } @else {
     <div class="firstContainer">
+        <div class="back-btn-wrapper">
+            <button class="back-btn" (click)="goBack()" aria-label="Go back">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                Back
+            </button>
+        </div>
         <div class="cardHeader">
             <app-pokemon-details-header [types]="pokemon.types"></app-pokemon-details-header>
-            <app-pokemon-details-image
-            [sprites]="pokemon.sprites"
-            [name]="pokemon.name"
-            ></app-pokemon-details-image>
+            <app-pokemon-details-image [sprites]="pokemon.sprites" [name]="pokemon.name"></app-pokemon-details-image>
         </div>
     </div>
 
     <div class="secondContainer">
         <div class="pokemonDetailsContainer">
-            <app-pokemon-details-title [name]="pokemon.name" [id]="id" [cries]="pokemon.cries"></app-pokemon-details-title>
+            <app-pokemon-details-title [name]="pokemon.name" [id]="id"
+                [cries]="pokemon.cries"></app-pokemon-details-title>
 
             <app-pokemon-details-type [types]="pokemon.types"></app-pokemon-details-type>
 
             <div class="infoSection">
-                <app-pokemon-details-physical-info
-                [weight]="pokemon.weight"
-                [height]="pokemon.height"
-                [category]="category"
-                ></app-pokemon-details-physical-info>
+                <app-pokemon-details-physical-info 
+                  [weight]="pokemon.weight" 
+                  [height]="pokemon.height"
+                  [category]="category">
+                </app-pokemon-details-physical-info>
 
                 <app-pokemon-details-abilities [abilities]="pokemon.abilities"></app-pokemon-details-abilities>
 
                 <app-pokemon-details-weaknesses [weaknesses]="weaknesses"></app-pokemon-details-weaknesses>
             </div>
-            
-            <app-pokemon-details-evolution-chain [species]="pokemon.species"></app-pokemon-details-evolution-chain> 
 
             <app-pokemon-details-stats [stats]="pokemon.stats"></app-pokemon-details-stats>
 
+            <app-pokemon-details-evolution-chain [species]="pokemon.species"></app-pokemon-details-evolution-chain>
+            
             <app-pokemon-details-moves [moves]="pokemon.moves"></app-pokemon-details-moves>
         </div>
     </div>
-  }
+    }
 </div>
