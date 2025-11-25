@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: center;
   align-self: center;
+  cursor: pointer;
 }
 
 .pokemonName {
