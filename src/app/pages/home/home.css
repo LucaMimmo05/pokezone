@@ -16,6 +16,10 @@
   transition: background 0.5s ease;
 }
 
+.hero-navbar {
+  transition: background 0.5s ease;
+}
+
 .hero-content {
   display: flex;
   flex-direction: column;
@@ -102,6 +106,8 @@
 .pokeball-red {
   z-index: 2;
   position: relative;
+  width: 370px;
+  height: 370px;
 }
 
 .pokeball-ground-shadow {
@@ -381,6 +387,11 @@
   width: 100%;
 }
 
+.pokemons-content app-loader {
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
 .load-more {
   display: flex;
   justify-content: center;
@@ -406,6 +417,8 @@
   font-weight: 600;
   line-height: normal;
   letter-spacing: -0.14px;
+    cursor: pointer;
+
 }
 
 .scroll-to-top {
@@ -644,7 +657,6 @@
     bottom: auto;
     left: auto;
     transform: none;
-    margin-top: calc(10svh);
     margin-bottom: 20px;
   }
 
@@ -821,4 +833,31 @@
   font-size: 16px;
   font-weight: 500;
   text-align: center;
+}
+
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .hero {
+    padding-inline: 60px;
+  }
+
+  .sec2 {
+    padding-inline: 60px;
+  }
+
+  .sec3-content {
+    padding-inline: 60px;
+    gap: 60px;
+  }
+
+  .pokemons-content {
+    gap: 20px;
+  }
+
+  .hero-title h1 {
+    font-size: 52px;
+  }
+  
+  .load-more {
+      padding-inline: 60px;
+  }
 }

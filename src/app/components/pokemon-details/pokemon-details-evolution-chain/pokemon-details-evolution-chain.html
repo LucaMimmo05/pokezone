@@ -7,7 +7,12 @@
             }
             <div class="evolutionRow">
                 @for (stage of path; track stage.species.name; let last = $last) {
-                    <div class="evolutionCard" (click)="handleClick(stage)">
+                    <div 
+                        class="evolutionCard" 
+                        (click)="handleClick(stage)"
+                        (mouseenter)="zoomCard($event)"
+                        (mouseleave)="unzoomCard($event)"
+                    >
                         <img 
                             [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + getDataFromUtils(stage.species.url) + '.png'"
                             [alt]="stage.species.name"

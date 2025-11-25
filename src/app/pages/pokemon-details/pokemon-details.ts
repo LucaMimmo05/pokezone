@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonService } from '../../services/pokemon.service';
+import { FooterVisibilityService } from '../../services/footer-visibility.service';
 import { Pokemon } from '../../models/pokemon-details/pokemon';
 import { PokemonDetailsImage } from '../../components/pokemon-details/pokemon-details-image/pokemon-details-image';
 import { PokemonDetailsHeader } from '../../components/pokemon-details/pokemon-details-header/pokemon-details-header';
@@ -11,10 +12,12 @@ import { PokemonDetailsAbilities } from '../../components/pokemon-details/pokemo
 import { PokemonDetailsWeaknesses } from '../../components/pokemon-details/pokemon-details-weaknesses/pokemon-details-weaknesses';
 import { PokemonDetailsStats } from '../../components/pokemon-details/pokemon-details-stats/pokemon-details-stats';
 import { PokemonDetailsEvolutionChain } from '../../components/pokemon-details/pokemon-details-evolution-chain/pokemon-details-evolution-chain';
+import { LoaderComponent } from '../../components/loader/loader';
 
 @Component({
   selector: 'app-pokemon-details',
   imports: [
+    LoaderComponent,
     PokemonDetailsHeader,
     PokemonDetailsImage,
     PokemonDetailsTitle,
@@ -32,6 +35,7 @@ export class PokemonDetails {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly pokezoneService = inject(PokemonService);
+  private readonly footerService = inject(FooterVisibilityService);
   pokemon: Pokemon | null = null;
   id!: number;
   category: any = null;
@@ -47,6 +51,12 @@ export class PokemonDetails {
       await this.loadPokemonCategory();
       await this.loadPokemonWeaknesses();
     });
+      this.footerService.hideFooter();
+
+  }
+
+  ngOnDestroy() {
+    this.footerService.showFooterAgain();
   }
 
   async loadPokemonDetails() {

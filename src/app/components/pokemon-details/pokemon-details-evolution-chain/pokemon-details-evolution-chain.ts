@@ -67,5 +67,13 @@ export class PokemonDetailsEvolutionChain {
 
   get displayedPaths(): EvolutionStage[][] {
     return this.evolutionPaths.slice(0, this.visiblePaths);
+  zoomCard(event: MouseEvent): void {
+    const card = event.currentTarget as HTMLElement;
+    card.classList.add('zoomed');
+  }
+
+  unzoomCard(event: MouseEvent): void {
+    const card = event.currentTarget as HTMLElement;
+    card.classList.remove('zoomed');
   }
 }

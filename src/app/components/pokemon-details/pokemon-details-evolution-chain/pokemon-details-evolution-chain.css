@@ -17,17 +17,32 @@
   flex-direction: column;
   align-items: center;
   align-self: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease, z-index 0s;
+  z-index: 1;
+  position: relative;
 }
 
 .pokemonName {
-  color: #4D5053;
   text-transform: capitalize;
+  color: #4D5053;
+}
+
+.evolutionCard.zoomed {
+  transform: scale(1.3);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+  z-index: 20;
 }
 
 .evolutionCard img {
   display: flex;
   max-width: 80px;
   min-width: 50px;
+  transition: filter 0.3s ease;
+}
+
+.evolutionCard.zoomed img {
+  filter: brightness(1.1);
 }
 
 app-arrow-svg {
