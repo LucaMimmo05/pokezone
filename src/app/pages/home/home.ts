@@ -11,6 +11,7 @@ import { StarSVG } from '../../svg/star-svg/star-svg';
 import { CarouselDot } from '../../components/carousel-dot/carousel-dot';
 import { Menu } from '../../components/menu/menu';
 import { SmallPokeballSvg } from '../../svg/small-pokeball-svg/small-pokeball-svg';
+import { LoaderComponent } from '../../components/loader/loader';
 import { MobileFilter } from '../../components/mobile-filter/mobile-filter';
 import { AbilityFilter } from '../../components/ability-filter/ability-filter';
 import { BurgerMenu } from '../../components/burger-menu/burger-menu';
@@ -25,6 +26,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'app-home',
   imports: [
+    LoaderComponent,
     DropSVG,
     LightningSVG,
     MessageSVG,
