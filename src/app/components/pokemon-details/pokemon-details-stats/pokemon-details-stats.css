@@ -27,7 +27,7 @@
     margin-top: 5vh;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 992px) {
     .statsSection {
         margin-top: 2vh;
     }

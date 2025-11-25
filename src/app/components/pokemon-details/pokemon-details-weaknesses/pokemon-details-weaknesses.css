@@ -12,7 +12,7 @@
   gap: 2vw;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 992px) {
    .weaknessesSection {
     align-items: flex-start;
     width: 100%;

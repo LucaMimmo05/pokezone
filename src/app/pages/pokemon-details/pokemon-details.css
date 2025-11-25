@@ -93,7 +93,7 @@ app-pokemon-details-weaknesses {
   box-shadow: 0 6px 18px rgba(63, 103, 186, 0.25);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 992px) {
   .pokemonCardContainer {
     display: flex;
     flex-direction: row;
@@ -121,7 +121,7 @@ app-pokemon-details-weaknesses {
     flex: 1;
     display: flex;
     flex-direction: column; 
-    margin-left: 80px;
+    margin-left: 90px;
     padding: 4vh 5vw;
     overflow-y: auto;
     min-height: auto; 
@@ -145,5 +145,11 @@ app-pokemon-details-weaknesses {
   .back-btn-wrapper {
     padding-left: 48px;
     top: 40px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .secondContainer {
+    margin-left: 80px;
   }
 }

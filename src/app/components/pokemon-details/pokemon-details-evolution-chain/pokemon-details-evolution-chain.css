@@ -89,13 +89,25 @@ app-arrow-svg {
   letter-spacing: -0.14px;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
+  .evolutionCard img {
+    max-width: 100px;
+    min-width: 70px;
+  }
+}
+
+@media (min-width: 992px) {
   .evolutionContainer {
       margin-top: 2vh;
   }
 
   .evolutionCard.zoomed {
     transform: scale(1.3);
+  }
+
+  .evolutionCard img {
+    max-width: 120px;
+    min-width: 90px;
   }
 }
 
