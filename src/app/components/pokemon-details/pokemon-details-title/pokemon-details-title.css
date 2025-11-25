@@ -67,7 +67,7 @@
   top: 3px;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 992px) {
   .titleSection {
     width: 100%;
     justify-content: flex-start;
@@ -91,7 +91,7 @@
 }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 992px) {
   .criesButton {
     margin-top: -0.2rem;
   }

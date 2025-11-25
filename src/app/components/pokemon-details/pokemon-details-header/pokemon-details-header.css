@@ -23,7 +23,7 @@
   background-size: 30% auto; 
 }
 
-@media (min-width: 900px) {
+@media (min-width: 992px) {
   .headerBackgroundContainer {
     position: absolute;
     top: 0;
