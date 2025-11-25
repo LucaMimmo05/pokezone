@@ -2,10 +2,12 @@
     @if (evolutionPaths.length > 0) {
         <span class="centeredLabel">Evolutions</span>
         @for (path of evolutionPaths; track $index) {
-            <span class="centeredlabel2">Evolution {{ $index + 1 }}</span>
+            @if(evolutionPaths.length > 1) {
+                <span class="centeredlabel2">Evolution {{ $index + 1 }}</span>
+            } 
             <div class="evolutionRow">
                 @for (stage of path; track stage.species.name; let last = $last) {
-                    <div class="evolutionCard">
+                    <div class="evolutionCard" (click)="handleClick(stage)">
                         <img 
                             [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + getDataFromUtils(stage.species.url) + '.png'"
                             [alt]="stage.species.name"
@@ -22,5 +24,3 @@
         }
     }
 </div>
-
-
