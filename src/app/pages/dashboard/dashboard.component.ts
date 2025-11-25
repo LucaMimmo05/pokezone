@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Location } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule, ApexOptions } from 'ng-apexcharts';
 import { PokemonService, DashboardStats } from '../../services/pokemon.service';
@@ -32,6 +33,7 @@ import { LoaderComponent } from '../../components/loader/loader';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private readonly pokemonService = inject(PokemonService);
+  private readonly location = inject(Location);
   private colorInterval?: number;
 
   // State
@@ -198,5 +200,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   initChartsPlaceholder(): void {
     this.initCharts();
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
