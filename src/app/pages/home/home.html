@@ -31,8 +31,8 @@
                     <app-star-svg [size]="28" class="hero-star-small"></app-star-svg>
                 </div>
                 <div class="hero-img">
-                    <img class="pokeball-red" [width]="370" [height]="370"
-                        [src]="isChangePokeball() ? 'pokeball-red.png' : 'pokeball-blue.png'" alt="Pokeball">
+                    <img class="pokeball-red" [src]="isChangePokeball() ? 'pokeball-red.png' : 'pokeball-blue.png'"
+                        alt="Pokeball">
                     <div class="pokeball-ground-shadow"></div>
                 </div>
 
@@ -100,11 +100,13 @@
                     }
                 </div>
                 <div class="pokemons-content">
-                    @if (pokemons.length > 0) {
+                    @if (isLoading && pokemons.length === 0) {
+                    <app-loader></app-loader>
+                    } @else if (pokemons.length > 0) {
                     @for (pokemon of pokemons; track $index) {
                     <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
                     }
-                    } @else if (!isLoading) {
+                    } @else {
                     <div class="no-results">
                         <p>No Pokémon found matching your criteria.</p>
                     </div>

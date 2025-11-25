@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Location } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule, ApexOptions } from 'ng-apexcharts';
 import { PokemonService, DashboardStats } from '../../services/pokemon.service';
@@ -11,6 +12,7 @@ import { FireSVG } from '../../svg/fire-svg/fire-svg';
 import { SnowSVG } from '../../svg/snow-svg/snow-svg';
 import { LeafSVG } from '../../svg/leaf-svg/leaf-svg';
 import { SparkSVG } from '../../svg/spark-svg/spark-svg';
+import { LoaderComponent } from '../../components/loader/loader';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,12 +26,14 @@ import { SparkSVG } from '../../svg/spark-svg/spark-svg';
     SnowSVG,
     LeafSVG,
     SparkSVG,
+    LoaderComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private readonly pokemonService = inject(PokemonService);
+  private readonly location = inject(Location);
   private colorInterval?: number;
 
   // State
@@ -196,5 +200,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   initChartsPlaceholder(): void {
     this.initCharts();
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

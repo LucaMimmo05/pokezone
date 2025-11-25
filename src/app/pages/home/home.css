@@ -102,6 +102,8 @@
 .pokeball-red {
   z-index: 2;
   position: relative;
+  width: 370px;
+  height: 370px;
 }
 
 .pokeball-ground-shadow {
@@ -381,6 +383,11 @@
   width: 100%;
 }
 
+.pokemons-content app-loader {
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
 .load-more {
   display: flex;
   justify-content: center;
@@ -643,7 +650,6 @@
     bottom: auto;
     left: auto;
     transform: none;
-    margin-top: calc(10svh);
     margin-bottom: 20px;
   }
 

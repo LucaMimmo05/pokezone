@@ -1,0 +1,21 @@
+<footer>
+    @if (isHome()) {
+    <a routerLink="/dashboard" class="dashboard-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        Pokemon Stats
+    </a>
+    }
+
+    <div class="footer-content">
+        <p>&copy; {{ currentYear }} PokeZone. All rights reserved.</p>
+        <p class="developers">Developed by Luca Ferro, Luca Mimmo, Gianluca Ornago, Sofia Palmeri, Giulia Zecchetin</p>
+        <p class="api-credit">Data provided by <a href="https://pokeapi.co/" target="_blank"
+                rel="noopener noreferrer">PokéAPI</a></p>
+    </div>
+</footer>

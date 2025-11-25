@@ -1,5 +1,7 @@
 <div class="pokemonCardContainer">
-  @if(pokemon){
+  @if(!pokemon){
+    <app-loader></app-loader>
+  } @else {
     <div class="firstContainer">
         <div class="cardHeader">
             <app-pokemon-details-header [types]="pokemon.types"></app-pokemon-details-header>
