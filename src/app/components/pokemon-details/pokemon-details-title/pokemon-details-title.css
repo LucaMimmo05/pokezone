@@ -11,10 +11,34 @@
     align-items: center;
 }
 
+.nameContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
 .pokemonName {
     text-transform: capitalize;
     font-size: 1.8rem; 
     font-weight: 700;
+}
+
+.criesButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.criesButton:hover {
+    background-color: rgba(194, 0, 1, 0.1);
+}
+
+.criesButton:active {
+    transform: scale(0.95);
 }
 
 .pokemonNumber {
@@ -34,6 +58,10 @@
 
   .titleContent {
     align-items: flex-start;
+  }
+
+  .nameContainer {
+    justify-content: flex-start;
   }
 
   .pokemonName {

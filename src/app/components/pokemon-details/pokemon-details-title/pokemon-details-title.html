@@ -1,6 +1,13 @@
 <div class="titleSection">
     <div class="titleContent">
-        <h2 class="pokemonName">{{ name }}</h2>
+        <div class="nameContainer">
+            <h2 class="pokemonName">{{ name }}</h2>
+            @if (cries?.latest) {
+                <button class="criesButton" (click)="playCry()" title="Play Pokémon cry">
+                    🔊
+                </button>
+            }
+        </div>
         <h2 class="pokemonNumber">{{ idWithZeros }}</h2>
     </div>
 </div>
