@@ -9,40 +9,46 @@
         </button>
     </div>
     @if(!pokemon){
-    <app-loader></app-loader>
+        <app-loader></app-loader>
     } @else {
-    <div class="firstContainer">
-        <div class="cardHeader">
-            <app-pokemon-details-header [types]="pokemon.types"></app-pokemon-details-header>
-            <app-pokemon-details-image [sprites]="pokemon.sprites" [name]="pokemon.name"></app-pokemon-details-image>
+        <div class="pokemon-types">
+            @for (type of pokemon.types; track type.type.name) {
+                <div class="pokemon-type-icon" [class]="getTypeClass(type.type.name)"></div>
+            }
         </div>
-    </div>
 
-    <div class="secondContainer">
-        <div class="pokemonDetailsContainer">
-            <app-pokemon-details-title [name]="pokemon.name" [id]="id"
-                [cries]="pokemon.cries"></app-pokemon-details-title>
-
-            <app-pokemon-details-type [types]="pokemon.types"></app-pokemon-details-type>
-
-            <div class="infoSection">
-                <app-pokemon-details-physical-info 
-                  [weight]="pokemon.weight" 
-                  [height]="pokemon.height"
-                  [category]="category">
-                </app-pokemon-details-physical-info>
-
-                <app-pokemon-details-abilities [abilities]="pokemon.abilities"></app-pokemon-details-abilities>
-
-                <app-pokemon-details-weaknesses [weaknesses]="weaknesses"></app-pokemon-details-weaknesses>
+        <div class="firstContainer">
+            <div class="cardHeader">
+                <app-pokemon-details-header [types]="pokemon.types"></app-pokemon-details-header>
+                <app-pokemon-details-image [sprites]="pokemon.sprites" [name]="pokemon.name"></app-pokemon-details-image>
             </div>
-
-            <app-pokemon-details-stats [stats]="pokemon.stats"></app-pokemon-details-stats>
-
-            <app-pokemon-details-evolution-chain [species]="pokemon.species"></app-pokemon-details-evolution-chain>
-            
-            <app-pokemon-details-moves [moves]="pokemon.moves"></app-pokemon-details-moves>
         </div>
-    </div>
+
+        <div class="secondContainer">
+            <div class="pokemonDetailsContainer">
+                <app-pokemon-details-title [name]="pokemon.name" [id]="id"
+                    [cries]="pokemon.cries"></app-pokemon-details-title>
+
+                <app-pokemon-details-type [types]="pokemon.types"></app-pokemon-details-type>
+
+                <div class="infoSection">
+                    <app-pokemon-details-physical-info 
+                    [weight]="pokemon.weight" 
+                    [height]="pokemon.height"
+                    [category]="category">
+                    </app-pokemon-details-physical-info>
+
+                    <app-pokemon-details-abilities [abilities]="pokemon.abilities"></app-pokemon-details-abilities>
+
+                    <app-pokemon-details-weaknesses [weaknesses]="weaknesses"></app-pokemon-details-weaknesses>
+                </div>
+
+                <app-pokemon-details-stats [stats]="pokemon.stats"></app-pokemon-details-stats>
+
+                <app-pokemon-details-evolution-chain [species]="pokemon.species"></app-pokemon-details-evolution-chain>
+                
+                <app-pokemon-details-moves [moves]="pokemon.moves"></app-pokemon-details-moves>
+            </div>
+        </div>
     }
 </div>

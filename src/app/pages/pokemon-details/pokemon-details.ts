@@ -14,6 +14,7 @@ import { PokemonDetailsStats } from '../../components/pokemon-details/pokemon-de
 import { PokemonDetailsEvolutionChain } from '../../components/pokemon-details/pokemon-details-evolution-chain/pokemon-details-evolution-chain';
 import { LoaderComponent } from '../../components/loader/loader';
 import { PokemonDetailsMoves } from "../../components/pokemon-details/pokemon-details-moves/pokemon-details-moves";
+import { getTypeClass, getTypeColor } from '../../utils/pokemon-types';
 
 @Component({
   selector: 'app-pokemon-details',
@@ -29,7 +30,7 @@ import { PokemonDetailsMoves } from "../../components/pokemon-details/pokemon-de
     PokemonDetailsStats,
     PokemonDetailsEvolutionChain,
     PokemonDetailsMoves
-],
+  ],
   templateUrl: './pokemon-details.html',
   styleUrl: './pokemon-details.css',
 })
@@ -85,4 +86,7 @@ export class PokemonDetails {
   goBack() {
     this.router.navigate(['/']);
   }
+
+  getTypeClass = getTypeClass;
+  getTypeColor = getTypeColor;
 }
