@@ -1,0 +1,52 @@
+footer {
+    height: auto;
+    font-family: Inter;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+footer .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 0.9rem;
+}
+
+.developers {
+    font-size: 0.8rem;
+    color: #666666;
+}
+
+.api-credit {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    color: #666666;
+}
+
+.api-credit a {
+    color: #c20001;
+    text-decoration: none;
+}
+
+.api-credit a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    footer {
+        padding: 1rem 0.5rem;
+    }
+
+    .developers {
+        font-size: 0.75rem;
+    }
+
+    .api-credit {
+        font-size: 0.75rem;
+    }
+}

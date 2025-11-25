@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonService } from '../../services/pokemon.service';
+import { FooterVisibilityService } from '../../services/footer-visibility.service';
 import { Pokemon } from '../../models/pokemon-details/pokemon';
 import { PokemonDetailsImage } from '../../components/pokemon-details/pokemon-details-image/pokemon-details-image';
 import { PokemonDetailsHeader } from '../../components/pokemon-details/pokemon-details-header/pokemon-details-header';
@@ -32,15 +33,21 @@ export class PokemonDetails {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly pokezoneService = inject(PokemonService);
+  private readonly footerService = inject(FooterVisibilityService);
   pokemon: Pokemon | null = null;
   id: number = Number(this.route.snapshot.paramMap.get('id'));
   category: any = null;
   weaknesses: string[] = [];
 
   async ngOnInit() {
+    this.footerService.hideFooter();
     await this.loadPokemonDetails();
     await this.loadPokemonCategory();
     await this.loadPokemonWeaknesses();
+  }
+
+  ngOnDestroy() {
+    this.footerService.showFooterAgain();
   }
 
   async loadPokemonDetails() {

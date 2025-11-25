@@ -12,12 +12,15 @@ import { CarouselDot } from '../../components/carousel-dot/carousel-dot';
 import { Menu } from '../../components/menu/menu';
 import { SmallPokeballSvg } from '../../svg/small-pokeball-svg/small-pokeball-svg';
 import { MobileFilter } from '../../components/mobile-filter/mobile-filter';
+import { AbilityFilter } from '../../components/ability-filter/ability-filter';
 import { BurgerMenu } from '../../components/burger-menu/burger-menu';
 import { PokemonCard as PokemonCardComponent } from '../../components/pokemon-card/pokemon-card';
 import { PokemonCard } from '../../models/dashboard/pokemon-card';
 import { PokemonService } from '../../services/pokemon.service';
 import { Navbar } from '../../components/navbar/navbar';
 import { capitalize } from '../../util/capitalize';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -34,11 +37,13 @@ import { capitalize } from '../../util/capitalize';
     Menu,
     SmallPokeballSvg,
     MobileFilter,
+    AbilityFilter,
     PokemonCardComponent,
     Navbar,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
+  providers: [],
 })
 export class Home implements OnInit, OnDestroy {
   capitalize = capitalize;
@@ -54,9 +59,13 @@ export class Home implements OnInit, OnDestroy {
   private limit = 9;
   isLoading = false;
   selectedType = '';
+  selectedAbility = '';
   searchQuery = '';
   isSearching = false;
   showScrollButton = false;
+  
+  private searchSubject = new Subject<string>();
+  private searchSubscription: Subscription | undefined;
 
   @HostListener('window:resize')
   onResize() {
@@ -76,11 +85,22 @@ export class Home implements OnInit, OnDestroy {
       this.currentActiveIndex = (this.currentActiveIndex + 1) % 2;
       this.onChangeBg();
     }, 7000);
+
+    // Setup live search
+    this.searchSubscription = this.searchSubject.pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    ).subscribe(term => {
+      this.handleSearch(term);
+    });
   }
 
   ngOnDestroy() {
     if (this.interval) {
       clearInterval(this.interval);
+    }
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
     }
     // Rimuovi l'event listener per sicurezza
     window.removeEventListener('scroll', this.checkScrollPosition.bind(this));
@@ -127,16 +147,53 @@ export class Home implements OnInit, OnDestroy {
   }
 
   async getPokemons() {
-    this.isSearching = false;
+    if (this.isLoading) return;
     this.isLoading = true;
-    const newPokemons = await this.pokemonService.getPokemonCards(
-      this.limit,
-      this.offset,
-      this.selectedType
-    );
-    this.pokemons = newPokemons;
-    this.offset += this.limit;
-    this.isLoading = false;
+
+    try {
+      if (this.isSearching && this.searchQuery) {
+        const results = await this.pokemonService.searchPokemon(this.searchQuery);
+        this.pokemons = results;
+      } else {
+        const newPokemons = await this.pokemonService.getPokemonCards(
+          this.limit,
+          this.offset,
+          this.selectedType,
+          this.selectedAbility
+        );
+
+        if (this.offset === 0) {
+          this.pokemons = newPokemons;
+        } else {
+          this.pokemons = [...this.pokemons, ...newPokemons];
+        }
+        this.offset += this.limit;
+      }
+    } catch (error) {
+      console.error('Error loading pokemons:', error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  onTypeSelected(type: string) {
+    this.selectedType = type;
+    // this.selectedAbility = ''; // Allow combined filtering
+    this.offset = 0;
+    this.pokemons = [];
+    this.isSearching = false;
+    this.searchQuery = '';
+    this.getPokemons();
+  }
+
+  onAbilitySelected(ability: string) {
+    this.selectedAbility = ability;
+    // this.selectedType = ''; // Allow combined filtering
+    this.offset = 0;
+    this.pokemons = [];
+    this.isSearching = false;
+    this.searchQuery = '';
+    this.getPokemons();
   }
 
   async loadMore() {
@@ -152,52 +209,43 @@ export class Home implements OnInit, OnDestroy {
     this.isLoading = false;
   }
 
-  async onTypeSelected(type: string) {
-    // Map "insect" to "bug" for PokeAPI compatibility
-    const mappedType = type === 'insect' ? 'bug' : type;
-    this.selectedType = mappedType;
-    this.offset = 0;
-    await this.getPokemons();
-    this.scrollToPokemonSection();
+  onSearchInput(event: any) {
+    const term = event.target.value;
+    this.searchQuery = term;
+    this.searchSubject.next(term);
   }
 
-  private scrollToPokemonSection() {
-    const section = document.querySelector('.sec3');
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  async onSearchInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.searchQuery = input.value;
-
-    const termAsNumber = Number(this.searchQuery);
+  async handleSearch(term: string) {
+    const termAsNumber = Number(term);
     const isNumericSearch = !isNaN(termAsNumber) && termAsNumber > 0;
 
-    // Controlla i minimi caratteri richiesti
     const hasMinChars =
-      (isNumericSearch && this.searchQuery.length >= 2) ||
-      (!isNumericSearch && this.searchQuery.length >= 3);
+      (isNumericSearch && term.length >= 1) || // Allow 1 char for ID
+      (!isNumericSearch && term.length >= 3);
 
-    if (hasMinChars) {
-      await this.performSearch();
-    } else if (this.searchQuery.length === 0) {
+    if (term.trim() && hasMinChars) {
       this.offset = 0;
+      await this.performSearch();
+    } else if (!term.trim()) {
+      // Reset if empty
+      this.isSearching = false;
+      this.offset = 0;
+      this.pokemons = [];
       this.getPokemons();
     }
   }
 
+  scrollToPokemonSection() {
+    const element = document.querySelector('.sec3');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
   async onSearchSubmit() {
-    const termAsNumber = Number(this.searchQuery);
-    const isNumericSearch = !isNaN(termAsNumber) && termAsNumber > 0;
-
-    const hasMinChars =
-      (isNumericSearch && this.searchQuery.length >= 2) ||
-      (!isNumericSearch && this.searchQuery.length >= 3);
-
-    if (this.searchQuery.trim() && hasMinChars) {
-      await this.performSearch();
+    // Manual submit still works
+    this.handleSearch(this.searchQuery);
+    if (this.searchQuery.length >= 3) {
       this.scrollToPokemonSection();
     }
   }

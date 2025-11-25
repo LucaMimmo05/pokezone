@@ -7,6 +7,8 @@ import { PokemonSpecies } from '../models/dashboard/pokemon-species';
 import { DashboardStats } from '../models/dashboard/dashboard-stats';
 import { Pokemon as PokemonDetail } from '../models/pokemon-details/pokemon';
 import { NamedAPIResource } from '../models/pokemon-details/named-api-resource';
+import { EvolutionStage } from '../models/pokemon-details/evolution-stage';
+import { EvolutionChain } from '../models/pokemon-details/evolution-chain';
 
 // Re-export for backward compatibility
 export type { DashboardStats } from '../models/dashboard/dashboard-stats';
@@ -28,6 +30,18 @@ export class PokemonService {
         .pipe(map((response: any) => response.results))
     );
     return response;
+  }
+
+  async getAllAbilities(): Promise<NamedAPIResource[]> {
+    const url = `${this.baseUrl}/ability?limit=1000`;
+    const response = await firstValueFrom(
+      this.http
+        .get<{ results: NamedAPIResource[] }>(url)
+        .pipe(map((response: any) => response.results))
+    );
+    return response.sort((a: NamedAPIResource, b: NamedAPIResource) =>
+      a.name.localeCompare(b.name)
+    );
   }
 
   async getPokemonDetails(url: string): Promise<PokemonDetails> {
@@ -103,16 +117,51 @@ export class PokemonService {
   async getPokemonCards(
     limit: number = 20,
     offset: number = 0,
-    type: string = ''
+    type: string = '',
+    ability: string = ''
   ): Promise<{ id: number; name: string; imageUrl: string; types: string[] }[]> {
     let url = `${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`;
-    let response: NamedAPIResource[];
+    let response: NamedAPIResource[] = [];
 
-    if (type) {
+    if (type && ability) {
+      const [typeResponse, abilityResponse] = await Promise.all([
+        firstValueFrom(
+          this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(
+            `${this.baseUrl}/type/${type}`
+          )
+        ),
+        firstValueFrom(
+          this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(
+            `${this.baseUrl}/ability/${ability}`
+          )
+        ),
+      ]);
+
+      const typePokemons = typeResponse.pokemon.map((p) => p.pokemon);
+      const abilityPokemons = abilityResponse.pokemon.map((p) => p.pokemon);
+
+      // Intersection
+      response = typePokemons.filter((tp) =>
+        abilityPokemons.some((ap) => ap.name === tp.name)
+      );
+      
+      // Apply pagination manually for filtered results
+      response = response.slice(offset, offset + limit);
+
+    } else if (type) {
       const typeResponse = await firstValueFrom(
-        this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(`${this.baseUrl}/type/${type}`)
+        this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(
+          `${this.baseUrl}/type/${type}`
+        )
       );
       response = typeResponse.pokemon.map((p) => p.pokemon).slice(offset, offset + limit);
+    } else if (ability) {
+      const abilityResponse = await firstValueFrom(
+        this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(
+          `${this.baseUrl}/ability/${ability}`
+        )
+      );
+      response = abilityResponse.pokemon.map((p) => p.pokemon).slice(offset, offset + limit);
     } else {
       response = await firstValueFrom(
         this.http
@@ -205,5 +254,34 @@ export class PokemonService {
       console.error('Search error:', error);
       return [];
     }
+  }
+
+  async getEvolutionChain(speciesUrl: string): Promise<EvolutionStage[][]> {
+    const speciesData = await firstValueFrom(
+      this.http.get<any>(speciesUrl)
+    );
+
+    const evolutionChain = await firstValueFrom(
+      this.http.get<EvolutionChain>(speciesData.evolution_chain.url)
+    );
+
+    const evolutionPaths: EvolutionStage[][] = [];
+
+    const createPaths = (stage: EvolutionStage, currentPath: EvolutionStage[]) => {
+      const newPath = [...currentPath, stage];
+
+      if (!stage.evolves_to || stage.evolves_to.length === 0) {
+        evolutionPaths.push(newPath);
+        return;
+      }
+
+      for (const nextStage of stage.evolves_to) {
+        createPaths(nextStage, newPath);
+      }
+    };
+
+    createPaths(evolutionChain.chain, []);
+
+    return evolutionPaths;
   }
 }

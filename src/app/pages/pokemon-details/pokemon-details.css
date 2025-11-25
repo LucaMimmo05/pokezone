@@ -1,3 +1,14 @@
+.pokemonCardContainer {
+  min-height: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  padding-bottom: 5vh;
+}
+
 .cardHeader {
   position: relative; 
   height: 150px; 
@@ -6,19 +17,78 @@
   align-items: flex-end;
 }
 
-.cardContent {
-  margin-top: 70px;
-}
-
-.pokemonCardContainer {
-  display: flex;
-  flex-direction: column;
-  font-family: 'Inter', sans-serif;
-  padding-bottom: 5vh;
-}
-
 .pokemonDetailsContainer {
   margin-top: 70px;
   margin-left: 6vw;
   margin-right: 6vw;
+}
+
+.infoSection {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 900px) {
+  .pokemonCardContainer {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    overflow-x: hidden;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .firstContainer {
+    width: 20%;
+    height: 100%;
+    flex-shrink: 0;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .cardHeader {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+  }
+
+  .secondContainer {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    margin-left: 80px;
+    padding: 4vh 5vw;
+    overflow-y: auto;
+    box-sizing: border-box;
+    min-height: auto; 
+  }
+
+  .pokemonDetailsContainer {
+    margin: 0; 
+    align-items: flex-start;
+    width: 100%;
+    min-height: auto; 
+    height: auto;
+  }
+
+  .infoSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
 }
