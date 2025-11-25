@@ -29,7 +29,7 @@
 
 .cardHeader {
   position: relative; 
-  height: 150px;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -46,11 +46,43 @@
   flex-direction: column;
 }
 
-.infoSection,
-app-pokemon-details-evolution-chain, 
-app-pokemon-details-stats, 
-app-pokemon-details-weaknesses {
-  margin-top: 5vh;
+/* Back button wrapper and styling */
+.back-btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  z-index: 10;
+  padding-left: 32px;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #3f67ba;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 4px 15px rgba(63, 103, 186, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.back-btn svg { stroke: currentColor; }
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 18px rgba(63, 103, 186, 0.25);
 }
 
 @media (min-width: 900px) {
@@ -100,5 +132,9 @@ app-pokemon-details-weaknesses {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
+  }
+  
+  .back-btn-wrapper {
+    padding-left: 48px;
   }
 }
