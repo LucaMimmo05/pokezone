@@ -252,7 +252,11 @@ export class Home implements OnInit, OnDestroy {
     this.isLoading = true;
 
     try {
-      const searchResults = await this.pokemonService.searchPokemon(this.searchQuery);
+      const searchResults = await this.pokemonService.searchPokemon(
+        this.searchQuery,
+        this.selectedType === 'insect' ? 'bug' : this.selectedType,
+        this.selectedAbility
+      );
 
       if (searchResults.length > 0) {
         this.pokemons = searchResults.map((pokemon) => ({
