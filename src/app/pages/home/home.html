@@ -100,11 +100,13 @@
                     }
                 </div>
                 <div class="pokemons-content">
-                    @if (pokemons.length > 0) {
+                    @if (isLoading && pokemons.length === 0) {
+                    <app-loader></app-loader>
+                    } @else if (pokemons.length > 0) {
                     @for (pokemon of pokemons; track $index) {
                     <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
                     }
-                    } @else if (!isLoading) {
+                    } @else {
                     <div class="no-results">
                         <p>No Pokémon found matching your criteria.</p>
                     </div>

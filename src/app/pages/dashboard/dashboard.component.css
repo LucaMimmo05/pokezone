@@ -56,10 +56,6 @@
   line-height: 150%;
 }
 
-.loading-text {
-  font-family: Inter;
-}
-
 .hero-title {
   display: flex;
   flex-direction: column;
@@ -144,32 +140,6 @@
   position: absolute;
   left: -100px;
   bottom: -240px;
-}
-
-.loading {
-  text-align: center;
-  padding: 80px 50px;
-  background: white;
-  width: 100%;
-}
-
-.pokeball-spinner {
-  width: 45px;
-  height: 45px;
-  animation: spin 1s linear infinite;
-  margin: 20px auto;
-  display: block;
-  color: #c20001;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
 }
 
 .error {
@@ -933,7 +903,9 @@
     display: none;
   }
 
-  .hero-title h1 {}
+  .hero-title h1 {
+    font-size: 44px;
+  }
 
   .stats-grid {
     padding: 35px 50px 28px 50px;
@@ -973,9 +945,8 @@
     display: none;
   }
 
-  .hero-leaf-svg {
-    left: -220px;
-    top: 85px;
+  .hero-title h1 {
+    font-size: 42px;
   }
 
   .hero-title p {
@@ -1382,15 +1353,6 @@
   .type-bars {
     gap: 12px;
     padding: 5px 0;
-  }
-
-  .loading {
-    padding: 60px 30px;
-  }
-
-  .pokeball-spinner {
-    width: 40px;
-    height: 40px;
   }
 
   .error {

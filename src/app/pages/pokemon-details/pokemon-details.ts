@@ -12,10 +12,12 @@ import { PokemonDetailsAbilities } from '../../components/pokemon-details/pokemo
 import { PokemonDetailsWeaknesses } from '../../components/pokemon-details/pokemon-details-weaknesses/pokemon-details-weaknesses';
 import { PokemonDetailsStats } from '../../components/pokemon-details/pokemon-details-stats/pokemon-details-stats';
 import { PokemonDetailsEvolutionChain } from '../../components/pokemon-details/pokemon-details-evolution-chain/pokemon-details-evolution-chain';
+import { LoaderComponent } from '../../components/loader/loader';
 
 @Component({
   selector: 'app-pokemon-details',
   imports: [
+    LoaderComponent,
     PokemonDetailsHeader,
     PokemonDetailsImage,
     PokemonDetailsTitle,
