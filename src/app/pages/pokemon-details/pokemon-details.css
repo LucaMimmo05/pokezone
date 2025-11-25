@@ -50,7 +50,7 @@
 app-pokemon-details-evolution-chain, 
 app-pokemon-details-stats, 
 app-pokemon-details-weaknesses {
-  margin-top: 5vh;
+  margin-top: 2.5vh;
 }
 
 @media (min-width: 900px) {
