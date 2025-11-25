@@ -10,7 +10,6 @@ import { NamedAPIResource } from '../models/pokemon-details/named-api-resource';
 import { EvolutionStage } from '../models/pokemon-details/evolution-stage';
 import { EvolutionChain } from '../models/pokemon-details/evolution-chain';
 
-// Re-export for backward compatibility
 export type { DashboardStats } from '../models/dashboard/dashboard-stats';
 
 @Injectable({
@@ -69,7 +68,6 @@ export class PokemonService {
       pokemonByShape: {},
     };
 
-    // Conteggio per tipo
     details.forEach((pokemon: PokemonDetails) => {
       pokemon.types.forEach((t: any) => {
         const typeName = t.type.name;
@@ -77,13 +75,11 @@ export class PokemonService {
       });
     });
 
-    // Conteggio per colore
     species.forEach((s: PokemonSpecies) => {
       const colorName = s.color.name;
       stats.pokemonByColor[colorName] = (stats.pokemonByColor[colorName] || 0) + 1;
     });
 
-    // Conteggio per forma
     species.forEach((s: PokemonSpecies) => {
       if (s.shape) {
         const shapeName = s.shape.name;
@@ -114,15 +110,10 @@ export class PokemonService {
     return data.damage_relations.double_damage_from.map((t: any) => t.name);
   }
 
-  async getPokemonCards(
-    limit: number = 20,
-    offset: number = 0,
-    type: string = '',
-    ability: string = ''
-  ): Promise<{ id: number; name: string; imageUrl: string; types: string[] }[]> {
-    let url = `${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`;
-    let response: NamedAPIResource[] = [];
-
+  private async getPokemonReferences(
+    type: string,
+    ability: string
+  ): Promise<NamedAPIResource[]> {
     if (type && ability) {
       const [typeResponse, abilityResponse] = await Promise.all([
         firstValueFrom(
@@ -140,29 +131,41 @@ export class PokemonService {
       const typePokemons = typeResponse.pokemon.map((p) => p.pokemon);
       const abilityPokemons = abilityResponse.pokemon.map((p) => p.pokemon);
 
-      // Intersection
-      response = typePokemons.filter((tp) =>
+      return typePokemons.filter((tp) =>
         abilityPokemons.some((ap) => ap.name === tp.name)
       );
-      
-      // Apply pagination manually for filtered results
-      response = response.slice(offset, offset + limit);
-
     } else if (type) {
       const typeResponse = await firstValueFrom(
         this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(
           `${this.baseUrl}/type/${type}`
         )
       );
-      response = typeResponse.pokemon.map((p) => p.pokemon).slice(offset, offset + limit);
+      return typeResponse.pokemon.map((p) => p.pokemon);
     } else if (ability) {
       const abilityResponse = await firstValueFrom(
         this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(
           `${this.baseUrl}/ability/${ability}`
         )
       );
-      response = abilityResponse.pokemon.map((p) => p.pokemon).slice(offset, offset + limit);
+      return abilityResponse.pokemon.map((p) => p.pokemon);
     } else {
+      return this.getAllPokemon(10000);
+    }
+  }
+
+  async getPokemonCards(
+    limit: number = 20,
+    offset: number = 0,
+    type: string = '',
+    ability: string = ''
+  ): Promise<{ id: number; name: string; imageUrl: string; types: string[] }[]> {
+    let response: NamedAPIResource[] = [];
+
+    if (type || ability) {
+      const allRefs = await this.getPokemonReferences(type, ability);
+      response = allRefs.slice(offset, offset + limit);
+    } else {
+      const url = `${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`;
       response = await firstValueFrom(
         this.http
           .get<{ results: NamedAPIResource[] }>(url)
@@ -184,7 +187,9 @@ export class PokemonService {
   }
 
   async searchPokemon(
-    term: string
+    term: string,
+    type: string = '',
+    ability: string = ''
   ): Promise<{ id: number; name: string; imageUrl: string; types: string[] }[]> {
     term = term.toLowerCase().trim();
     if (!term) return [];
@@ -194,7 +199,19 @@ export class PokemonService {
       if (!isNaN(termAsNumber) && termAsNumber > 0) {
         try {
           const url = `${this.baseUrl}/pokemon/${termAsNumber}`;
-          const pokemon: PokemonDetail = await firstValueFrom(this.http.get<PokemonDetail>(url));
+          const pokemon: PokemonDetail = await firstValueFrom(
+            this.http.get<PokemonDetail>(url)
+          );
+
+          if (type && !pokemon.types.some((t: any) => t.type.name === type)) {
+            return [];
+          }
+          if (
+            ability &&
+            !pokemon.abilities.some((a: any) => a.ability.name === ability)
+          ) {
+            return [];
+          }
 
           return [
             {
@@ -212,15 +229,14 @@ export class PokemonService {
         }
       }
 
-      const searchUrl = `${this.baseUrl}/pokemon?limit=1000`;
-      const response: any = await firstValueFrom(this.http.get(searchUrl));
+      const allRefs = await this.getPokemonReferences(type, ability);
 
-      const filteredPokemons = response.results
+      const filteredPokemons = allRefs
         .filter((pokemon: any) => pokemon.name.toLowerCase().includes(term))
         .slice(0, 9);
 
       if (filteredPokemons.length === 0) {
-        const exactMatchPokemons = response.results
+        const exactMatchPokemons = allRefs
           .filter((pokemon: any) => pokemon.name.toLowerCase().startsWith(term))
           .slice(0, 9);
 
@@ -229,7 +245,12 @@ export class PokemonService {
         }
       }
 
-      const searchResults: { id: number; name: string; imageUrl: string; types: string[] }[] = [];
+      const searchResults: {
+        id: number;
+        name: string;
+        imageUrl: string;
+        types: string[];
+      }[] = [];
       for (const pokemon of filteredPokemons) {
         try {
           const details: PokemonDetail = await firstValueFrom(
