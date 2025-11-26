@@ -1,39 +1,55 @@
 .box {
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-    padding-top: 2vh;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  padding-top: 2vh;
 }
 
 .infoLabel {
-    color: #7A7D80;
-    margin-right: 0.5em;
-    text-transform: capitalize;
+  color: #7A7D80;
+  margin-right: 0.5em;
+  text-transform: capitalize;
 }
 
 .infoValue {
-    font-weight: 700;
-    text-transform: capitalize;
+  font-weight: 700;
+  text-transform: capitalize;
 }
 
 .pokemonType {
-    display: inline-block;
-    padding: 0.5rem 2.5rem;
-    border-radius: 4px;
-    font-size: 1.1em;
-    font-weight: 600;
-    text-transform: capitalize;
+  height: 24px;
+  display: inline-block;
+  padding: 4px 25px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: capitalize;
 }
 
 .centeredLabel{
-    font-weight: 700;
-    color: #4D5053;
-    padding: 2vh;
-    display: flex;
-    justify-content: center;
+  font-weight: 700;
+  color: #4D5053;
+  padding: 2vh;
+  display: flex;
+  justify-content: center;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
+  .infoLabel {
+    font-size: 1em;
+    font-weight: 500;
+  }
+
+  .infoValue {
+    font-size: 1em;
+  }
+
+  .centeredLabel {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 992px) {
   .box {
     flex-direction: column;
     align-items: flex-start;
@@ -56,5 +72,6 @@
   .centeredLabel {
     font-size: 1.2em;
     padding: 1vh 0;
+    justify-content: flex-start;
   }
 }

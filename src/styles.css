@@ -115,3 +115,32 @@ app-root {
   background-color: rgba(226, 150, 225, 0.1);
   color: #E296E1; 
 }
+
+.pokemon-type-icon {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.type-dragon-image   { background-image: url('/Dragon.png'); }
+.type-electric-image { background-image: url('/Electric.png'); }
+.type-fairy-image    { background-image: url('/Fairy.png'); }
+.type-fighting-image { background-image: url('/Fighting.png'); }
+.type-fire-image     { background-image: url('/Fire.png'); }
+.type-flying-image   { background-image: url('/Flying.png'); }
+.type-ghost-image    { background-image: url('/Ghost.png'); }
+.type-grass-image    { background-image: url('/Grass.png'); }
+.type-ground-image   { background-image: url('/Ground.png'); }
+.type-ice-image      { background-image: url('/Ice.png'); }
+.type-normal-image   { background-image: url('/Normal.png'); }
+.type-poison-image   { background-image: url('/Poison.png'); }
+.type-psychic-image  { background-image: url('/Psychic.png'); }
+.type-rock-image     { background-image: url('/Rock.png'); }
+.type-steel-image    { background-image: url('/Steel.png'); }
+.type-water-image    { background-image: url('/Water.png'); }
+.type-bug-image      { background-image: url('/Bug.png'); }
+.type-dark-image     { background-image: url('/Dark.png'); }
