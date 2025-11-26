@@ -203,6 +203,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     type: 'pie' | 'donut'
   ): Partial<ApexOptions> {
     const hasData = entries.some(e => e.count > 0);
+    const total = hasData ? entries.reduce((sum, e) => sum + e.count, 0) : 0;
 
     return {
       series: hasData ? entries.map(e => e.count) : [],
@@ -214,6 +215,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
       labels: entries.map(e => this.capitalizeFirstLetter(e.name)),
       colors,
       legend: { position: 'bottom' },
+      stroke: {
+        show: true,
+        width: 1,
+        colors: ['#2c3e50'],
+      },
+      tooltip: {
+        theme: 'dark',
+        fillSeriesColor: false,
+        style: {
+          fontSize: '14px',
+          fontFamily: 'Inter, sans-serif',
+        },
+        y: {
+          formatter: (value: number) => {
+            const percentage = ((value / total) * 100).toFixed(1);
+            return `${value} (${percentage}%)`;
+          },
+        },
+      },
       responsive: [
         {
           breakpoint: 480,
