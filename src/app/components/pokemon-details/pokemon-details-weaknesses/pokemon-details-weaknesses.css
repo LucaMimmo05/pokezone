@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 2vh;
 }
 
 .weaknessesList {
@@ -11,10 +10,9 @@
   flex-wrap: wrap; 
   justify-content: center; 
   gap: 2vw;
-  padding-bottom: 2vh;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 992px) {
    .weaknessesSection {
     align-items: flex-start;
     width: 100%;
