@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pokemon-details-title',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './pokemon-details-title.html',
   styleUrl: './pokemon-details-title.css',
 })
