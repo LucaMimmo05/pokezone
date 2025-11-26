@@ -1,10 +1,16 @@
+// Angular core
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { CommonModule } from '@angular/common';
+
+// Third-party
 import { NgApexchartsModule, ApexOptions } from 'ng-apexcharts';
-import { PokemonService, DashboardStats } from '../../services/pokemon.service';
 import { from } from 'rxjs';
 
+// Services
+import { PokemonService, DashboardStats } from '../../services/pokemon.service';
+
+// Components
 import { LoaderComponent } from '../../components/loader/loader';
 import { DashboardHeroComponent } from '../../components/dashboard/dashboard-hero/dashboard-hero';
 import { DashboardStatsComponent } from '../../components/dashboard/dashboard-stats/dashboard-stats';
@@ -48,25 +54,58 @@ export class DashboardComponent implements OnInit, OnDestroy {
   colorChartOptions!: Partial<ApexOptions>;
   shapeChartOptions!: Partial<ApexOptions>;
 
-  // Color mappings
+  // Pokemon type colors
   readonly typeColors: Record<string, string> = {
-    fire: '#FF9C54', water: '#4D90D5', grass: '#62BB5B', electric: '#F3D23B',
-    psychic: '#F97176', ice: '#74CEC0', dragon: '#0A6DC4', dark: '#5A5465',
-    fairy: '#EC8FE6', normal: '#9099A1', fighting: '#CE4069', flying: '#8FA8DD',
-    poison: '#AB6AC8', ground: '#D97746', rock: '#C7B78B', bug: '#90C12C',
-    ghost: '#5269AC', steel: '#5A8EA1'
+    fire: '#FF9C54',
+    water: '#4D90D5',
+    grass: '#62BB5B',
+    electric: '#F3D23B',
+    psychic: '#F97176',
+    ice: '#74CEC0',
+    dragon: '#0A6DC4',
+    dark: '#5A5465',
+    fairy: '#EC8FE6',
+    normal: '#9099A1',
+    fighting: '#CE4069',
+    flying: '#8FA8DD',
+    poison: '#AB6AC8',
+    ground: '#D97746',
+    rock: '#C7B78B',
+    bug: '#90C12C',
+    ghost: '#5269AC',
+    steel: '#5A8EA1',
   };
 
+  // Pokemon body colors
   readonly colorColors: Record<string, string> = {
-    red: '#ff4444', blue: '#4169e1', yellow: '#ffd700', green: '#32cd32',
-    black: '#333333', brown: '#8b4513', purple: '#9370db', gray: '#808080',
-    white: '#f5f5f5', pink: '#ffb6c1'
+    red: '#ff4444',
+    blue: '#4169e1',
+    yellow: '#ffd700',
+    green: '#32cd32',
+    black: '#333333',
+    brown: '#8b4513',
+    purple: '#9370db',
+    gray: '#808080',
+    white: '#f5f5f5',
+    pink: '#ffb6c1',
   };
 
+  // Pokemon shape colors (rainbow gradient)
   readonly shapeColors: string[] = [
-    '#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6',
-    '#1abc9c', '#e67e22', '#34495e', '#e91e63', '#16a085',
-    '#f1c40f', '#8e44ad', '#c0392b', '#27ae60'
+    '#e74c3c',
+    '#3498db',
+    '#2ecc71',
+    '#f39c12',
+    '#9b59b6',
+    '#1abc9c',
+    '#e67e22',
+    '#34495e',
+    '#e91e63',
+    '#16a085',
+    '#f1c40f',
+    '#8e44ad',
+    '#c0392b',
+    '#27ae60',
   ];
 
   ngOnInit() {
@@ -81,49 +120,51 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private startColorAnimation() {
-    this.colorInterval = setInterval(() => {
-      this.onChangeBg();
-    }, 7000);
+    this.colorInterval = setInterval(() => this.onChangeBg(), 7000);
   }
 
   private onChangeBg() {
-    if (this.currentBgColor === '#c20001') {
-      this.currentBgColor = '#3f67ba';
-      this.currentSvgColor = '#6F96E8';
-    } else {
-      this.currentBgColor = '#c20001';
-      this.currentSvgColor = '#E87878';
-    }
+    const isPrimary = this.currentBgColor === '#c20001';
+    this.currentBgColor = isPrimary ? '#3f67ba' : '#c20001';
+    this.currentSvgColor = isPrimary ? '#6F96E8' : '#E87878';
   }
 
-  private convertToEntries(data: { [key: string]: number }): { name: string; count: number }[] {
+  private convertToEntries(data: Record<string, number>): { name: string; count: number }[] {
     return Object.entries(data)
-      .map(([name, count]) => ({ name, count: count as number }))
+      .map(([name, count]) => ({ name, count }))
       .sort((a, b) => b.count - a.count);
   }
 
   private setupPlaceholderData(): void {
-    const placeholderTypes = Object.keys(this.typeColors);
-    const placeholderColors = Object.keys(this.colorColors);
-    const placeholderShapes = ['ball', 'squiggle', 'fish', 'arms', 'blob', 'upright', 'wings', 'tentacles', 'heads', 'humanoid'];
-    
-    this.typeEntries = placeholderTypes.map(name => ({ name, count: 0 }));
-    this.colorEntries = placeholderColors.map(name => ({ name, count: 0 }));
-    this.shapeEntries = placeholderShapes.map(name => ({ name, count: 0 }));
-    
+    this.typeEntries = Object.keys(this.typeColors).map(name => ({ name, count: 0 }));
+    this.colorEntries = Object.keys(this.colorColors).map(name => ({ name, count: 0 }));
+    this.shapeEntries = [
+      'ball',
+      'squiggle',
+      'fish',
+      'arms',
+      'blob',
+      'upright',
+      'wings',
+      'tentacles',
+      'heads',
+      'humanoid',
+    ].map(name => ({ name, count: 0 }));
+
     this.stats = {
       totalPokemon: 0,
-      totalTypes: placeholderTypes.length,
+      totalTypes: this.typeEntries.length,
       pokemonByType: {},
       pokemonByColor: {},
-      pokemonByShape: {}
+      pokemonByShape: {},
     };
   }
 
   loadStats() {
     this.loading = true;
+
     from(this.pokemonService.getDashboardStats()).subscribe({
-      next: (data: DashboardStats) => {
+      next: (data) => {
         this.stats = data;
         this.typeEntries = this.convertToEntries(data.pokemonByType);
         this.colorEntries = this.convertToEntries(data.pokemonByColor);
@@ -131,22 +172,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.initCharts();
         this.loading = false;
       },
-      error: (err: any) => {
-        console.error(err);
+      error: (err) => {
+        console.error('Failed to load dashboard stats:', err);
         this.error = 'Data unavailable. Please try again later.';
         this.apiFailed = true;
         this.setupPlaceholderData();
         this.initChartsPlaceholder();
         this.loading = false;
-      }
+      },
     });
   }
 
   getBarWidth(count: number): number {
     if (!this.typeEntries.length) return 0;
-    const maxCount = Math.max(...this.typeEntries.map((e) => e.count));
-    // Scala da 20% (minimo) a 100% (massimo) per rendere le barre più visibili
+
+    const maxCount = Math.max(...this.typeEntries.map(e => e.count));
     const percentage = (count / maxCount) * 100;
+
+    // Minimum 20% for visibility
     return Math.max(20, percentage);
   }
 
@@ -154,42 +197,44 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  private createPieChartOptions(entries: typeof this.colorEntries, colors: string[], type: 'pie' | 'donut'): Partial<ApexOptions> {
+  private createPieChartOptions(
+    entries: { name: string; count: number }[],
+    colors: string[],
+    type: 'pie' | 'donut'
+  ): Partial<ApexOptions> {
     const hasData = entries.some(e => e.count > 0);
-    
+
     return {
-      series: hasData ? entries.map((e) => e.count) : [],
+      series: hasData ? entries.map(e => e.count) : [],
       chart: {
         type,
         height: 410,
-        animations: { enabled: hasData }
+        animations: { enabled: hasData },
       },
-      labels: entries.map((e) => this.capitalizeFirstLetter(e.name)),
+      labels: entries.map(e => this.capitalizeFirstLetter(e.name)),
       colors,
       legend: { position: 'bottom' },
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: { height: 380 },
-          legend: { position: 'bottom' }
-        }
-      }],
-      noData: { text: 'Data unavailable', align: 'center' }
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: { height: 380 },
+            legend: { position: 'bottom' },
+          },
+        },
+      ],
+      noData: { text: 'Data unavailable', align: 'center' },
     };
   }
 
   initCharts(): void {
     this.colorChartOptions = this.createPieChartOptions(
       this.colorEntries,
-      this.colorEntries.map((e) => this.colorColors[e.name] || '#95a5a6'),
+      this.colorEntries.map(e => this.colorColors[e.name] || '#95a5a6'),
       'donut'
     );
 
-    this.shapeChartOptions = this.createPieChartOptions(
-      this.shapeEntries,
-      this.shapeColors,
-      'pie'
-    );
+    this.shapeChartOptions = this.createPieChartOptions(this.shapeEntries, this.shapeColors, 'pie');
   }
 
   initChartsPlaceholder(): void {

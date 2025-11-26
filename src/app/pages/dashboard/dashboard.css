@@ -6,21 +6,10 @@
   width: 100%;
 }
 
-dashboard-hero {
-  display: block;
-  width: 100%;
-}
-
-dashboard-stats {
-  display: block;
-  width: 100%;
-}
-
-dashboard-charts {
-  display: block;
-  width: 100%;
-}
-
+/* Custom elements */
+dashboard-hero,
+dashboard-stats,
+dashboard-charts,
 dashboard-type-bars {
   display: block;
   width: 100%;
@@ -42,23 +31,23 @@ dashboard-type-bars {
   display: flex;
   align-items: center;
   gap: 8px;
-  text-decoration: none;
+  padding: 10px 20px;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: #3f67ba;
-  padding: 10px 20px;
-  border-radius: 30px;
-  font-family: Inter, sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  box-shadow: 0 4px 15px rgba(63, 103, 186, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.5);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 30px;
+  color: #3f67ba;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(63, 103, 186, 0.15);
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.back-btn svg { stroke: currentColor; }
+.back-btn svg {
+  stroke: currentColor;
+}
 
 .back-btn:hover {
   background: rgba(255, 255, 255, 0.95);
@@ -71,18 +60,24 @@ dashboard-type-bars {
     margin-bottom: 24px;
     padding-left: 32px;
   }
+
   .back-btn {
     padding: 8px 16px;
     font-size: 13px;
     gap: 6px;
   }
-  .back-btn svg { width: 16px; height: 16px; }
+
+  .back-btn svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
+/* Error message */
 .error {
-  text-align: center;
   padding: 20px;
   color: #e74c3c;
+  text-align: center;
 }
 
 /* Button styles aligned with site look */
@@ -92,13 +87,13 @@ dashboard-type-bars {
   justify-content: center;
   gap: 8px;
   padding: 12px 22px;
+  border: 0;
   border-radius: 9999px;
   font-weight: 600;
-  letter-spacing: .2px;
-  border: 0;
+  letter-spacing: 0.2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   cursor: pointer;
-  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .btn:active {
@@ -117,7 +112,7 @@ dashboard-type-bars {
 
 .btn-primary:hover {
   background: linear-gradient(180deg, #4670c8 0%, #345eb6 100%);
-  box-shadow: 0 4px 10px rgba(52, 94, 182, .20);
+  box-shadow: 0 4px 10px rgba(52, 94, 182, 0.2);
 }
 
 .error .btn {
@@ -140,358 +135,13 @@ dashboard-type-bars {
   display: flex;
   flex-direction: column;
   gap: 40px;
-  padding: 0 111px 80px 111px;
+  padding: 0 111px 80px;
   width: 100%;
   background: white;
   box-sizing: border-box;
 }
 
-/* Aggiungi icone ai tipi Pokemon nelle label dell'asse Y */
-.apexcharts-yaxis-label {
-  display: flex !important;
-  align-items: center !important;
-}
-
-/* Icone per ogni tipo */
-.apexcharts-yaxis text:has(tspan):before {
-  content: '';
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  margin-right: 8px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-/* Mapping icone tipo per tipo */
-.apexcharts-yaxis-texts-g text tspan:first-child {
-  margin-left: 32px;
-}
-
-/* Icone tipo Pokemon - usando attributi data */
-.apexcharts-yaxis text[data-type="Fire"]:before,
-.apexcharts-yaxis text tspan:first-child::before {
-  content: '';
-  width: 24px;
-  height: 24px;
-  background-size: contain;
-  display: inline-block;
-  margin-right: 8px;
-}
-
-/* Colori per le slice dei tipi Pokemon */
-.type-slice[data-type="fire"] {
-  fill: #f08030;
-}
-
-.type-slice[data-type="water"] {
-  fill: #6890f0;
-}
-
-.type-slice[data-type="grass"] {
-  fill: #78c850;
-}
-
-.type-slice[data-type="electric"] {
-  fill: #f8d030;
-}
-
-.type-slice[data-type="psychic"] {
-  fill: #f85888;
-}
-
-.type-slice[data-type="ice"] {
-  fill: #98d8d8;
-}
-
-.type-slice[data-type="dragon"] {
-  fill: #7038f8;
-}
-
-.type-slice[data-type="dark"] {
-  fill: #705848;
-}
-
-.type-slice[data-type="fairy"] {
-  fill: #ee99ac;
-}
-
-.type-slice[data-type="normal"] {
-  fill: #a8a878;
-}
-
-.type-slice[data-type="fighting"] {
-  fill: #c03028;
-}
-
-.type-slice[data-type="flying"] {
-  fill: #a890f0;
-}
-
-.type-slice[data-type="poison"] {
-  fill: #a040a0;
-}
-
-.type-slice[data-type="ground"] {
-  fill: #e0c068;
-}
-
-.type-slice[data-type="rock"] {
-  fill: #b8a038;
-}
-
-.type-slice[data-type="bug"] {
-  fill: #a8b820;
-}
-
-.type-slice[data-type="ghost"] {
-  fill: #705898;
-}
-
-.type-slice[data-type="steel"] {
-  fill: #b8b8d0;
-}
-
-/* Colori per le slice dei colori Pokemon */
-.color-slice[data-color="red"] {
-  fill: #ff4444;
-}
-
-.color-slice[data-color="blue"] {
-  fill: #4169e1;
-}
-
-.color-slice[data-color="yellow"] {
-  fill: #ffd700;
-}
-
-.color-slice[data-color="green"] {
-  fill: #32cd32;
-}
-
-.color-slice[data-color="black"] {
-  fill: #333333;
-}
-
-.color-slice[data-color="brown"] {
-  fill: #8b4513;
-}
-
-.color-slice[data-color="purple"] {
-  fill: #9370db;
-}
-
-.color-slice[data-color="gray"] {
-  fill: #808080;
-}
-
-.color-slice[data-color="white"] {
-  fill: #f5f5f5;
-}
-
-.color-slice[data-color="pink"] {
-  fill: #ffb6c1;
-}
-
-/* Colori per le slice delle forme - gradient arcobaleno */
-.shape-slice:nth-child(1) {
-  fill: #e74c3c;
-}
-
-.shape-slice:nth-child(2) {
-  fill: #e67e22;
-}
-
-.shape-slice:nth-child(3) {
-  fill: #f39c12;
-}
-
-.shape-slice:nth-child(4) {
-  fill: #f1c40f;
-}
-
-.shape-slice:nth-child(5) {
-  fill: #2ecc71;
-}
-
-.shape-slice:nth-child(6) {
-  fill: #1abc9c;
-}
-
-.shape-slice:nth-child(7) {
-  fill: #3498db;
-}
-
-.shape-slice:nth-child(8) {
-  fill: #9b59b6;
-}
-
-.shape-slice:nth-child(9) {
-  fill: #e91e63;
-}
-
-.shape-slice:nth-child(10) {
-  fill: #95a5a6;
-}
-
-/* Colori per la legenda tipi */
-.legend-color[data-type="fire"] {
-  background: #f08030;
-}
-
-.legend-color[data-type="water"] {
-  background: #6890f0;
-}
-
-.legend-color[data-type="grass"] {
-  background: #78c850;
-}
-
-.legend-color[data-type="electric"] {
-  background: #f8d030;
-}
-
-.legend-color[data-type="psychic"] {
-  background: #f85888;
-}
-
-.legend-color[data-type="ice"] {
-  background: #98d8d8;
-}
-
-.legend-color[data-type="dragon"] {
-  background: #7038f8;
-}
-
-.legend-color[data-type="dark"] {
-  background: #705848;
-}
-
-.legend-color[data-type="fairy"] {
-  background: #ee99ac;
-}
-
-.legend-color[data-type="normal"] {
-  background: #a8a878;
-}
-
-.legend-color[data-type="fighting"] {
-  background: #c03028;
-}
-
-.legend-color[data-type="flying"] {
-  background: #a890f0;
-}
-
-.legend-color[data-type="poison"] {
-  background: #a040a0;
-}
-
-.legend-color[data-type="ground"] {
-  background: #e0c068;
-}
-
-.legend-color[data-type="rock"] {
-  background: #b8a038;
-}
-
-.legend-color[data-type="bug"] {
-  background: #a8b820;
-}
-
-.legend-color[data-type="ghost"] {
-  background: #705898;
-}
-
-.legend-color[data-type="steel"] {
-  background: #b8b8d0;
-}
-
-/* Colori per la legenda colori */
-.color-indicator[data-color="red"] {
-  background: #ff4444;
-}
-
-.color-indicator[data-color="blue"] {
-  background: #4169e1;
-}
-
-.color-indicator[data-color="yellow"] {
-  background: #ffd700;
-}
-
-.color-indicator[data-color="green"] {
-  background: #32cd32;
-}
-
-.color-indicator[data-color="black"] {
-  background: #333333;
-}
-
-.color-indicator[data-color="brown"] {
-  background: #8b4513;
-}
-
-.color-indicator[data-color="purple"] {
-  background: #9370db;
-}
-
-.color-indicator[data-color="gray"] {
-  background: #808080;
-}
-
-.color-indicator[data-color="white"] {
-  background: #f5f5f5;
-  border: 1px solid #ccc;
-}
-
-.color-indicator[data-color="pink"] {
-  background: #ffb6c1;
-}
-
-/* Colori per la legenda forme */
-.shape-indicator:nth-child(1) {
-  background: #e74c3c;
-}
-
-.shape-indicator:nth-child(2) {
-  background: #e67e22;
-}
-
-.shape-indicator:nth-child(3) {
-  background: #f39c12;
-}
-
-.shape-indicator:nth-child(4) {
-  background: #f1c40f;
-}
-
-.shape-indicator:nth-child(5) {
-  background: #2ecc71;
-}
-
-.shape-indicator:nth-child(6) {
-  background: #1abc9c;
-}
-
-.shape-indicator:nth-child(7) {
-  background: #3498db;
-}
-
-.shape-indicator:nth-child(8) {
-  background: #9b59b6;
-}
-
-.shape-indicator:nth-child(9) {
-  background: #e91e63;
-}
-
-.shape-indicator:nth-child(10) {
-  background: #95a5a6;
-}
-
-/* ===== RESPONSIVE DESIGN - MOBILE ===== */
+/* ===== RESPONSIVE DESIGN ===== */
 
 /* Tablet grandi e desktop piccoli (max 1024px) */
 @media (max-width: 1024px) {
