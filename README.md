@@ -1,59 +1,61 @@
-# Pokezone
+# PokeZone
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.10.
+PokeZone is a modern Angular application for exploring Pokemon data. It provides a comprehensive dashboard to view Pokemon stats, details, and more.
 
-## Development server
+## Features
 
-To start a local development server, run:
+-   **Dashboard**: Browse a collection of Pokemon.
+-   **Pokemon Details**: View detailed statistics, abilities, and information for each Pokemon.
+-   **Advanced Filtering**: Filter Pokemon by abilities and other criteria.
+-   **Responsive Design**: Optimized for both desktop and mobile devices.
+-   **Modern UI**: Built with a sleek, glassmorphism-inspired design.
 
-```bash
-ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Developers
 
-## Code scaffolding
+-   Luca Ferro
+-   Luca Mimmo
+-   Gianluca Ornago
+-   Sofia Palmeri
+-   Giulia Zecchetin
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Installation
 
-```bash
-ng generate component component-name
-```
+To get started with PokeZone locally, follow these steps:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd pokezone
+    ```
 
-```bash
-ng generate --help
-```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-## Building
+3.  **Start the development server:**
+    ```bash
+    ng serve
+    ```
+    Or
+    ```bash
+    npm start
+    ```
 
-To build the project run:
+4.  **Open the application:**
+    Open your browser and navigate to `http://localhost:4200/`.
+
+## Build
+
+To build the project for production:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Technologies
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+-   **Angular**: Core framework.
+-   **ApexCharts**: For visualizing data.
+-   **PokéAPI**: Data source for Pokemon information.
