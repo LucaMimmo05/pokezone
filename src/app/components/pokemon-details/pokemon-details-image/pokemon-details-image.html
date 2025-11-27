@@ -1,6 +1,7 @@
 <div class="pokemonImage">
     <img 
         [src]="sprites.other?.['official-artwork']?.front_default || sprites.front_default"
-        [alt]="name + ' image'" 
+        [alt]="name + ' image'"
+        (error)="onImageError($event)" 
     />
 </div>

@@ -1,7 +1,7 @@
 @if (pokemon(); as poke) {
 <div class="pokemon-card" (click)="handleClick()">
     <div class="pokemon-image">
-        <img [src]="poke.imageUrl" [alt]="poke.name" class="pokemon-image">
+        <img [src]="poke.imageUrl" [alt]="poke.name" class="pokemon-image" (error)="onImageError($event, poke)">
     </div>
     <div class="pokemon-text">
         <div class="pokemon-id">#{{ poke.id.toString().padStart(3, '0') }}</div>

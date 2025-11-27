@@ -24,6 +24,30 @@ export class PokemonService {
   private cacheTimestamp: number = 0;
   private readonly CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
 
+  /**
+   * Filtra forme alternative e mantiene solo forme base
+   */
+  private isBaseForm(name: string): boolean {
+    const alternativeForms = [
+      '-mega', '-gmax', '-gigamax', '-alola', '-galar', '-hisui', 
+      '-paldea', '-totem', '-primal', '-origin', '-sky', '-therian',
+      '-black', '-white', '-crowned', '-ice', '-shadow', '-purified',
+      '-hangry', '-starter', '-world', '-belle', '-libre', '-phd',
+      '-pop-star', '-rock-star', '-cosplay', '-partner', '-cap',
+      '-school', '-disguised', '-busted', '-battle', '-attack', '-defense',
+      '-speed', '-altered', '-heat', '-wash', '-frost', '-fan', '-mow',
+      '-incarnate', '-resolute', '-aria', '-pirouette', '-shield',
+      '-blade', '-average', '-small', '-large', '-super', '-unbound',
+      '-confined', '-10', '-50', '-complete', '-dusk', '-midnight',
+      '-dawn', '-ultra', '-eternal', '-eternamax', '-single-strike',
+      '-rapid-strike', '-zen', '-galarian', '-low-key', '-noice',
+      '-hangry-mode', '-hero', '-roaming', '-family', '-bloodmoon',
+      '-wellspring', '-hearthflame', '-cornerstone', '-teal', '-build', '-ash'
+    ];
+    
+    return !alternativeForms.some(form => name.includes(form));
+  }
+
   async getAllPokemon(limit?: number): Promise<NamedAPIResource[]> {
     const url = limit
       ? `${this.baseUrl}/pokemon?limit=${limit}`
@@ -33,7 +57,8 @@ export class PokemonService {
         .get<{ results: NamedAPIResource[] }>(url)
         .pipe(map((response: any) => response.results))
     );
-    return response;
+    // Filtra solo forme base
+    return response.filter((p: NamedAPIResource) => this.isBaseForm(p.name));
   }
 
   async getAllAbilities(): Promise<NamedAPIResource[]> {
@@ -63,7 +88,15 @@ export class PokemonService {
       return this.dashboardStatsCache;
     }
 
-    const pokemons = await this.getAllPokemon(limit);
+    // Per la dashboard, recupera TUTTI i Pokémon senza filtrare forme alternative
+    const url = limit
+      ? `${this.baseUrl}/pokemon?limit=${limit}`
+      : `${this.baseUrl}/pokemon?limit=100000`;
+    const pokemons = await firstValueFrom(
+      this.http
+        .get<{ results: NamedAPIResource[] }>(url)
+        .pipe(map((response: any) => response.results))
+    );
     
     // Process in chunks to avoid overwhelming the API
     const CHUNK_SIZE = 100;
@@ -168,8 +201,8 @@ export class PokemonService {
         ),
       ]);
 
-      const typePokemons = typeResponse.pokemon.map((p) => p.pokemon);
-      const abilityPokemons = abilityResponse.pokemon.map((p) => p.pokemon);
+      const typePokemons = typeResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isBaseForm(p.name));
+      const abilityPokemons = abilityResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isBaseForm(p.name));
 
       return typePokemons.filter((tp) =>
         abilityPokemons.some((ap) => ap.name === tp.name)
@@ -180,14 +213,14 @@ export class PokemonService {
           `${this.baseUrl}/type/${type}`
         )
       );
-      return typeResponse.pokemon.map((p) => p.pokemon);
+      return typeResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isBaseForm(p.name));
     } else if (ability) {
       const abilityResponse = await firstValueFrom(
         this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(
           `${this.baseUrl}/ability/${ability}`
         )
       );
-      return abilityResponse.pokemon.map((p) => p.pokemon);
+      return abilityResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isBaseForm(p.name));
     } else {
       return this.getAllPokemon(10000);
     }
@@ -206,11 +239,13 @@ export class PokemonService {
       response = allRefs.slice(offset, offset + limit);
     } else {
       const url = `${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`;
-      response = await firstValueFrom(
+      const allResponse = await firstValueFrom(
         this.http
           .get<{ results: NamedAPIResource[] }>(url)
           .pipe(map((response: any) => response.results))
       );
+      // Filtra solo forme base
+      response = allResponse.filter((p: NamedAPIResource) => this.isBaseForm(p.name));
     }
 
     const detailsPromises = response.map((pokemon: NamedAPIResource) =>
@@ -272,12 +307,12 @@ export class PokemonService {
       const allRefs = await this.getPokemonReferences(type, ability);
 
       const filteredPokemons = allRefs
-        .filter((pokemon: any) => pokemon.name.toLowerCase().includes(term))
+        .filter((pokemon: any) => this.isBaseForm(pokemon.name) && pokemon.name.toLowerCase().includes(term))
         .slice(0, 9);
 
       if (filteredPokemons.length === 0) {
         const exactMatchPokemons = allRefs
-          .filter((pokemon: any) => pokemon.name.toLowerCase().startsWith(term))
+          .filter((pokemon: any) => this.isBaseForm(pokemon.name) && pokemon.name.toLowerCase().startsWith(term))
           .slice(0, 9);
 
         if (exactMatchPokemons.length > 0) {
