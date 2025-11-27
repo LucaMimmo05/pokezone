@@ -59,3 +59,11 @@ ng build
 -   **Angular**: Core framework.
 -   **ApexCharts**: For visualizing data.
 -   **PokéAPI**: Data source for Pokemon information.
+
+
+## Install dependencies
+
+1. **Install Apexcharts**
+```bash
+npm install apexcharts ng-apexcharts
+```

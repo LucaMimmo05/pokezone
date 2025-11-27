@@ -32,7 +32,6 @@
   margin: 0 auto;
 }
 
-/* ===== RESPONSIVE DESIGN - MOBILE ===== */
 
 @media (max-width: 1024px) {
   .pie-charts-row {
