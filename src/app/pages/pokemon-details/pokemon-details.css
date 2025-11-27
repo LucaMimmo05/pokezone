@@ -93,21 +93,21 @@ app-pokemon-details-weaknesses {
 }
 
 .pokemon-types {
-  position: fixed;
-  top: 40px;
-  right: 48px;
+  top: 2vh;
+  right: 4vw;
   display: flex;
   gap: 8px;
   z-index: 11;
+  position: absolute;
 }
 
 .pokemon-type-icon {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  box-shadow: 0 4px 15px rgba(63, 103, 186, 0.15);
-  backdrop-filter: blur(10px);
+  background-color: #ffffff;
 }
+
 
 @media (min-width: 992px) {
   .pokemonCardContainer {
@@ -161,6 +161,22 @@ app-pokemon-details-weaknesses {
   .back-btn-wrapper {
     padding-left: 48px;
     top: 40px;
+  }
+
+  .pokemon-types {
+    top: 4vh;
+    right: 5vw;
+    display: flex;
+    gap: 10px;
+    z-index: 11;
+    position: absolute;
+  }
+
+  .pokemon-type-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ffffff;
   }
 }
 

@@ -126,21 +126,21 @@ app-root {
   display: inline-block;
 }
 
-.type-dragon-image   { background-image: url('/Dragon.png'); }
-.type-electric-image { background-image: url('/Electric.png'); }
-.type-fairy-image    { background-image: url('/Fairy.png'); }
-.type-fighting-image { background-image: url('/Fighting.png'); }
-.type-fire-image     { background-image: url('/Fire.png'); }
-.type-flying-image   { background-image: url('/Flying.png'); }
-.type-ghost-image    { background-image: url('/Ghost.png'); }
-.type-grass-image    { background-image: url('/Grass.png'); }
-.type-ground-image   { background-image: url('/Ground.png'); }
-.type-ice-image      { background-image: url('/Ice.png'); }
-.type-normal-image   { background-image: url('/Normal.png'); }
-.type-poison-image   { background-image: url('/Poison.png'); }
-.type-psychic-image  { background-image: url('/Psychic.png'); }
-.type-rock-image     { background-image: url('/Rock.png'); }
-.type-steel-image    { background-image: url('/Steel.png'); }
-.type-water-image    { background-image: url('/Water.png'); }
-.type-bug-image      { background-image: url('/Bug.png'); }
-.type-dark-image     { background-image: url('/Dark.png'); }
+.type-dragon-image   { background-image: url('/Dragon.svg'); }
+.type-electric-image { background-image: url('/Electric.svg'); }
+.type-fairy-image    { background-image: url('/Fairy.svg'); }
+.type-fighting-image { background-image: url('/Fighting.svg'); }
+.type-fire-image     { background-image: url('/Fire.svg'); }
+.type-flying-image   { background-image: url('/Flying.svg'); }
+.type-ghost-image    { background-image: url('/Ghost.svg'); }
+.type-grass-image    { background-image: url('/Grass.svg'); }
+.type-ground-image   { background-image: url('/Ground.svg'); }
+.type-ice-image      { background-image: url('/Ice.svg'); }
+.type-normal-image   { background-image: url('/Normal.svg'); }
+.type-poison-image   { background-image: url('/Poison.svg'); }
+.type-psychic-image  { background-image: url('/Psychic.svg'); }
+.type-rock-image     { background-image: url('/Rock.svg'); }
+.type-steel-image    { background-image: url('/Steel.svg'); }
+.type-water-image    { background-image: url('/Water.svg'); }
+.type-bug-image      { background-image: url('/Bug.svg'); }
+.type-dark-image     { background-image: url('/Dark.svg'); }
