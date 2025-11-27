@@ -4,7 +4,7 @@
     @for (type of typeEntries; track type.name) {
       <div class="type-bar-item">
         <div class="type-label">
-          <img [src]="'/' + type.name.charAt(0).toUpperCase() + type.name.slice(1) + '.png'" 
+          <img [src]="'/' + type.name.charAt(0).toUpperCase() + type.name.slice(1) + '.svg'" 
                [alt]="type.name"
                class="type-icon" />
           <span>{{ type.name.charAt(0).toUpperCase() + type.name.slice(1) }}</span>
