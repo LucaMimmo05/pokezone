@@ -25,27 +25,14 @@ export class PokemonService {
   private readonly CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
 
   /**
-   * Filtra forme alternative e mantiene solo forme base
+   * Filtra Pokémon per mostrare solo fino al numero 1025
    */
-  private isBaseForm(name: string): boolean {
-    const alternativeForms = [
-      '-mega', '-gmax', '-gigamax', '-alola', '-galar', '-hisui', 
-      '-paldea', '-totem', '-primal', '-origin', '-sky', '-therian',
-      '-black', '-white', '-crowned', '-ice', '-shadow', '-purified',
-      '-hangry', '-starter', '-world', '-belle', '-libre', '-phd',
-      '-pop-star', '-rock-star', '-cosplay', '-partner', '-cap',
-      '-school', '-disguised', '-busted', '-battle', '-attack', '-defense',
-      '-speed', '-altered', '-heat', '-wash', '-frost', '-fan', '-mow',
-      '-incarnate', '-resolute', '-aria', '-pirouette', '-shield',
-      '-blade', '-average', '-small', '-large', '-super', '-unbound',
-      '-confined', '-10', '-50', '-complete', '-dusk', '-midnight',
-      '-dawn', '-ultra', '-eternal', '-eternamax', '-single-strike',
-      '-rapid-strike', '-zen', '-galarian', '-low-key', '-noice',
-      '-hangry-mode', '-hero', '-roaming', '-family', '-bloodmoon',
-      '-wellspring', '-hearthflame', '-cornerstone', '-teal', '-build', '-ash'
-    ];
-    
-    return !alternativeForms.some(form => name.includes(form));
+  private isValidPokemon(url: string): boolean {
+    // Estrae l'ID dall'URL (es: https://pokeapi.co/api/v2/pokemon/25/)
+    const match = url.match(/\/pokemon\/(\d+)\/?$/);
+    if (!match) return true;
+    const id = parseInt(match[1], 10);
+    return id <= 1025;
   }
 
   async getAllPokemon(limit?: number): Promise<NamedAPIResource[]> {
@@ -57,8 +44,8 @@ export class PokemonService {
         .get<{ results: NamedAPIResource[] }>(url)
         .pipe(map((response: any) => response.results))
     );
-    // Filtra solo forme base
-    return response.filter((p: NamedAPIResource) => this.isBaseForm(p.name));
+    // Filtra solo Pokémon fino al 1025
+    return response.filter((p: NamedAPIResource) => this.isValidPokemon(p.url));
   }
 
   async getAllAbilities(): Promise<NamedAPIResource[]> {
@@ -201,8 +188,8 @@ export class PokemonService {
         ),
       ]);
 
-      const typePokemons = typeResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isBaseForm(p.name));
-      const abilityPokemons = abilityResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isBaseForm(p.name));
+      const typePokemons = typeResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isValidPokemon(p.url));
+      const abilityPokemons = abilityResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isValidPokemon(p.url));
 
       return typePokemons.filter((tp) =>
         abilityPokemons.some((ap) => ap.name === tp.name)
@@ -213,14 +200,14 @@ export class PokemonService {
           `${this.baseUrl}/type/${type}`
         )
       );
-      return typeResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isBaseForm(p.name));
+      return typeResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isValidPokemon(p.url));
     } else if (ability) {
       const abilityResponse = await firstValueFrom(
         this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(
           `${this.baseUrl}/ability/${ability}`
         )
       );
-      return abilityResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isBaseForm(p.name));
+      return abilityResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isValidPokemon(p.url));
     } else {
       return this.getAllPokemon(10000);
     }
@@ -244,8 +231,8 @@ export class PokemonService {
           .get<{ results: NamedAPIResource[] }>(url)
           .pipe(map((response: any) => response.results))
       );
-      // Filtra solo forme base
-      response = allResponse.filter((p: NamedAPIResource) => this.isBaseForm(p.name));
+      // Filtra solo Pokémon fino al 1025
+      response = allResponse.filter((p: NamedAPIResource) => this.isValidPokemon(p.url));
     }
 
     const detailsPromises = response.map((pokemon: NamedAPIResource) =>
@@ -307,12 +294,12 @@ export class PokemonService {
       const allRefs = await this.getPokemonReferences(type, ability);
 
       const filteredPokemons = allRefs
-        .filter((pokemon: any) => this.isBaseForm(pokemon.name) && pokemon.name.toLowerCase().includes(term))
+        .filter((pokemon: any) => this.isValidPokemon(pokemon.url) && pokemon.name.toLowerCase().includes(term))
         .slice(0, 9);
 
       if (filteredPokemons.length === 0) {
         const exactMatchPokemons = allRefs
-          .filter((pokemon: any) => this.isBaseForm(pokemon.name) && pokemon.name.toLowerCase().startsWith(term))
+          .filter((pokemon: any) => this.isValidPokemon(pokemon.url) && pokemon.name.toLowerCase().startsWith(term))
           .slice(0, 9);
 
         if (exactMatchPokemons.length > 0) {
