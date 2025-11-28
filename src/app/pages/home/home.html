@@ -114,7 +114,7 @@
                 </div>
             </div>
         </div>
-        @if (pokemons.length > 0) {
+        @if (hasMorePokemon()) {
         <div class="load-more">
             <button (click)="loadMore()" [disabled]="isLoading">{{ isLoading ? 'Loading...' : 'Load more'
                 }}</button>
