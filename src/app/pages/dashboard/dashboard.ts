@@ -1,16 +1,9 @@
-// Angular core
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { CommonModule } from '@angular/common';
-
-// Third-party
 import { NgApexchartsModule, ApexOptions } from 'ng-apexcharts';
 import { from } from 'rxjs';
-
-// Services
 import { PokemonService, DashboardStats } from '../../services/pokemon.service';
-
-// Components
 import { LoaderComponent } from '../../components/loader/loader';
 import { DashboardHeroComponent } from '../../components/dashboard/dashboard-hero/dashboard-hero';
 import { DashboardStatsComponent } from '../../components/dashboard/dashboard-stats/dashboard-stats';
@@ -36,17 +29,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private readonly location = inject(Location);
   private colorInterval?: number;
 
-  // State
   stats: DashboardStats | null = null;
   loading = true;
   error = '';
   apiFailed = false;
 
-  // Hero animation
   currentBgColor = '#c20001';
   currentSvgColor = '#E87878';
 
-  // Chart data
   typeEntries: { name: string; count: number }[] = [];
   colorEntries: { name: string; count: number }[] = [];
   shapeEntries: { name: string; count: number }[] = [];
@@ -54,7 +44,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   colorChartOptions!: Partial<ApexOptions>;
   shapeChartOptions!: Partial<ApexOptions>;
 
-  // Pokemon type colors
   readonly typeColors: Record<string, string> = {
     fire: '#FF9C54',
     water: '#4D90D5',
@@ -76,7 +65,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     steel: '#5A8EA1',
   };
 
-  // Pokemon body colors
   readonly colorColors: Record<string, string> = {
     red: '#ff4444',
     blue: '#4169e1',
@@ -90,7 +78,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     pink: '#ffb6c1',
   };
 
-  // Pokemon shape colors (rainbow gradient)
   readonly shapeColors: string[] = [
     '#e74c3c',
     '#3498db',
@@ -189,7 +176,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const maxCount = Math.max(...this.typeEntries.map(e => e.count));
     const percentage = (count / maxCount) * 100;
 
-    // Minimum 20% for visibility
     return Math.max(20, percentage);
   }
 
