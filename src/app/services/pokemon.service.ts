@@ -18,7 +18,7 @@ export type { DashboardStats } from '../models/dashboard/dashboard-stats';
 export class PokemonService {
   private http = inject(HttpClient);
   private baseUrl = 'https://pokeapi.co/api/v2';
-  
+
   // Cache for dashboard stats
   private dashboardStatsCache: DashboardStats | null = null;
   private cacheTimestamp: number = 0;
@@ -71,7 +71,7 @@ export class PokemonService {
   async getDashboardStats(limit?: number): Promise<DashboardStats> {
     // Check cache first
     const now = Date.now();
-    if (this.dashboardStatsCache && (now - this.cacheTimestamp) < this.CACHE_DURATION) {
+    if (this.dashboardStatsCache && now - this.cacheTimestamp < this.CACHE_DURATION) {
       return this.dashboardStatsCache;
     }
 
@@ -84,7 +84,7 @@ export class PokemonService {
         .get<{ results: NamedAPIResource[] }>(url)
         .pipe(map((response: any) => response.results))
     );
-    
+
     // Process in chunks to avoid overwhelming the API
     const CHUNK_SIZE = 100;
     const allDetails: PokemonDetails[] = [];
@@ -92,13 +92,13 @@ export class PokemonService {
 
     for (let i = 0; i < pokemons.length; i += CHUNK_SIZE) {
       const chunk = pokemons.slice(i, i + CHUNK_SIZE);
-      
+
       // Fetch details for this chunk
       const chunkDetails = await Promise.all(
         chunk.map((p: NamedAPIResource) => this.getPokemonDetails(p.url))
       );
       allDetails.push(...chunkDetails);
-      
+
       // Fetch species for this chunk in parallel
       const chunkSpecies = await Promise.all(
         chunkDetails.map((d: PokemonDetails) => this.getPokemonSpecies(d.species.url))
@@ -170,10 +170,7 @@ export class PokemonService {
     return data.damage_relations.double_damage_from.map((t: any) => t.name);
   }
 
-  private async getPokemonReferences(
-    type: string,
-    ability: string
-  ): Promise<NamedAPIResource[]> {
+  private async getPokemonReferences(type: string, ability: string): Promise<NamedAPIResource[]> {
     if (type && ability) {
       const [typeResponse, abilityResponse] = await Promise.all([
         firstValueFrom(
@@ -188,17 +185,17 @@ export class PokemonService {
         ),
       ]);
 
-      const typePokemons = typeResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isValidPokemon(p.url));
-      const abilityPokemons = abilityResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isValidPokemon(p.url));
+      const typePokemons = typeResponse.pokemon
+        .map((p) => p.pokemon)
+        .filter((p) => this.isValidPokemon(p.url));
+      const abilityPokemons = abilityResponse.pokemon
+        .map((p) => p.pokemon)
+        .filter((p) => this.isValidPokemon(p.url));
 
-      return typePokemons.filter((tp) =>
-        abilityPokemons.some((ap) => ap.name === tp.name)
-      );
+      return typePokemons.filter((tp) => abilityPokemons.some((ap) => ap.name === tp.name));
     } else if (type) {
       const typeResponse = await firstValueFrom(
-        this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(
-          `${this.baseUrl}/type/${type}`
-        )
+        this.http.get<{ pokemon: { pokemon: NamedAPIResource }[] }>(`${this.baseUrl}/type/${type}`)
       );
       return typeResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isValidPokemon(p.url));
     } else if (ability) {
@@ -207,9 +204,22 @@ export class PokemonService {
           `${this.baseUrl}/ability/${ability}`
         )
       );
-      return abilityResponse.pokemon.map((p) => p.pokemon).filter((p) => this.isValidPokemon(p.url));
+      return abilityResponse.pokemon
+        .map((p) => p.pokemon)
+        .filter((p) => this.isValidPokemon(p.url));
     } else {
       return this.getAllPokemon(10000);
+    }
+  }
+
+  async getPokemonCount(type: string = '', ability: string = ''): Promise<number> {
+    if (type || ability) {
+      const allRefs = await this.getPokemonReferences(type, ability);
+      return allRefs.length;
+    } else {
+      const url = `${this.baseUrl}/pokemon?limit=1`;
+      const response = await firstValueFrom(this.http.get<{ count: number }>(url));
+      return response.count;
     }
   }
 
@@ -261,17 +271,12 @@ export class PokemonService {
       if (!isNaN(termAsNumber) && termAsNumber > 0) {
         try {
           const url = `${this.baseUrl}/pokemon/${termAsNumber}`;
-          const pokemon: PokemonDetail = await firstValueFrom(
-            this.http.get<PokemonDetail>(url)
-          );
+          const pokemon: PokemonDetail = await firstValueFrom(this.http.get<PokemonDetail>(url));
 
           if (type && !pokemon.types.some((t: any) => t.type.name === type)) {
             return [];
           }
-          if (
-            ability &&
-            !pokemon.abilities.some((a: any) => a.ability.name === ability)
-          ) {
+          if (ability && !pokemon.abilities.some((a: any) => a.ability.name === ability)) {
             return [];
           }
 
@@ -294,12 +299,18 @@ export class PokemonService {
       const allRefs = await this.getPokemonReferences(type, ability);
 
       const filteredPokemons = allRefs
-        .filter((pokemon: any) => this.isValidPokemon(pokemon.url) && pokemon.name.toLowerCase().includes(term))
+        .filter(
+          (pokemon: any) =>
+            this.isValidPokemon(pokemon.url) && pokemon.name.toLowerCase().includes(term)
+        )
         .slice(0, 9);
 
       if (filteredPokemons.length === 0) {
         const exactMatchPokemons = allRefs
-          .filter((pokemon: any) => this.isValidPokemon(pokemon.url) && pokemon.name.toLowerCase().startsWith(term))
+          .filter(
+            (pokemon: any) =>
+              this.isValidPokemon(pokemon.url) && pokemon.name.toLowerCase().startsWith(term)
+          )
           .slice(0, 9);
 
         if (exactMatchPokemons.length > 0) {
@@ -340,9 +351,7 @@ export class PokemonService {
   }
 
   async getEvolutionChain(speciesUrl: string): Promise<EvolutionStage[][]> {
-    const speciesData = await firstValueFrom(
-      this.http.get<any>(speciesUrl)
-    );
+    const speciesData = await firstValueFrom(this.http.get<any>(speciesUrl));
 
     const evolutionChain = await firstValueFrom(
       this.http.get<EvolutionChain>(speciesData.evolution_chain.url)

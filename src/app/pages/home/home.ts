@@ -65,6 +65,7 @@ export class Home implements OnInit, OnDestroy {
   searchQuery = '';
   isSearching = false;
   showScrollButton = false;
+  totalPokemon = 0;
 
   private searchSubject = new Subject<string>();
   private searchSubscription: Subscription | undefined;
@@ -155,7 +156,14 @@ export class Home implements OnInit, OnDestroy {
       if (this.isSearching && this.searchQuery) {
         const results = await this.pokemonService.searchPokemon(this.searchQuery);
         this.pokemons = results;
+        this.totalPokemon = results.length;
       } else {
+        if (this.offset === 0) {
+          this.totalPokemon = await this.pokemonService.getPokemonCount(
+            this.selectedType,
+            this.selectedAbility
+          );
+        }
         const newPokemons = await this.pokemonService.getPokemonCards(
           this.limit,
           this.offset,
@@ -201,11 +209,16 @@ export class Home implements OnInit, OnDestroy {
     const newPokemons = await this.pokemonService.getPokemonCards(
       this.limit,
       this.offset,
-      this.selectedType
+      this.selectedType,
+      this.selectedAbility
     );
     this.pokemons = [...this.pokemons, ...newPokemons];
     this.offset += this.limit;
     this.isLoading = false;
+  }
+
+  hasMorePokemon(): boolean {
+    return !this.isSearching && this.pokemons.length < this.totalPokemon;
   }
 
   onSearchInput(event: any) {
@@ -219,8 +232,7 @@ export class Home implements OnInit, OnDestroy {
     const isNumericSearch = !isNaN(termAsNumber) && termAsNumber > 0;
 
     const hasMinChars =
-      (isNumericSearch && term.length >= 1) ||
-      (!isNumericSearch && term.length >= 3);
+      (isNumericSearch && term.length >= 1) || (!isNumericSearch && term.length >= 3);
 
     if (term.trim() && hasMinChars) {
       this.offset = 0;
