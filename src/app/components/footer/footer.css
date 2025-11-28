@@ -94,7 +94,7 @@ footer .footer-content {
     }
 
     .dashboard-btn {
-        position: static; /* Stack it on mobile */
+        position: static; 
         transform: none;
         margin-bottom: 10px;
     }

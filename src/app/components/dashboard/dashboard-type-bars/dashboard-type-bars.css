@@ -130,8 +130,6 @@
   position: relative;
 }
 
-/* ===== RESPONSIVE DESIGN - MOBILE ===== */
-
 @media (max-width: 820px) {
   .chart-section {
     padding: 28px;

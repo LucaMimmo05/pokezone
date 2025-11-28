@@ -44,8 +44,6 @@
   font-family: Inter;
 }
 
-/* ===== RESPONSIVE DESIGN - MOBILE ===== */
-
 @media (max-width: 1024px) {
   .stats-grid {
     padding: 50px 80px 35px 80px;

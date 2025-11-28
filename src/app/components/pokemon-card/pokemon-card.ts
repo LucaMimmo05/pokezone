@@ -29,7 +29,6 @@ export class PokemonCard {
 
   onImageError(event: Event, pokemon: PokemonCardModel): void {
     const img = event.target as HTMLImageElement;
-    // Fallback semplice con sprite normale
     if (!img.src.includes('/pokemon/')) {
       img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`;
     }
