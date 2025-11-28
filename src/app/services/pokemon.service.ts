@@ -19,16 +19,12 @@ export class PokemonService {
   private http = inject(HttpClient);
   private baseUrl = 'https://pokeapi.co/api/v2';
 
-  // Cache for dashboard stats
   private dashboardStatsCache: DashboardStats | null = null;
   private cacheTimestamp: number = 0;
   private readonly CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
 
-  /**
-   * Filtra Pokémon per mostrare solo fino al numero 1025
-   */
+ 
   private isValidPokemon(url: string): boolean {
-    // Estrae l'ID dall'URL (es: https://pokeapi.co/api/v2/pokemon/25/)
     const match = url.match(/\/pokemon\/(\d+)\/?$/);
     if (!match) return true;
     const id = parseInt(match[1], 10);
@@ -44,7 +40,6 @@ export class PokemonService {
         .get<{ results: NamedAPIResource[] }>(url)
         .pipe(map((response: any) => response.results))
     );
-    // Filtra solo Pokémon fino al 1025
     return response.filter((p: NamedAPIResource) => this.isValidPokemon(p.url));
   }
 
@@ -69,13 +64,11 @@ export class PokemonService {
   }
 
   async getDashboardStats(limit?: number): Promise<DashboardStats> {
-    // Check cache first
     const now = Date.now();
     if (this.dashboardStatsCache && now - this.cacheTimestamp < this.CACHE_DURATION) {
       return this.dashboardStatsCache;
     }
 
-    // Per la dashboard, recupera TUTTI i Pokémon senza filtrare forme alternative
     const url = limit
       ? `${this.baseUrl}/pokemon?limit=${limit}`
       : `${this.baseUrl}/pokemon?limit=100000`;
@@ -85,7 +78,6 @@ export class PokemonService {
         .pipe(map((response: any) => response.results))
     );
 
-    // Process in chunks to avoid overwhelming the API
     const CHUNK_SIZE = 100;
     const allDetails: PokemonDetails[] = [];
     const allSpecies: PokemonSpecies[] = [];
@@ -93,20 +85,17 @@ export class PokemonService {
     for (let i = 0; i < pokemons.length; i += CHUNK_SIZE) {
       const chunk = pokemons.slice(i, i + CHUNK_SIZE);
 
-      // Fetch details for this chunk
       const chunkDetails = await Promise.all(
         chunk.map((p: NamedAPIResource) => this.getPokemonDetails(p.url))
       );
       allDetails.push(...chunkDetails);
 
-      // Fetch species for this chunk in parallel
       const chunkSpecies = await Promise.all(
         chunkDetails.map((d: PokemonDetails) => this.getPokemonSpecies(d.species.url))
       );
       allSpecies.push(...chunkSpecies);
     }
 
-    // Build statistics
     const stats: DashboardStats = {
       totalPokemon: allDetails.length,
       totalTypes: 0,
@@ -115,7 +104,6 @@ export class PokemonService {
       pokemonByShape: {},
     };
 
-    // Count types
     allDetails.forEach((pokemon: PokemonDetails) => {
       pokemon.types.forEach((t: any) => {
         const typeName = t.type.name;
@@ -123,13 +111,11 @@ export class PokemonService {
       });
     });
 
-    // Count colors
     allSpecies.forEach((s: PokemonSpecies) => {
       const colorName = s.color.name;
       stats.pokemonByColor[colorName] = (stats.pokemonByColor[colorName] || 0) + 1;
     });
 
-    // Count shapes
     allSpecies.forEach((s: PokemonSpecies) => {
       if (s.shape) {
         const shapeName = s.shape.name;
@@ -139,14 +125,12 @@ export class PokemonService {
 
     stats.totalTypes = Object.keys(stats.pokemonByType).length;
 
-    // Store in cache
     this.dashboardStatsCache = stats;
     this.cacheTimestamp = Date.now();
 
     return stats;
   }
 
-  // Clear cache if needed
   clearDashboardCache(): void {
     this.dashboardStatsCache = null;
     this.cacheTimestamp = 0;
@@ -241,7 +225,6 @@ export class PokemonService {
           .get<{ results: NamedAPIResource[] }>(url)
           .pipe(map((response: any) => response.results))
       );
-      // Filtra solo Pokémon fino al 1025
       response = allResponse.filter((p: NamedAPIResource) => this.isValidPokemon(p.url));
     }
 
