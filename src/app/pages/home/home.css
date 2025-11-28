@@ -451,7 +451,6 @@
   height: 24px;
 }
 
-/* Nascondi il pulsante inizialmente */
 .scroll-to-top.hidden {
   opacity: 0;
   visibility: hidden;

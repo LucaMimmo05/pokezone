@@ -89,7 +89,6 @@ export class Home implements OnInit, OnDestroy {
       this.onChangeBg();
     }, 7000);
 
-    // Setup live search
     this.searchSubscription = this.searchSubject
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe((term) => {
@@ -104,12 +103,10 @@ export class Home implements OnInit, OnDestroy {
     if (this.searchSubscription) {
       this.searchSubscription.unsubscribe();
     }
-    // Rimuovi l'event listener per sicurezza
     window.removeEventListener('scroll', this.checkScrollPosition.bind(this));
   }
 
   checkScrollPosition() {
-    // Mostra il pulsante quando si è scrollato più di 300px
     this.showScrollButton = window.scrollY > 300;
   }
 
@@ -238,7 +235,6 @@ export class Home implements OnInit, OnDestroy {
       this.offset = 0;
       await this.performSearch();
     } else if (!term.trim()) {
-      // Reset if empty
       this.isSearching = false;
       this.offset = 0;
       this.pokemons = [];
@@ -254,7 +250,6 @@ export class Home implements OnInit, OnDestroy {
   }
 
   async onSearchSubmit() {
-    // Manual submit still works
     this.handleSearch(this.searchQuery);
     if (this.searchQuery.length >= 3) {
       this.scrollToPokemonSection();
